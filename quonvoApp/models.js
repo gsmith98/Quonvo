@@ -6,9 +6,13 @@ const userSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  IDToken: {
-    // All the google stuff
+  email: {
+    type: String,
+    unique: true
   },
+
+  google: String,
+    // All the google stuff
   password: {
     type: String
   },
@@ -16,20 +20,18 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  questions: [{
-    type: Schema.ObjectId,
-    ref: 'Question'
-  }],
   activeChats: [{
     type: Schema.ObjectId,
-    ref: 'Chat'
+    ref: 'Chat',
+    default: {}
   }],
-  coins: [{
+  coins: {
     type: Number,
     default: 100
-  }],
+  },
   interests: [{
-    type: String
+    type: String,
+    default: {}
   }]
 
 });
@@ -51,7 +53,8 @@ const questionSchema = mongoose.Schema({
     type: String
   },
   bounty: {
-    type: Number
+    type: Number,
+    default: 0
   },
   live: {
     type: Boolean

@@ -26,8 +26,9 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Ignore contents of build directory
+# Ignore contents of build directory (but not the build directory itself)
 build/*
+!build/.gitkeep
 
 # Dependency directories
 node_modules

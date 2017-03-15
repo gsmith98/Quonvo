@@ -1,6 +1,8 @@
 const mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
+const startingCoins = 100;
+
 const userSchema = mongoose.Schema({
   createdTime: {
     type: Date,
@@ -8,7 +10,8 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    require: true
   },
 
   google: String,
@@ -20,19 +23,23 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  activeChats: [{
-    type: Schema.ObjectId,
-    ref: 'Chat',
-    default: {}
-  }],
+  activeChats: {
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'Chat'
+    }],
+    default: []
+  },
   coins: {
     type: Number,
-    default: 100
+    default: startingCoins
   },
-  interests: [{
-    type: String,
-    default: {}
-  }]
+  interests: {
+    type: [{
+      type: String,
+      enum: ['stuff', 'stuff1'] // TODO change this to a real enum
+    }]
+  }
 
 });
 
@@ -43,21 +50,24 @@ const questionSchema = mongoose.Schema({
   },
   subject: {
     type: String,
-    enum: ['stuff', 'stuff1']
+    enum: ['stuff', 'stuff1'] // TODO change this to a real enum
   },
   asker: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   content: {
-    type: String
+    type: String,
+    required: true
   },
   bounty: {
     type: Number,
     default: 0
   },
   live: {
-    type: Boolean
+    type: Boolean,
+    default: true
 // Allows the bounty to only increase when the question is live, not when
 // it's being answered.
   }
@@ -70,31 +80,27 @@ const activechatSchema = mongoose.Schema({
   },
   question: {
     type: Schema.ObjectId,
-    ref: 'Question'
+    ref: 'Question',
+    required: true
+    // You can freeze the bounty and then get it from the question
   },
   asker: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   answerer: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
-  rating: {
-    type: Number
-  },
-  bounty: {
-    type: Number
-  },
-  success: {
-    type: Boolean
-    // This denotes whether the asker wanted his question to be answered by
-    // someone else after the conversation concludes.
-  },
-  messages: [{
-    type: Schema.ObjectId,
-    ref: 'Message'
-  }]
+  messages: {
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'Message'
+    }],
+    defualt: []
+  }
 });
 
 const messageSchema = mongoose.Schema({
@@ -106,11 +112,18 @@ const messageSchema = mongoose.Schema({
     type: Date
   },
   content: {
-    type: String
+    type: String,
+    required: true
+  },
+  sender: {
+    type: Schema.ObjectId,
+    ref: 'User',
+    require: true
   },
   recipient: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    require: true
   }
 });
 
@@ -121,7 +134,8 @@ const archivedchatSchema = mongoose.Schema({
     default: Date.now
   },
   rating: {
-    type: Number
+    type: Number,
+    default: 0
   },
   queston: {
     type: String
@@ -129,18 +143,23 @@ const archivedchatSchema = mongoose.Schema({
   answerer: {
     type: String
   },
-  messages: [{
-    content: String,
-    asker: Boolean
+  messages: {
+    type: [{
+      content: String,
+      asker: Boolean
     // The boolean above lets us know which side we should render the message
     // wheh an archive is rendered
-  }],
+    }],
+    required: true
+  },
   upVotes: {
-    type: Number
+    type: Number,
+    default: 0
     // This number gets increased everytime a user upvotes a an archivedChat
   },
   views: {
-    type: Number
+    type: Number,
+    default: 0
   }
 
 });

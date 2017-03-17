@@ -37,7 +37,7 @@ const userSchema = mongoose.Schema({
   interests: {
     type: [{
       type: String,
-      enum: ['stuff', 'stuff1'] // TODO change this to a real enum
+      enum: ['stuff', 'travel'] // TODO change this to a real enum
     }]
   }
 

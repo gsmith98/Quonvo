@@ -3,13 +3,13 @@ const path = require('path');
 const HTMLWebackPlugin = require('html-webpack-plugin');
 
 const HTMLWebackPluginConfig = new HTMLWebackPlugin({
-  template: path.join(__dirname, '/quonvoApp/index.html'),
+  template: path.join(__dirname, '/src/frontend/index.html'),
   filename: 'index.html',
   inject: 'body'
 });
 
 module.exports = {
-  entry: './quonvoApp/app.js',
+  entry: './src/frontend/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.bundle.js'

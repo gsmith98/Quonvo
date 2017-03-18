@@ -5,9 +5,6 @@ const router = express.Router();
 const User = models.User;
 
 module.exports = (passport) => {
-
-  router.get('/success', (req,res) => res.send({success: true}))
-  router.get('/fail', (req,res) => res.send({success: false}))
   // You will use passport ot authenticate in the future
   router.post('/local/signup', (req, res) => {
     if (req.body.password !== req.body.passwordRepeat) {
@@ -26,14 +23,26 @@ module.exports = (passport) => {
     .catch(err => res.send(err));
   });
 
-  router.post('/local/login',
-  passport.authenticate('local'),
-  (req, res) => {
-    res.json({
-      success: true,
-      user: req.user
-    });
+  router.post('/local/login', (req, res, next) => {
+    passport.authenticate('local', (err, user) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.json({
+          success: false
+        });
+      }
+      // The return below is only because of the Lint rules. May be subject
+      // to change
+      return req.logIn(user, (error) => {
+        if (error) { return next(error); }
+        return res.json({
+          success: true,
+          user: req.user
+        });
+      });
+    })(req, res, next);
   });
-
   return router;
 };

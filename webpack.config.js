@@ -34,6 +34,11 @@ module.exports = {
   stats: {
     colors: true
   },
+  devServer: {
+    historyApiFallback: {
+      disableDotRule: true
+    }
+  },
   devtool: 'source-map',
   plugins: [HTMLWebackPluginConfig]
 };

@@ -50,7 +50,9 @@ const questionSchema = mongoose.Schema({
   },
   subject: {
     type: String,
-    enum: ['stuff', 'stuff1'] // TODO change this to a real enum
+    enum: ['stuff', 'travel'],
+    required: true
+     // TODO change this to a real enum
   },
   asker: {
     type: Schema.ObjectId,

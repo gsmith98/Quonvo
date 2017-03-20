@@ -29,6 +29,7 @@ mongoose.connect(connect);
 
 const models = require('./models');
 const auth = require('./routes/auth');
+const questionRoutes = require('./routes/questions');
 
 // Set up of the build
 app.use(express.static('build'));
@@ -91,6 +92,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', auth(passport));
+console.log('im right before questions')
+app.use('/', questionRoutes);
 
 // TODO once more routes are added, add them here.
 

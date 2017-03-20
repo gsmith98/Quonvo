@@ -23,14 +23,26 @@ module.exports = (passport) => {
     .catch(err => res.send(err));
   });
 
-  router.post('/local/login',
-  passport.authenticate('local'),
-  (req, res) => {
-    res.json({
-      success: true,
-      user: req.user
-    });
+  router.post('/local/login', (req, res, next) => {
+    passport.authenticate('local', (err, user) => {
+      if (err) {
+        next(err);
+      }
+      if (!user) {
+        res.json({
+          success: false
+        });
+      }
+      // The return below is only because of the Lint rules. May be subject
+      // to change
+      req.logIn(user, (error) => {
+        if (error) { next(error); }
+        res.json({
+          success: true,
+          user: req.user
+        });
+      });
+    })(req, res, next);
   });
-
   return router;
 };

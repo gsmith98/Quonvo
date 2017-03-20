@@ -8,14 +8,14 @@ module.exports = (passport) => {
   // You will use passport ot authenticate in the future
   router.post('/local/signup', (req, res) => {
     if (req.body.password !== req.body.passwordRepeat) {
-      return res.send("Passwords didn't match");
+      res.send("Passwords didn't match");
     }
     const user = new User({
       email: req.body.email.toLowerCase(),
       password: req.body.password,
       interests: req.body.interests
     });
-    return user.save()
+    user.save()
     .then(newUser => res.json({
       success: true,
       user: newUser

@@ -12,7 +12,8 @@ module.exports = {
   entry: './src/frontend/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
+    publicPath: '/'
   },
   module: {
     loaders: [

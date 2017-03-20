@@ -7,14 +7,14 @@ const Root = (/* { store } */) => (
   <p>We have liftoff! {'JSX may work!'}</p>
   /* <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/(:filter)" component={App} />
+       <Route path="/(:filter)" component={App} />
     </Router>
   </Provider>*/
 );
 
-
+/* eslint react/forbid-prop-types: 0 */
 Root.propTypes = {
-  store: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 };
 
 export default Root;

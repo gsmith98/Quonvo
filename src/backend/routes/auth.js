@@ -5,9 +5,6 @@ const router = express.Router();
 const User = models.User;
 
 module.exports = (passport) => {
-
-  router.get('/success', (req,res) => res.send({success: true}))
-  router.get('/fail', (req,res) => res.send({success: false}))
   // You will use passport ot authenticate in the future
   router.post('/local/signup', (req, res) => {
     if (req.body.password !== req.body.passwordRepeat) {

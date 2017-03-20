@@ -1,5 +1,5 @@
 // import { combineReducers } from 'redux';
 
-const example = (state = {}, action) => state;
+const example = (state = {} /* , action */) => state;
 
 export default example;

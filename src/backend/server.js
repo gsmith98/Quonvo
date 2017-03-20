@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 
 const connect = process.env.MONGODB_URI;
+const DEVPORT = 3000;
 
 const app = express();
 
@@ -100,6 +101,6 @@ app.use((req, res, next) => {
   next(err);
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Express running on port ${process.env.PORT || 3000}!`);
+app.listen(process.env.PORT || DEVPORT, () => {
+  console.log(`Express running on port ${process.env.PORT || DEVPORT}!`);
 });

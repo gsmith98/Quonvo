@@ -27,8 +27,9 @@ router.post('/questions/new', (req, res) => {
 
 
 router.post('/questions/remove', (req, res) => {
-  const content = req.body.content;
-  Question.findOne({ content }).remove()
+  const id = req.body.id;
+  Question.findById(id)
+  .remove()
   .then(() => res.json({ success: true }))
   .catch(err => res.send(err));
 });

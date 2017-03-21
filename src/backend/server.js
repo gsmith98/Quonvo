@@ -9,6 +9,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
+const models = require('./models');
+const auth = require('./routes/auth');
+const questionRoutes = require('./routes/questions');
+const activeChatRoutes = require('./routes/activeChats');
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
@@ -27,9 +31,6 @@ REQUIRED_ENV.forEach((el) => {
 mongoose.Promise = global.Promise;
 mongoose.connect(connect);
 
-const models = require('./models');
-const auth = require('./routes/auth');
-const questionRoutes = require('./routes/questions');
 
 // Set up of the build
 app.use(express.static('build'));
@@ -93,7 +94,7 @@ app.use(passport.session());
 
 app.use('/', auth(passport));
 app.use('/', questionRoutes);
-
+app.use('/', activeChatRoutes);
 // TODO once more routes are added, add them here.
 
 // catch 404 and forward to error handler

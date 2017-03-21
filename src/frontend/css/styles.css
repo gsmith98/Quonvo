@@ -261,7 +261,14 @@ input{
   font-size: 14px;
 }
 
+.signIn{
+  display: flex;
+  width: 40%;
+  float: right;
+  padding-top: 1em;
+  padding-right: 1em;
 
+}
 
 .button_container{
   flex:0.1;

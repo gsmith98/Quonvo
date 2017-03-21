@@ -17,9 +17,11 @@ const SigninBar = () => {
         }
       }}
     >
-      <input ref={(node) => { emailField = node; }} />
-      <input ref={(node) => { passField = node; }} />
-      <button type="submit">Sign In</button>
+      <div className="signIn">
+        <input placeholder="E-mail" style={{ flex: 1, marginRight: '1vw' }} ref={(node) => { emailField = node; }} />
+        <input placeholder="Password" type="password" style={{ flex: 1, marginRight: '1vw' }} ref={(node) => { passField = node; }} />
+        <button style={{ flex: 1, marginTop: '0.75vh', height: '2.5em' }} className="answer_button" type="submit">Sign In</button>
+      </div>
     </form>
 
   );

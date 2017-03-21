@@ -63,10 +63,6 @@ const questionSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  bounty: {
-    type: Number,
-    default: 0
-  },
   live: {
     type: Boolean,
     default: true
@@ -85,6 +81,10 @@ const activechatSchema = mongoose.Schema({
     ref: 'Question',
     required: true
     // You can freeze the bounty and then get it from the question
+  },
+  bounty: {
+    type: Number,
+    default: 0
   },
   asker: {
     type: Schema.ObjectId,
@@ -111,7 +111,9 @@ const messageSchema = mongoose.Schema({
     default: Date.now
   },
   readReceipt: {
-    type: Date
+    type: Date,
+    default: Date.now
+    // This may be done only on frontend
   },
   content: {
     type: String,
@@ -168,14 +170,14 @@ const archivedchatSchema = mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 const Question = mongoose.model('Question', questionSchema);
-const activeChat = mongoose.model('activeChat', activechatSchema);
+const ActiveChat = mongoose.model('activeChat', activechatSchema);
 const Message = mongoose.model('Message', messageSchema);
-const archivedChat = mongoose.model('archivedChat', archivedchatSchema);
+const ArchivedChat = mongoose.model('archivedChat', archivedchatSchema);
 
 module.exports = {
   User,
   Question,
-  activeChat,
+  ActiveChat,
   Message,
-  archivedChat
+  ArchivedChat
 };

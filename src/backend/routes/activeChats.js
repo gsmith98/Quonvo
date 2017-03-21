@@ -1,5 +1,6 @@
 const express = require('express');
 const models = require('../models');
+
 const ActiveChat = models.ActiveChat;
 const User = models.User;
 const Message = models.Message;
@@ -42,6 +43,14 @@ router.post('/activeChats/new', (req, res) => {
     success: true,
     chat: response
   }))
+  .catch(err => res.send(err));
+});
+
+router.post('/activeChats/remove', (req, res) => {
+  const id = req.body.id;
+  ActiveChat.findById(id)
+  .remove()
+  .then(() => res.json({ success: true })) // This is where we'll have to end the socket
   .catch(err => res.send(err));
 });
 

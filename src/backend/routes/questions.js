@@ -25,9 +25,17 @@ router.post('/questions/new', (req, res) => {
   .catch(err => res.send(err));
 });
 
+// The logic below in theory should pull the questions that are the hottest.
+// Currently this means just pulling the oldest questions, but in the future
+// we should augment this function to be either logorithmic, or based on a
+// desired hotness distribution. The bounty is not saved on the question object
+// but rather calculated on the front end. Average response time or # of users online
+// could also factor into the hotness function.
+
+const questionLimit = 20;
+
 router.get('/questions/hot', (req, res) => {
   const userId = req.user.id;
-  const questionLimit = 20;
   User.findById(userId)
   .then((user) => {
     console.log(user);
@@ -40,22 +48,30 @@ router.get('/questions/hot', (req, res) => {
       return obj;
     });
     Question.find({ $or: subjects })
-    .sort({ bounty: -1 }) // This sorts the questions in descending order of bounty
+    .sort({ date: 1 })
     .limit(questionLimit) // This limits the amount of questions mongo gives us to 20
-    .then(hotQuestions =>
+    .then((questions) => {
+      const millisecondsInTenSeconds = 10000;
+      const hotQuestions = questions.map((question) => {
+        const bounty = Math.floor(
+          (Date.now() - Date.parse(question.createdTime)) / millisecondsInTenSeconds
+        );
+        const newQuestion = question;
+        newQuestion.bounty = bounty;
+        return newQuestion;
+      });
       res.json({
         success: true,
         questions: hotQuestions
-      })
+      });
+    }
     )
     .catch(err => res.send(err));
   });
 });
-
 
 router.get('/questions/recent', (req, res) => {
   const userId = req.user.id;
-  const questionLimit = 20;
   User.findById(userId)
   .then((user) => {
     console.log(user);
@@ -68,15 +84,26 @@ router.get('/questions/recent', (req, res) => {
       return obj;
     });
     Question.find({ $or: subjects })
-    .sort({ createdTime: -1 }) // This sorts the questions in descending order time
+    .sort({ date: -1 })
     .limit(questionLimit) // This limits the amount of questions mongo gives us to 20
-    .then(hotQuestions =>
+    .then((questions) => {
+      const millisecondsInTenSeconds = 10000;
+      const hotQuestions = questions.map((question) => {
+        const bounty = Math.floor(
+          (Date.now() - Date.parse(question.createdTime)) / millisecondsInTenSeconds
+        );
+        const newQuestion = question;
+        newQuestion.bounty = bounty;
+        return newQuestion;
+      });
       res.json({
         success: true,
         questions: hotQuestions
-      })
+      });
+    }
     )
     .catch(err => res.send(err));
   });
 });
+
 module.exports = router;

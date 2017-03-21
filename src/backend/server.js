@@ -92,7 +92,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', auth(passport));
-console.log('im right before questions')
 app.use('/', questionRoutes);
 
 // TODO once more routes are added, add them here.

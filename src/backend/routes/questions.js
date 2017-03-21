@@ -25,6 +25,14 @@ router.post('/questions/new', (req, res) => {
   .catch(err => res.send(err));
 });
 
+
+router.post('/questions/remove', (req, res) => {
+  const content = req.body.content;
+  Question.findOne({ content }).remove()
+  .then(() => res.json({ success: true }))
+  .catch(err => res.send(err));
+});
+
 // The logic below in theory should pull the questions that are the hottest.
 // Currently this means just pulling the oldest questions, but in the future
 // we should augment this function to be either logorithmic, or based on a

@@ -31,11 +31,14 @@ router.post('/questions/new', (req, res) => {
 
 
 router.post('/questions/remove', (req, res) => {
-  const id = req.body.id;
-  Question.findById(id)
-  .remove()
-  .then(() => res.json({ success: true }))
-  .catch(err => res.send(err));
+  const id = req.body.questionId;
+  Question.remove({ _id: id }, (err) => {
+    if (err) {
+      res.send(err.message);
+    } else {
+      res.json({ success: true });
+    }
+  });
 });
 
 // The logic below in theory should pull the questions that are the hottest.

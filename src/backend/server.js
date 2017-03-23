@@ -14,6 +14,7 @@ const auth = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
 const messageRoutes = require('./routes/messages');
+const routes = require('./routes/routes')
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
@@ -94,6 +95,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', auth(passport));
+app.use('/', routes)
 app.use('/', questionRoutes);
 app.use('/', activeChatRoutes);
 app.use('/', messageRoutes);

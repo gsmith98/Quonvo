@@ -13,7 +13,7 @@ const models = require('./models');
 const auth = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
-const messageRoutes = require('./routes/messages')
+const messageRoutes = require('./routes/messages');
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
@@ -111,7 +111,7 @@ app.use((req, res, next) => {
 const server = require('http').createServer(app);
 const socketIo = require('socket.io');
 
-const io = socketIo(server);
+const io = socketIo.listen(server);
 
 // *****************************
 
@@ -129,26 +129,22 @@ app.set('userSockets', {});
 // The socket logic can be refactored by creating rooms for each chat.
 // We can refactor this later
 io.on('connection', (socket) => {
-  if (!socket.request.session.user) {
-    console.log('USER IS NOT LOGGED IN');
-    return false;
-  }
   const userId = socket.request.session.user;
   if (userId) {
     if (!app.settings.userSockets[userId]) {
       app.settings.userSockets[userId] = [];
     }
     app.settings.userSockets[userId].push(socket);
+
+    socket.on('disconnect', () => {
+      app.settings.userSockets[userId].splice(app.settings.userSockets[userId].indexOf(socket), 1);
+      console.log('user has disconnected', app.settings.userSockets[userId].length);
+    });
   } else {
     console.log('USER IS NOT LOGGED IN');
-    return false;
   }
-  socket.on('disconnect', () => {
-    app.settings.userSockets[userId].splice(app.settings.userSockets[userId].indexOf(socket), 1);
-    console.log('user has disconnected', app.settings.userSockets[userId].length);
-  });
 });
 
-app.listen(process.env.PORT || DEVPORT, () => {
+server.listen(process.env.PORT || DEVPORT, () => {
   console.log(`Express running on port ${process.env.PORT || DEVPORT}!`);
 });

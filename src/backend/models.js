@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    require: true
+    required: true
   },
 
   google: String,
@@ -122,12 +122,12 @@ const messageSchema = mongoose.Schema({
   sender: {
     type: Schema.ObjectId,
     ref: 'User',
-    require: true
+    required: true
   },
   recipient: {
     type: Schema.ObjectId,
     ref: 'User',
-    require: true
+    required: true
   }
 });
 

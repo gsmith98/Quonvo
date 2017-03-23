@@ -13,6 +13,7 @@ const models = require('./models');
 const auth = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
+const messageRoutes = require('./routes/messages')
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
@@ -51,7 +52,7 @@ const sessionMiddleware = session({
 
 
 passport.serializeUser((user, done) => {
-  console.log('serializeUser');
+  console.log(user);
   done(null, user.id);
 });
 
@@ -95,6 +96,7 @@ app.use(passport.session());
 app.use('/', auth(passport));
 app.use('/', questionRoutes);
 app.use('/', activeChatRoutes);
+app.use('/', messageRoutes);
 // TODO once more routes are added, add them here.
 
 // catch 404 and forward to error handler
@@ -102,6 +104,49 @@ app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
+});
+
+// ******Socket Stuff***********
+
+const server = require('http').createServer(app);
+const socketIo = require('socket.io');
+
+const io = socketIo(server);
+
+// *****************************
+
+// IO middleware
+// attach user session to new incoming socket
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+// global array of user sockets
+app.set('userSockets', {});
+
+// new user has connected
+
+// The socket logic can be refactored by creating rooms for each chat.
+// We can refactor this later
+io.on('connection', (socket) => {
+  if (!socket.request.session.user) {
+    console.log('USER IS NOT LOGGED IN');
+    return false;
+  }
+  const userId = socket.request.session.user;
+  if (userId) {
+    if (!app.settings.userSockets[userId]) {
+      app.settings.userSockets[userId] = [];
+    }
+    app.settings.userSockets[userId].push(socket);
+  } else {
+    console.log('USER IS NOT LOGGED IN');
+    return false;
+  }
+  socket.on('disconnect', () => {
+    app.settings.userSockets[userId].splice(app.settings.userSockets[userId].indexOf(socket), 1);
+    console.log('user has disconnected', app.settings.userSockets[userId].length);
+  });
 });
 
 app.listen(process.env.PORT || DEVPORT, () => {

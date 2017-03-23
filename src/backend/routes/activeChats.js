@@ -14,7 +14,7 @@ const router = express.Router();
 // Make sure to add socket creation to this as well
 router.post('/activeChats/new', (req, res) => {
   const user = req.user;
-  const question = req.body.question; // Thi is the content of the question
+  const question = req.body.content; // Thi is the content of the question
   const newChat = new ActiveChat({
     // The question id is saved from when the backend gave the question objects
     question: req.body.questionId,
@@ -27,22 +27,33 @@ router.post('/activeChats/new', (req, res) => {
   const newMessage = new Message({
     content: question,
     sender: req.body.asker,
-    receipient: user.id
+    recipient: user.id
   });
-
+  console.log(newMessage);
   newChat.messages.push(newMessage.id); // Add the new message to the chat
   user.activeChats.push(newChat.id); // Add the new chat to the user
-  let response = {};
+  let response;
   newChat.save()
   .then((chat) => {
     response = chat;
+    return Promise.all([newMessage.save(), user.save()]);
   })
-  .then(() => newMessage.save())
-  .then(() => user.save())
-  .then(() => res.json({      // The socket creation would probably happen in this .then
-    success: true,
-    chat: response
-  }))
+  .then(() => {
+    const userSockets = req.app.settings.user_sockets;
+    const func = (userSocket) => {
+      userSocket.emit('newChat', { question, chat: response });
+    };
+    for (const userId in userSockets) {
+      if (userSockets.hasOwnProperty(userId) // Both the errors are BS lint rules
+      && req.body.asker === (userId)) {
+        userSockets[userId].forEach(func);
+      }
+    }
+    res.json({      // The socket creation would probably happen in this .then
+      success: true,
+      chat: response
+    });
+  })
   .catch(err => res.send(err));
 });
 

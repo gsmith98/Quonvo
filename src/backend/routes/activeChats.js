@@ -36,9 +36,8 @@ router.post('/activeChats/new', (req, res) => {
   newChat.save()
   .then((chat) => {
     response = chat;
+    return Promise.all([newMessage.save(), user.save()]);
   })
-  .then(() => newMessage.save())
-  .then(() => user.save())
   .then(() => {
     const userSockets = req.app.settings.user_sockets;
     const func = (userSocket) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ObjectBuilder from './ObjectBuilder';
 import querystring from 'querystring';
+import ObjectBuilder from './ObjectBuilder';
 
 class PostTool extends Component {
   constructor(props) {
@@ -14,9 +14,12 @@ class PostTool extends Component {
       method: 'post',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: querystring.stringify(data)
-    }).then((resp) => {
-      console.log('Response from post:', resp);
-    }).catch((err) => {
+    })
+    .then(resp => resp.json())
+    .then((respjson) => {
+      console.log('Response from post:', respjson);
+    })
+    .catch((err) => {
       console.log('Error occured! See below.');
       throw err;
     });
@@ -30,12 +33,12 @@ class PostTool extends Component {
     return (
       <div>
         <p>POST Tool</p>
-        Post to:{'              '}
+        Post to:
         <input
           type="text"
           onChange={event => this.handleChange(event)}
           value={this.state.target}
-          style={{ width: 400 }}
+          style={{ width: 400, marginLeft: 30 }}
         />
         <ObjectBuilder
           doWithObj={(data) => { this.postButtonClick(data); }}

@@ -3,20 +3,25 @@ import io from 'socket.io-client';
 import ObjectBuilder from './ObjectBuilder';
 
 class SocketTool extends Component {
-  componentDidMount() {
-    this.socket = io(this.props.url);
+  constructor(props) {
+    super(props);
+    this.state = { socket: null };
+  }
+
+  openSocket() {
+    const newSocket = io(this.props.url);
 
     // Custom middleware for detailed logging of all incoming socket events
-    const oldOnevent = this.socket.onevent.bind(this.socket);
-    this.socket.onevent = (packet) => {
+    const oldOnevent = newSocket.onevent.bind(newSocket);
+    newSocket.onevent = (packet) => {
       console.log('Incoming socket event on channel:', packet.data[0]);
       console.log('Received data:', packet.data[1]);
       oldOnevent(packet);     // original call
     };
 
     // Custom middleware for detailed logging of all outgoing socket events
-    const oldEmit = this.socket.emit.bind(this.socket);
-    this.socket.emit = (channel, data) => {
+    const oldEmit = newSocket.emit.bind(newSocket);
+    newSocket.emit = (channel, data) => {
       if (channel !== 'ping' && channel !== 'pong') { // internal socket implementation details
         console.log('Outgoing socket event on channel:', channel);
         console.log('Sent data:', data);
@@ -24,17 +29,17 @@ class SocketTool extends Component {
       oldEmit(channel, data);
     };
 
-    this.forceUpdate();
+    this.setState({ socket: newSocket });
   }
 
   socketButtonClick(data) {
-    this.socket.emit(this.channel.value, data);
+    this.state.socket.emit(this.channel.value, data);
   }
 
   render() {
     return (
       <div>
-        {this.socket ?
+        {this.state.socket ?
           <div>
             <p>Socket Tool</p>
             <input type="text" ref={(node) => { this.channel = node; }} placeholder="channel" />
@@ -43,7 +48,7 @@ class SocketTool extends Component {
               buttonMsg="Send on socket"
             />
           </div>
-          : 'Connecting...'
+          : <button onClick={() => this.openSocket()}>Open socket connection</button>
         }
       </div>
     );

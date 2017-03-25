@@ -4,7 +4,7 @@ import DevPostman from './devComponents';
 const App = ({ match }) => (
   <div>
     <p>Currrently on: {match.params.subroute || 'Home'}</p>
-    <DevPostman />
+    <DevPostman url="http://localhost:3000" />
   </div>
 );
 

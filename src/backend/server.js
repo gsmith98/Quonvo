@@ -20,6 +20,11 @@ const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
 
 const app = express();
+app.use((req, res, next) => {
+  // allows the webpack-dev-server to use this server
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  next();
+});
 
 const REQUIRED_ENV = 'SECRET MONGODB_URI'.split(' ');
 

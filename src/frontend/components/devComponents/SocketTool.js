@@ -4,7 +4,7 @@ import ObjectBuilder from './ObjectBuilder';
 
 class SocketTool extends Component {
   componentDidMount() {
-    this.socket = io('http://localhost:3000');
+    this.socket = io(this.props.url);
 
     // Custom middleware for detailed logging of all incoming socket events
     const oldOnevent = this.socket.onevent.bind(this.socket);
@@ -36,6 +36,7 @@ class SocketTool extends Component {
       <div>
         {this.socket ?
           <div>
+            <p>Socket Tool</p>
             <input type="text" ref={(node) => { this.channel = node; }} placeholder="channel" />
             <ObjectBuilder
               doWithObj={(data) => { this.socketButtonClick(data); }}

@@ -15,6 +15,7 @@ const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
 const messageRoutes = require('./routes/messages');
 const routes = require('./routes/routes');
+const cookie = require('cookie');
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
@@ -122,34 +123,51 @@ const io = socketIo.listen(server);
 
 // *****************************
 
+// TODO not sure quite if/how this legacy section works
 // IO middleware
 // attach user session to new incoming socket
-io.use((socket, next) => {
-  sessionMiddleware(socket.request, socket.request.res, next);
-});
+// io.use((socket, next) => {
+//   sessionMiddleware(socket.request, socket.request.res, next);
+// });
 
 // global array of user sockets
 app.set('userSockets', {});
 
-// new user has connected
 
-// The socket logic can be refactored by creating rooms for each chat.
-// We can refactor this later
 io.on('connection', (socket) => {
-  const userId = socket.request.session.user;
-  if (userId) {
-    if (!app.settings.userSockets[userId]) {
-      app.settings.userSockets[userId] = [];
-    }
-    app.settings.userSockets[userId].push(socket);
+  socket.emit('heyo', { data: 'mayo' });
 
-    socket.on('disconnect', () => {
-      app.settings.userSockets[userId].splice(app.settings.userSockets[userId].indexOf(socket), 1);
-      console.log('user has disconnected', app.settings.userSockets[userId].length);
-    });
-  } else {
-    console.log('USER IS NOT LOGGED IN');
-  }
+  console.log('1:', socket.handshake.headers.cookie);
+  const tS = cookie.parse(socket.handshake.headers.cookie)['connect.sid'];
+  console.log('2:', tS);
+  const sessionID = tS.split('.')[0].split(':')[1];
+  console.log('3:', sessionID);
+  mongoStore.get(sessionID, (err, sesh) => {
+    console.log('4:', sesh);
+    console.log('5:', sesh.passport);
+  });
+  // After login, client should emit their session token on this channel
+  // in order to associate this socket with their userId and vice-versa
+  // TODO httpOnly = false
+  // socket.on('auth', ({ sessionId }) => {
+  //   sessionId
+  // });
+
+
+  // const userId = socket.request.session.user;
+  // if (userId) {
+  //   if (!app.settings.userSockets[userId]) {
+  //     app.settings.userSockets[userId] = [];
+  //   }
+  //   app.settings.userSockets[userId].push(socket);
+  //
+  //   socket.on('disconnect', () => {
+  //   app.settings.userSockets[userId].splice(app.settings.userSockets[userId].indexOf(socket), 1);
+  //     console.log('user has disconnected', app.settings.userSockets[userId].length);
+  //   });
+  // } else {
+  //   console.log('USER IS NOT LOGGED IN');
+  // }
 });
 
 server.listen(process.env.PORT || DEVPORT, () => {

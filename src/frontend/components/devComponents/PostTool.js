@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ObjectBuilder from './ObjectBuilder';
+import querystring from 'querystring';
 
 class PostTool extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class PostTool extends Component {
     console.log('Posting data to:', this.state.target, data);
     fetch(this.state.target, {
       method: 'post',
-      body: JSON.stringify(data)
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: querystring.stringify(data)
     }).then((resp) => {
       console.log('Response from post:', resp);
     }).catch((err) => {

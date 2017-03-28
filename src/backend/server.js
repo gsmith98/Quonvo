@@ -5,16 +5,15 @@ const MongoStore = require('connect-mongo')(session);
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
-const models = require('./models');
 const auth = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
 const messageRoutes = require('./routes/messages');
 const routes = require('./routes/routes');
+const passport = require('./passportConfig');
+const socketHandler = require('./socketConfig');
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
@@ -23,6 +22,7 @@ const app = express();
 app.use((req, res, next) => {
   // allows the webpack-dev-server to use this server
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Credentials', true);
   next();
 });
 
@@ -38,7 +38,6 @@ REQUIRED_ENV.forEach((el) => {
 mongoose.Promise = global.Promise;
 mongoose.connect(connect);
 
-
 // Set up of the build
 app.use(express.static('build'));
 app.get('/', (req, res) => {
@@ -46,54 +45,15 @@ app.get('/', (req, res) => {
 });
 app.use(flash());
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoStore = new MongoStore({ mongooseConnection: mongoose.connection });
-const sessionMiddleware = session({
+
+app.use(session({
   secret: process.env.SECRET,
   store: mongoStore
-});
-
-
-passport.serializeUser((user, done) => {
-  console.log(user);
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  console.log('deserializeUser');
-  models.User.findById(id, done);
-});
-
-// Passport stuff
-app.use(sessionMiddleware);
-
-passport.use(new LocalStrategy({
-  usernameField: 'email'
-}, (email, password, done) => {
-  // Find the user with the given username
-
-  models.User.findOne({ email: email.toLowerCase() }, (err, user) => {
-    // if there's an error, finish trying to authenticate (auth failed)
-    if (err) {
-      console.error('Error fetching user in LocalStrategy', err);
-      return done(err);
-    }
-    // if no user present, auth failed
-    if (!user) {
-      return done(null, false, { message: `${email} not found` });
-    }
-    // if passwords do not match, auth failed
-    if (user.password !== password) {
-      return done(null, false, { message: 'Incorrect password.' });
-    }
-    // TODO add bcrypt and hashing. This can be done as a method on the user
-    // object or directly in here.
-    // auth has succeeded
-    return done(null, user);
-  });
 }));
 
 app.use(passport.initialize());
@@ -114,43 +74,14 @@ app.use((req, res, next) => {
 });
 
 // ******Socket Stuff***********
-
+// global array of user sockets
+app.set('userSockets', {});
 const server = require('http').createServer(app);
 const socketIo = require('socket.io');
 
 const io = socketIo.listen(server);
+io.on('connection', socketHandler(mongoStore));
 
-// *****************************
-
-// IO middleware
-// attach user session to new incoming socket
-io.use((socket, next) => {
-  sessionMiddleware(socket.request, socket.request.res, next);
-});
-
-// global array of user sockets
-app.set('userSockets', {});
-
-// new user has connected
-
-// The socket logic can be refactored by creating rooms for each chat.
-// We can refactor this later
-io.on('connection', (socket) => {
-  const userId = socket.request.session.user;
-  if (userId) {
-    if (!app.settings.userSockets[userId]) {
-      app.settings.userSockets[userId] = [];
-    }
-    app.settings.userSockets[userId].push(socket);
-
-    socket.on('disconnect', () => {
-      app.settings.userSockets[userId].splice(app.settings.userSockets[userId].indexOf(socket), 1);
-      console.log('user has disconnected', app.settings.userSockets[userId].length);
-    });
-  } else {
-    console.log('USER IS NOT LOGGED IN');
-  }
-});
 
 server.listen(process.env.PORT || DEVPORT, () => {
   console.log(`Express running on port ${process.env.PORT || DEVPORT}!`);

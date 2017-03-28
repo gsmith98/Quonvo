@@ -13,6 +13,7 @@ class PostTool extends Component {
     fetch(this.state.target, {
       method: 'post',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      credentials: 'include',
       body: querystring.stringify(data)
     })
     .then(resp => resp.json())

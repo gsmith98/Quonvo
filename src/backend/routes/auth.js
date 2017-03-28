@@ -5,44 +5,37 @@ const router = express.Router();
 const User = models.User;
 
 module.exports = (passport) => {
-  // You will use passport ot authenticate in the future
+  // You will use passport to authenticate in the future
   router.post('/local/signup', (req, res) => {
-    if (req.body.password !== req.body.passwordRepeat) {
-      res.send("Passwords didn't match");
-    }
-    const user = new User({
+    new User({
       email: req.body.email.toLowerCase(),
       password: req.body.password,
       interests: req.body.interests
-    });
-    user.save()
-    .then(newUser => res.json({
-      success: true,
-      user: newUser
-    }))
-    .catch(err => res.send(err));
+    })
+    .save()
+    .then(user => res.json({ success: true, user }))
+    .catch(error => res.json({ success: false, error }));
   });
 
+  // TODO is there good reason for this custom authenticate handler?
+  // TODO what do the next(err) lines do?
   router.post('/local/login', (req, res, next) => {
-    passport.authenticate('local', (err, user) => {
+    passport.authenticate('local', (err, user, info) => {
       if (err) {
         next(err);
-      }
-      if (!user) {
-        res.json({
-          success: false
+      } else if (!user) {
+        res.json(Object.assign({ success: false }), info);
+      } else {
+        req.logIn(user, (error) => {
+          if (error) {
+            next(error);
+          } else {
+            res.json({ success: true, user });
+          }
         });
       }
-      // The return below is only because of the Lint rules. May be subject
-      // to change
-      req.logIn(user, (error) => {
-        if (error) { next(error); }
-        res.json({
-          success: true,
-          user: req.user
-        });
-      });
     })(req, res, next);
   });
+
   return router;
 };

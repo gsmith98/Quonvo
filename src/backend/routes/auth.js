@@ -23,33 +23,21 @@ module.exports = (passport) => {
     }));
   });
 
+  // TODO is there good reason for this custom authenticate handler?
+  // TODO what do the next(err) lines do?
   router.post('/local/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-      console.log('login');
-      console.log('info', info); // TODO use info
       if (err) {
-        console.log('err', err);
         next(err);
       } else if (!user) {
-        console.log('no user');
-        res.json({
-          success: false
-        });
+        res.json(Object.assign({ success: false }), info);
       } else {
-        console.log('bout ta reqlogin');
         req.logIn(user, (error) => {
-          console.log('reqlogin');
           if (error) {
-            console.log('reqlogin err, error');
             next(error);
+          } else {
+            res.json({ success: true, user });
           }
-          console.log('success');
-          console.log('user', user);
-          console.log('requser', req.user);
-          res.json({
-            success: true,
-            user: req.user
-          });
         });
       }
     })(req, res, next);

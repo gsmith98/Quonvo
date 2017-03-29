@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import querystring from 'querystring';
-import ObjectBuilder from './ObjectBuilder';
 
-class PostTool extends Component {
+class GetTool extends Component {
   constructor(props) {
     super(props);
     this.state = { target: props.url };
   }
 
-  postButtonClick(data) {
-    console.log('Posting data to:', this.state.target, data);
+  getButtonClick() {
+    console.log('Getting data from:', this.state.target);
     fetch(this.state.target, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      credentials: 'include',
-      body: querystring.stringify(data)
+      method: 'get',
+      credentials: 'include'
     })
     .then(resp => resp.json())
     .then((respjson) => {
@@ -33,21 +29,18 @@ class PostTool extends Component {
   render() {
     return (
       <div>
-        Post to:
+        Get from:
         <input
           type="text"
           onChange={event => this.handleChange(event)}
           value={this.state.target}
           style={{ width: 400, marginLeft: 30 }}
         />
-        <ObjectBuilder
-          doWithObj={(data) => { this.postButtonClick(data); }}
-          buttonMsg="POST"
-        />
+        <button onClick={() => this.getButtonClick()}>GET</button>
       </div>
     );
   }
 }
 
 
-export default PostTool;
+export default GetTool;

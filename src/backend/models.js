@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema({
 
   google: String,
     // All the google stuff
+  name: {
+    type: String,
+    default: 'Anonymous'
+  },
   password: {
     type: String
   },

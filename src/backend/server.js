@@ -74,13 +74,11 @@ app.use((req, res, next) => {
 });
 
 // ******Socket Stuff***********
-// global array of user sockets
-app.set('userSockets', {});
 const server = require('http').createServer(app);
 const socketIo = require('socket.io');
 
 const io = socketIo.listen(server);
-io.on('connection', socketHandler(mongoStore));
+io.on('connection', socketHandler(io, mongoStore));
 
 
 server.listen(process.env.PORT || DEVPORT, () => {

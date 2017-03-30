@@ -2,7 +2,6 @@ const express = require('express');
 const models = require('../models');
 
 const ActiveChat = models.ActiveChat;
-const User = models.User;
 const Message = models.Message;
 
 const router = express.Router();
@@ -29,7 +28,6 @@ router.post('/activeChats/new', (req, res) => {
     sender: req.body.asker,
     recipient: user.id
   });
-  console.log(newMessage);
   newChat.messages.push(newMessage.id); // Add the new message to the chat
   user.activeChats.push(newChat.id); // Add the new chat to the user
   let response;
@@ -39,18 +37,9 @@ router.post('/activeChats/new', (req, res) => {
     return Promise.all([newMessage.save(), user.save()]);
   })
   .then(() => {
-    const userSockets = req.app.settings.user_sockets;
-    const func = (userSocket) => {
-      userSocket.emit('newChat', { question, chat: response });
-    };
-    for (const userId in userSockets) {
-      if (userSockets.hasOwnProperty(userId) // Both the errors are BS lint rules
-      && req.body.asker === (userId)) {
-        userSockets[userId].forEach(func);
-      }
-    }
-    res.json({      // The socket creation would probably happen in this .then
+    res.json({
       success: true,
+      firstMessage: newMessage.content,
       chat: response
     });
   })

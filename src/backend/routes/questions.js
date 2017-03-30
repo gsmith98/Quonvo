@@ -6,7 +6,6 @@ const User = models.User;
 const router = express.Router();
 
 
-
 // For the endpoint below there are 2 pieces needed on Req.body. A label, and
 // content. The user will be taken from req.user which exists because of the
 // session. Another thing to note is that the rest of the question object defaults
@@ -48,10 +47,9 @@ router.post('/questions/remove', (req, res) => {
 // but rather calculated on the front end. Average response time or # of users online
 // could also factor into the hotness function.
 
-const questionLimit = 20;
-
-router.get('/questions/hot', (req, res) => {
+router.get('/questions/hot?limit=number', (req, res) => {
   const userId = req.user.id;
+  const questionLimit = req.query.limit;
   User.findById(userId)
   .then((user) => {
     console.log(user);
@@ -88,6 +86,7 @@ router.get('/questions/hot', (req, res) => {
 
 router.get('/questions/recent', (req, res) => {
   const userId = req.user.id;
+  const questionLimit = req.query.limit;
   User.findById(userId)
   .then((user) => {
     console.log(user);

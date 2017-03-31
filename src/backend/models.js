@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
   activeChats: {
     type: [{
       type: Schema.ObjectId,
-      ref: 'Chat'
+      ref: 'ActiveChat'
     }],
     default: []
   },
@@ -39,8 +39,13 @@ const userSchema = mongoose.Schema({
       type: String,
       enum: ['stuff', 'travel'] // TODO change this to a real enum
     }]
+  },
+  questionsAsked: {
+    type: [{
+      type: Schema.ObjectId,
+      ref: 'ArchivedChat'
+    }]
   }
-
 });
 
 const questionSchema = mongoose.Schema({

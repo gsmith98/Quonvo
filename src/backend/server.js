@@ -6,6 +6,9 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
+
+
 const flash = require('connect-flash');
 const auth = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
@@ -38,6 +41,10 @@ REQUIRED_ENV.forEach((el) => {
 mongoose.Promise = global.Promise;
 mongoose.connect(connect);
 
+function a(q) {
+  console.log(1);
+}
+
 // Set up of the build
 app.use(express.static('build'));
 app.get('/', (req, res) => {
@@ -58,6 +65,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+q.fail
 
 app.use('/', auth(passport));
 app.use('/', routes);

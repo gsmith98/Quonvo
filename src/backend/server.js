@@ -13,6 +13,9 @@ const activeChatRoutes = require('./routes/activeChats');
 const messageRoutes = require('./routes/messages');
 const routes = require('./routes/routes');
 const passport = require('./passportConfig');
+
+
+
 const socketHandler = require('./socketConfig');
 
 const connect = process.env.MONGODB_URI;
@@ -37,6 +40,13 @@ REQUIRED_ENV.forEach((el) => {
 
 mongoose.Promise = global.Promise;
 mongoose.connect(connect);
+
+
+function a(q) {
+  console.log("bad");
+}
+
+q.fail; //error
 
 // Set up of the build
 app.use(express.static('build'));

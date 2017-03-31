@@ -19,41 +19,29 @@ module.exports = (passport) => {
 
   // TODO is there good reason for this custom authenticate handler?
   // TODO what do the next(err) lines do?
+
+  const customAuth = (req, res, next) => (err, user, info) => {
+    if (err) {
+      next(err);
+    } else if (!user) {
+      res.json(Object.assign({ success: false }, info));
+    } else {
+      req.logIn(user, (error) => {
+        if (error) {
+          next(error);
+        } else {
+          res.json({ success: true, user });
+        }
+      });
+    }
+  };
   router.post('/auth/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-      if (err) {
-        next(err);
-      } else if (!user) {
-        res.json(Object.assign({ success: false }), info);
-      } else {
-        req.logIn(user, (error) => {
-          if (error) {
-            next(error);
-          } else {
-            res.json({ success: true, user });
-          }
-        });
-      }
-    })(req, res, next);
+    passport.authenticate('local', customAuth(req, res, next))(req, res, next);
   });
 
   router.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
   router.get('/auth/google/callback', (req, res, next) => {
-    passport.authenticate('google', (err, user, info) => {
-      if (err) {
-        // next(err);
-      } else if (!user) {
-        res.json(Object.assign({ success: false }), info);
-      } else {
-        req.logIn(user, (error) => {
-          if (error) {
-            next(error);
-          } else {
-            res.json({ success: true, user });
-          }
-        });
-      }
-    })(req, res, next);
+    passport.authenticate('google', customAuth(req, res, next))(req, res, next);
   });
 
   return router;

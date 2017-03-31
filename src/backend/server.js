@@ -17,7 +17,7 @@ const socketHandler = require('./socketConfig');
 
 const connect = process.env.MONGODB_URI;
 const DEVPORT = 3000;
-q.fail;
+
 const app = express();
 app.use((req, res, next) => {
   // allows the webpack-dev-server to use this server
@@ -74,13 +74,11 @@ app.use((req, res, next) => {
 });
 
 // ******Socket Stuff***********
-// global array of user sockets
-app.set('userSockets', {});
 const server = require('http').createServer(app);
 const socketIo = require('socket.io');
 
 const io = socketIo.listen(server);
-io.on('connection', socketHandler(mongoStore));
+io.on('connection', socketHandler(io, mongoStore));
 
 
 server.listen(process.env.PORT || DEVPORT, () => {

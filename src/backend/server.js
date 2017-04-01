@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const auth = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
+const archivedChatRoutes = require('./routes/archivedChats');
 const messageRoutes = require('./routes/messages');
 const routes = require('./routes/routes');
 const passport = require('./passportConfig');
@@ -64,6 +65,7 @@ app.use('/', routes);
 app.use('/', questionRoutes);
 app.use('/', activeChatRoutes);
 app.use('/', messageRoutes);
+app.use('/', archivedChatRoutes)
 // TODO once more routes are added, add them here.
 
 // catch 404 and forward to error handler

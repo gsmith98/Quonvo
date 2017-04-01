@@ -13,23 +13,28 @@ router.post('/archivedChats/new', (req, res) => {
   const chatId = req.body.chat;
   const rating = req.body.rating;
   let archive;
-
+  console.log('i got here 1')
   ActiveChat.findById(chatId)
   .populate('messages answerer asker') // TODO Not sure if this works. Trying to populate a whole array
   .then((chat) => {
+    console.log('i got here 2')
     const answerer = chat.answerer;
     const asker = chat.asker;
     const messages = chat.messages.map((message) => {
       let askerBoolean = false;
       if (message.sender.id === asker.id) {
+        console.log('i got here 3')
         askerBoolean = true;
       }
+      console.log('i got here 4')
       return {
         content: message.content,
         asker: askerBoolean
       };
     });
+    console.log('hi', messages);
     const bounty = chat.bounty;
+    console.log('i got here 5')
     archive = new ArchivedChat({
       rating: req.body.rating,
       question: messages[0].content,

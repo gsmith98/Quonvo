@@ -10,6 +10,7 @@ module.exports = (passport) => {
     new User({
       email: req.body.email.toLowerCase(),
       password: req.body.password,
+      name: req.body.name.toLowerCase(),
       interests: req.body.interests
     })
     .save()

@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { signIn } from '../actions';
 
-const SigninBar = () => {
+const SigninBar = ({ signIn }) => {
   let emailField;
   let passField;
 
@@ -25,4 +23,4 @@ const SigninBar = () => {
   );
 };
 
-export default connect(null, { signIn })(SigninBar); // TODO wrap in withRouter?
+export default SigninBar;

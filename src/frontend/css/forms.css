@@ -1,0 +1,116 @@
+
+.container{
+    height: 60vh;
+    width: 34vw;
+    background : white;
+    border-radius : 12px;
+    -moz-border-radius : 12px;
+    -webkit-border-radius : 12px;
+    border: 0;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.container_signup{
+  flex:0.7;
+  display: flex;
+  /*margin-left: 3vw;
+  margin-right: 3vw;*/
+
+
+}
+
+.question {
+  flex: 0.7;
+  height: 30%;
+  width: 90%;
+  background : #E6E7E8;
+  background : rgba(230, 231, 232, 1);
+  border-radius : 12px;
+  -moz-border-radius : 12px;
+  -webkit-border-radius : 12px;
+  border: 0;
+  padding: 1em;
+  font-size: 18px;
+}
+
+.genre{
+  display: flex;
+}
+
+.searchbar
+{
+  background : #E0E0E0;
+  background : rgba(224, 224, 224, 1);
+  border-radius : 9px;
+  -moz-border-radius : 9px;
+  -webkit-border-radius : 9px;
+  /*width: 28vw;*/
+  /*height: 5vh;*/
+  height: 5vh;
+  padding-left: 1em;
+  margin-top: 4%;
+  flex: 1;
+  border:none;
+  font-size: 15px;
+}
+
+
+
+.form_signup{
+  font-family : Roboto;
+  font-size : 11px;
+  line-height : 12.76px;
+  color : black;
+  flex: 1;
+  letter-spacing : 1.3px;
+  margin-top: 2em;
+
+}
+
+input{
+  background : #F1F2F2;
+  background : rgba(241, 242, 242, 1);
+  border-radius : 4px  / 5px;
+  -moz-border-radius : 4px  / 5px;
+  -webkit-border-radius : 4px  / 5px;
+  padding-left: 1em;
+  /*^ this makes it so that there's space before when you type*/
+  border: 0;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  height: 2em;
+  width: 97%;
+  font-size: 14px;
+}
+
+.button_container{
+  flex:0.1;
+  margin-top: 15%;
+  display: flex;
+}
+
+.answer_button
+{
+  width: 15vw;
+  height: 10vh;
+  flex:1;
+  margin-left: auto;
+  margin-right: auto;
+
+  background : #D99A83;
+  background : rgba(217, 154, 131, 1);
+  border-radius : 9px;
+  -webkit-border-radius : 9px;
+  border: 0;
+  box-shadow:none;
+
+  font-family : Roboto;
+  font-size : 13px;
+  line-height : 18px;
+  letter-spacing : 1.3px;
+  color : #A7A9AC;
+  color : black;
+
+}

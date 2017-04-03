@@ -1,0 +1,62 @@
+
+
+@font-face {
+  font-family: Caslon Old Face Heavy;
+  src: url('/caslon.otf');
+}
+
+body{
+  background: rgb(238,203,174);
+  min-height: 100%;
+  margin: 0;
+  padding: 0%;
+  overflow: auto;
+}
+
+html{
+  height: 100%;
+}
+
+
+.NormalCharacterStyle1
+{
+  font-family : Myriad Pro;
+  font-size : 11px;
+  line-height : 12.76px;
+  color : #939598;
+  color : rgb(147, 149, 152);
+}
+
+.bold
+{
+  font-family : Roboto;
+  font-weight : bold;
+  font-size : 18px;
+  line-height : 24px;
+  letter-spacing : 7.2px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+.serif
+{
+  /*font-family: superclarendon, serif;*/
+  font-family: "Hoefler Text", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size : 12px;
+  line-height : 15.2px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+.page_container{
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+
+span{
+  overflow:visible;
+}

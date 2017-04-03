@@ -1,0 +1,55 @@
+
+.menu_container{
+  /*flex: 4;*/
+  float:right;
+  display: flex;
+  flex-direction: column;
+  width: 8vw;
+  max-height: 90vh;
+  /*flex: 0.5;*/
+
+}
+
+.menu_icon{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 8vh;
+  padding-top: 6vh;
+  /*margin-bottom: 13vh;*/
+}
+
+.menu_bold{
+  text-align: center;
+  font-family : Roboto;
+  font-weight : bold;
+  font-size : 12px;
+  line-height : 15px;
+  letter-spacing : 4px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+  /*padding-top: 1vh;*/
+}
+
+.profile
+{
+/*background-image : url('./public/profile.png');
+background-repeat : no-repeat;*/
+border-style: solid;
+border-color: black;
+border-width: 5px;
+border-radius: 50%;
+max-width:100px;
+max-height:100px;
+}
+
+
+.icon{
+  max-width:50px;
+  max-height:50px;
+}
+
+.icon_toobig{
+  max-width:35px;
+  max-height:35px;
+}

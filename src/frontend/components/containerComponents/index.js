@@ -1,8 +1,5 @@
-// pattern:
-// export { default as BigQ } from './BigQ';
-// all code currently here is just for compilation and linting,
-// replace it completely with the pattern used in presentationalComponents/index.js
-const Placeholder = {};
-export { Placeholder };
-const Placeholder2 = {};
-export { Placeholder2 };
+export { default as SigninBarContainer } from './SigninBarContainer';
+
+// the export below is strictly in place for linting reasons.
+// TODO remove this the moment a second container component is added to this file
+export { default as SigninBarContainer2 } from './SigninBarContainer';

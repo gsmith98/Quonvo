@@ -85,14 +85,6 @@ input{
   font-size: 14px;
 }
 
-
-.XMLID_3494_
-{
-  background-image : url(XMLID_3494_.png);
-  /*To create image referenced in CSS, use 'Export Selected CSS' command.*/
-  background-repeat : no-repeat;
-}
-
 .button_container{
   flex:0.1;
   margin-top: 15%;

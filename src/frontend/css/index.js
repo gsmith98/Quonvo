@@ -1,4 +1,3 @@
-export * from './styles.css';
 export * from './base.css';
 export * from './chats.css';
 export * from './display.css';

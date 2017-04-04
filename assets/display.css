@@ -1,0 +1,95 @@
+.display_container {
+  padding-top:10vh;
+  display: flex;
+  width: 80%;
+  overflow: visible;
+
+}
+
+.display_font{
+  font-family: "Caslon Old Face Heavy BT", serif;
+  font-weight: 900;
+  font-size : 439px;
+  line-height : 426.86px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+  flex:1;
+}
+
+
+.header_block{
+  flex:1.7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spacer{
+  flex:0.75;
+}
+.header{
+  font-family: "Caslon Old Face Heavy BT", serif;
+  font-weight: 900;
+  font-size : 80px;
+  line-height : 60px;
+  color : white;
+  margin: -60px;
+  /*margin-top:auto;
+  margin-bottom:auto;*/
+  overflow-wrap: normal;
+  width: 90%;
+  /*flex:3;*/
+  padding-top:16vh;
+  flex: 1.5;
+
+
+}
+
+.explanation {
+
+  font-family : Roboto;
+  font-size : 18px;
+  line-height : 20px;
+  letter-spacing : 0.4px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+  margin: -4vw;
+  position: absolute;
+  padding-top:53vh;
+  width: 30%;
+  flex:1;
+
+}
+
+.button_ask_container{
+  display: flex;
+  width: 20vw;
+  padding-top:10vh;
+
+
+}
+
+.ask_button{
+  height: 10vh;
+  flex:1;
+  margin-left: auto;
+  margin-right: auto;
+
+  background : #D99A83;
+  background : rgba(217, 154, 131, 1);
+  border-radius : 9px;
+  -webkit-border-radius : 9px;
+  border: 0;
+  box-shadow:none;
+
+  font-family : Roboto;
+  font-size : 13px;
+  line-height : 18px;
+  letter-spacing : 1.3px;
+  color : #A7A9AC;
+  color : black;
+  position: relative;
+  margin: -4vw;
+  margin-top: 2vh;
+
+}

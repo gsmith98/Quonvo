@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "react/no-multi-comp": 0,
+    "react/prop-types": 0,
+    "no-plusplus": 0,
+    "comma-dangle": 0,
+    "no-console": 0,
+    "no-magic-numbers": ["error", {"ignore": [1,0,-1]}],
+    "import/no-unresolved": 0
+  }
+}

@@ -6,3 +6,5 @@ export { default as AskAQuestion } from './AskAQuestion';
 export { default as Profile } from './Profile';
 export { default as YourQuestions } from './YourQuestions';
 export { default as SideBar } from './SideBar';
+export { default as LiveQuestion } from './LiveQuestion';
+export { default as QuestionBar } from './QuestionBar';

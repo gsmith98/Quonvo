@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import Root from './components/Root';
 import configureStore from './configureStore';
 
-require('styles'); // eslint-disable-line
+require('styles');
 
 const store = configureStore();
 render(

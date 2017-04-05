@@ -59,8 +59,9 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
     alias: {
-      styles: path.resolve(__dirname, 'css/index.js'),
-      assets: path.resolve(__dirname, 'assets')
+      styles: path.resolve(__dirname, 'css'),
+      assets: path.resolve(__dirname, 'assets'),
+      api: path.resolve(__dirname, 'api')
     }
   }
 };

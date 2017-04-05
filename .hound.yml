@@ -5,4 +5,4 @@ jshint:
 
 eslint:
   enabled: true
-  config_file: .hound.eslintrc.json
+  config_file: .eslintrc.json

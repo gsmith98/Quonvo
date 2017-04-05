@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageContainer from '../containerComponents/MessageContainer';
+import MessagesContainer from '../containerComponents/MessagesContainer';
 // Use the MessageContainer
 const Chat = (sendMessage, chattingPartner) => (
   <div className="chat_part">
@@ -15,7 +15,7 @@ const Chat = (sendMessage, chattingPartner) => (
         <br />
       </div>
       <hr size="2px" width="95%" color="black" />
-      <MessageContainer /> { // TODO make this container
+      <MessagesContainer /> { // TODO make this container
       }
       <hr size="2px" width="90%" color="black" />
       <div className="respond_body">

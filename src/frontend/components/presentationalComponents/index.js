@@ -8,3 +8,5 @@ export { default as YourQuestions } from './YourQuestions';
 export { default as SideBar } from './SideBar';
 export { default as LiveQuestion } from './LiveQuestion';
 export { default as QuestionBar } from './QuestionBar';
+export { default as Chat } from './Chat';
+export { default as MessageBox } from './MessageBox';

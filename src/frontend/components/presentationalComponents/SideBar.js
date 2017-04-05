@@ -17,7 +17,7 @@ const SideBar = ({ clickToMinimize, isMinimized, clickToMaximize }) => {
         <YourQuestions />
         <br />
         <div onClick={clickToMinimize} className="menu_icon">
-          <img alt="" src="./assets/arrow-01.png" className="icon" />
+          <img alt="" src="assets/arrow-01.png" className="icon" />
         </div>
       </div>
     );
@@ -26,7 +26,7 @@ const SideBar = ({ clickToMinimize, isMinimized, clickToMaximize }) => {
     <div onClick={clickToMaximize} className="menu_icon">
       <Profile />
       <br />
-      <img alt={'Sorry could not be displayed'} src="./assets/arrow-01.png" className="icon" />
+      <img alt={'Sorry could not be displayed'} src="assets/arrow-01.png" className="icon" />
     </div>
   );
 };

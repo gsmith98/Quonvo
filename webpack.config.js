@@ -1,5 +1,4 @@
 const path = require('path');
-// require('webpack');
 const HTMLWebackPlugin = require('html-webpack-plugin');
 
 const HTMLWebackPluginConfig = new HTMLWebackPlugin({
@@ -7,6 +6,10 @@ const HTMLWebackPluginConfig = new HTMLWebackPlugin({
   filename: 'index.html',
   inject: 'body'
 });
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const ExtractTextPluginConfig = new ExtractTextPlugin('[name].css');
 
 module.exports = {
   entry: './src/frontend/index.js',
@@ -16,19 +19,30 @@ module.exports = {
     publicPath: '/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react'],
-          plugins: ['transform-object-rest-spread']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react'],
+            plugins: ['transform-object-rest-spread']
+          }
         }
       },
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
+      },
+      {
+        test: /\.(jpg|jpeg|gif|png|otf)$/,
+        use: {
+          loader: 'file-loader'
+        }
       }
     ]
   },
@@ -41,5 +55,12 @@ module.exports = {
     }
   },
   devtool: 'source-map',
-  plugins: [HTMLWebackPluginConfig]
+  plugins: [HTMLWebackPluginConfig, ExtractTextPluginConfig],
+  resolve: {
+    modules: [path.resolve(__dirname), 'node_modules'],
+    alias: {
+      styles: path.resolve(__dirname, 'css/index.js'),
+      assets: path.resolve(__dirname, 'assets')
+    }
+  }
 };

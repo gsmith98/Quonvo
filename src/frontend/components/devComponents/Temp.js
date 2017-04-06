@@ -1,8 +1,8 @@
 import React from 'react';
-import { MessagesBoxContainer } from '../containerComponents';
+import { ChatContainer } from '../containerComponents';
 
 const Temp = () =>
-    (<MessagesBoxContainer />)
+    (<ChatContainer />)
 ;
 
 export default Temp;

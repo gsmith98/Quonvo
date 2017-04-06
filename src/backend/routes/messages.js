@@ -1,5 +1,4 @@
 const express = require('express');
-const models = require('../models');
 const Chat = require('../models').ActiveChat;
 const Message = require('../models').Message;
 
@@ -26,17 +25,11 @@ router.post('/messages/new', (req, res) => {
       sender,
       recipient,
     });
-    console.log(newMessage);
     chat.messages.push(newMessage.id);
     message = newMessage;
     return Promise.all([chat.save(), message.save()]);
   })
   .then(() => {
-    const userSockets = req.app.settings.userSockets;
-    const func = (userSocket) => {
-      userSocket.emit('newMessage', message);
-    };
-    userSockets[recipient].forEach(func);
     res.json({
       success: true,
       message,

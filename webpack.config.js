@@ -59,11 +59,11 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
     alias: {
-      styles: 'css',
-      assets: 'assets',
-      api: 'api',
-      reducers: 'src/frontend/reducers',
-      actions: 'src/frontend/actions'
+      styles: path.resolve(__dirname, 'css'),
+      assets: path.resolve(__dirname, 'assets'),
+      api: path.resolve(__dirname, 'api'),
+      reducers: path.resolve(__dirname, 'src/frontend/reducers'),
+      actions: path.resolve(__dirname, 'src/frontend/actions')
     }
   }
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 // messages is an array that has each message content, an id, and whether it's yours
 // The message array must have a key called user that is either THEM or YOU
-// TODO the colors of the messages shoild probably be different
-// TODO requires containor
-const MessageBox = messages => (
+// TODO the colors of the messages should probably be different
+// TODO requires container
+
+const MessagesBox = ({ messages }) => (
   <div className="chat_body">
     {messages.map(message =>
       <div key={message.id} className={`chatmessage${message.user}`}>
@@ -13,4 +14,4 @@ const MessageBox = messages => (
   </div>
   );
 
-export default MessageBox;
+export default MessagesBox;

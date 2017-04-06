@@ -1,5 +1,4 @@
 import { signIn as apiSignIn } from 'api';
-
 // thunk
 export const signIn = (email, password) => (/* dispatch */) => {
   apiSignIn(email, password)

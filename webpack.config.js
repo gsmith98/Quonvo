@@ -61,7 +61,8 @@ module.exports = {
     alias: {
       styles: path.resolve(__dirname, 'css'),
       assets: path.resolve(__dirname, 'assets'),
-      api: path.resolve(__dirname, 'api')
+      api: path.resolve(__dirname, 'api'),
+      reducers: path.resolve(__dirname, 'src/frontend/reducers')
     }
   }
 };

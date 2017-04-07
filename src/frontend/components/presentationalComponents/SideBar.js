@@ -7,17 +7,19 @@ import YourQuestions from './YourQuestions';
 const SideBar = ({ clickToMinimize, isMinimized, clickToMaximize }) => {
   if (!isMinimized) {
     return (
-      <div className="menu_container">
-        <Profile />
-        <br />
-        <AskAQuestion />
-        <br />
-        <Archives />
-        <br />
-        <YourQuestions />
-        <br />
-        <div onClick={clickToMinimize} className="menu_icon">
-          <img alt="" src="assets/arrow-01.png" className="icon" />
+      <div className="menu_attempt">
+        <div className="menu_container">
+          <Profile />
+          <br />
+          <AskAQuestion />
+          <br />
+          <Archives />
+          <br />
+          <YourQuestions />
+          <br />
+          <div onClick={clickToMinimize} className="menu_icon">
+            <img alt="" src="assets/arrow-01.png" className="icon" />
+          </div>
         </div>
       </div>
     );

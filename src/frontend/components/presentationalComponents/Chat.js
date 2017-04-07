@@ -13,7 +13,8 @@ const Chat = ({ sendMessage, chattingPartner }) => {
 
   return (
     <div className="chat_part">
-      <div className="chat_box_full">
+      <div className="spacer_overlap" />
+      <div className="chat_whee">
         <div className="wrapper">
           <div className="chat_top">
             <img alt="" className="chatprofiler" src="assets/chat_profile_icon-01.png" />
@@ -39,8 +40,8 @@ const Chat = ({ sendMessage, chattingPartner }) => {
         </div>
 
       </div>
-
     </div>
+
   );
 };
 

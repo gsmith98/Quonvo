@@ -17,7 +17,7 @@ const Chat = ({ sendMessage, chattingPartner }) => {
         <div className="wrapper">
           <div className="chat_top">
             <img alt="" className="chatprofiler" src="assets/chat_profile_icon-01.png" />
-            <div className="chat_intro bold" style={{ fontSize: '24px' }}>
+            <div className="chat_intro bold">
                 CONVERSATION WITH {chattingPartner}
             </div>
           </div>

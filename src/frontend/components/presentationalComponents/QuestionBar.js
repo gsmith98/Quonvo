@@ -5,9 +5,9 @@ const QuestionBar = ({ listOfQuestions, onQuestionClick }) => (
   <div className="question_bar">
     <div
       className="question_header bold"
-      style={{ fontSize: '18px', padding: '2vh 0vh 0vh 3vh' }}
+      style={{ letterSpacing: '0.1vw' }}
     >
-      Lend an Ear
+      LEND AN EAR
     </div>
     <div className="question_sidebar_display">
       <div className="question_column">

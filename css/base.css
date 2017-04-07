@@ -31,9 +31,9 @@ html{
 {
   font-family : Roboto;
   font-weight : bold;
-  font-size : 18px;
-  line-height : 24px;
-  letter-spacing : 7.2px;
+  font-size: 2vw;
+  line-height: 2.7vw;
+  letter-spacing : 0.1vw;
   color : #231F20;
   color : rgb(35, 31, 32);
 }

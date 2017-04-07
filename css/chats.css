@@ -7,11 +7,18 @@
 }
 
 .chat_top{
-  flex:1;
-  width: 95%;
+  /*flex:0.7;*/
   position: relative;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  border-bottom: 3px solid lightgrey;
+  width: 85%;
+}
+
+.wrapper{
+  flex: 0.7;
   display: flex;
-  flex-direction: column;
+justify-content: center;
 }
 
 
@@ -20,57 +27,82 @@
   color : black;
   text-align: left;
   font-size: 40px;
-  padding-top: 8vh;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   position:absolute;
     top:0;
     right:1;
-    padding-left: 1.6vw;
     padding-top: 3vh;
+    max-width: 80%;
   /*margin-top:auto;
   margin-bottom:auto;*/
 }
 
 .chat_body{
-  flex: 3;
   overflow: scroll;
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 85%;
+  padding-top: 1em;
 }
+
+
+.wrapper2{
+  flex: 3;
+  display: flex;
+  justify-content: center;
+}
+
 
 .message_text{
   font-family : Roboto;
-  font-size : 11px;
+  font-size : 15px;
   font-weight : normal;
-  line-height : 12px;
+  line-height : 16px;
   flex: 2;
-  color : grey;
+  color : black;
   letter-spacing : 0.75px;
+  -webkit-animation: fadein 0.25s; /* Safari, Chrome and Opera > 0.52.0.5 */
+      -moz-animation: fadein 0.25s; /* Firefox < 0.56 */
+       -ms-animation: fadein 0.25s; /* Internet Explorer */
+        -o-animation: fadein 0.25s;
+           animation: fadein 0.25s;
 }
 
+/*@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}*/
+
+
+
 .respond_body{
-  flex:1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 3px solid lightgrey;
+  width: 85%;
+}
+
+.wrapper3{
+  flex:0.5;
   display: flex;
   justify-content: center;
 }
 
 
 .chat_response_body{
-  flex: 4;
-  background : white;
-  border-radius : 12px;
-  -moz-border-radius : 12px;
-  -webkit-border-radius : 12px;
+  flex: 6;
+  background : rgba(255, 240, 222, 1);
+  resize: none;
   border: 0;
   padding: 1em;
-  max-height: 50%;
-  margin-left: 2vw;
+  max-height: 110%;
   /*margin-right: 6%;*/
-  margin-right: 22%;
   font-size: 14px;
+  -webkit-appearance:none;
 }
 
 button {
@@ -127,14 +159,14 @@ button {
 
   background : rgba(255, 240, 222, 1);
   /*border-radius : 39px;*/
-  border-radius: 39px 5px;
+  border-radius: 39px 0px 0px 0px;
   display: flex;
   height: 100vh;
   width: 100vh;
   flex: 1;
   flex-direction: column;
   overflow: hidden;
-  /*position: relative;*/
+    /*position: relative;*/
 
 }
 
@@ -156,8 +188,7 @@ max-height:70px;
 position:absolute;
   top:0;
   right:0;
-  margin-right: 23vw;
-  margin-top: 2vh;
+  margin: 2vh;
 }
 
 
@@ -167,18 +198,15 @@ position:absolute;
   align-self: flex-end;
   background : #EECBAE;
   background : rgba(238, 203, 174, 1);
-  border-radius : 12px;
-  -moz-border-radius : 12px;
-  -webkit-border-radius : 12px;
+  border-radius : 14px;
+  -moz-border-radius : 14px;
+  -webkit-border-radius : 14px;
   padding: 0.5em;
   max-width: 40%;
-  margin-bottom: 7px;
-  /*position:absolute;
-    top:0;
-    right:0;
-    margin-right: 5vw;
-    margin-top: 2vh;
-    padding-left: 0.7em;*/
+  margin-bottom: 5px;
+  margin-top: 4px;
+  margin-right: 1em;
+
   }
 
   .chatmessageTHEM{
@@ -187,12 +215,12 @@ position:absolute;
     align-self: left;
     background : #EECBAE;
     background : rgba(238, 203, 174, 1);
-    border-radius : 12px;
-    -moz-border-radius : 12px;
-    -webkit-border-radius : 12px;
+    border-radius : 14px;
+    -moz-border-radius : 14px;
+    -webkit-border-radius : 14px;
     margin-bottom: 7px;
+    margin-left: 1em;
 
-  padding: 0.5em;
   max-width: 40%;
     /*position:absolute;
       top:0;
@@ -204,6 +232,28 @@ position:absolute;
 
 .send_message{
   background : rgba(238, 203, 174, 1);
+  border-radius : 12px;
+  -moz-border-radius : 12px;
+  -webkit-border-radius : 12px;
+  margin: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+
+
+.send_message:hover, .send_message:focus, .send_message:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  background-color: #C6AB94;
 }
 
     /*THIS IS NOW CHAT FOR SHAREDSCREEN*/

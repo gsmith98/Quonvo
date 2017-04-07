@@ -6,7 +6,7 @@ const MAX_USERS_PER_CHAT = 2;
 
 const socketHandler = (io, sessionStore) => (connection) => {
   const socket = connection;
-  console.log('connection');
+
   // Check cookie for sessionID and check that sessionID to prove they are logged in
   if (!socket.handshake.headers.cookie) {
     console.log('Socket connection attempted without user cookie');
@@ -32,12 +32,10 @@ const socketHandler = (io, sessionStore) => (connection) => {
       console.log('joinQuestion', room, handle);
       // check if this socket allowed to join
       if (rooms[room] && rooms[room].length >= MAX_USERS_PER_CHAT) {
-        console.log('question answered');
         socket.emit('joinResponse', { success: false, reason: 'That question is already being answered.' });
         return;
       }
       if (socket.room) {
-        console.log('socket involved');
         socket.emit('joinResponse', { success: false, reason: 'This socket is already involved with a question.' });
         return;
       }

@@ -29,7 +29,7 @@ const socketHandler = (io, sessionStore) => (connection) => {
     // so sockets have a 1 to 1 relationship with questions/chats
     socket.on('joinQuestion', ({ room, handle }) => {
       const rooms = io.nsps['/'].adapter.rooms; // all rooms in the '/' (default) namespace
-      console.log('joinQuestion', room, handle);
+
       // check if this socket allowed to join
       if (rooms[room] && rooms[room].length >= MAX_USERS_PER_CHAT) {
         socket.emit('joinResponse', { success: false, reason: 'That question is already being answered.' });

@@ -1,12 +1,11 @@
 
 .question_header{
-  flex: 0.5;
+  flex: 0.4;
   color : black;
   text-align: center;
-  font-size: 40px;
-  padding-top: 8vh;
-  align-items: center;
-  justify-content: center;
+  font-size: 2vw;
+  padding-top: 5vh;
+  max-width: 85%;
 }
 
 .question_display{
@@ -72,12 +71,12 @@
 
 .question_text{
   font-family : Roboto;
-  font-size : 17px;
+  font-size : 1.3vw;
   font-weight : bold;
-  line-height : 17px;
+  line-height : 1.4vw;
   color : black;
   flex: 2;
-  letter-spacing : 0.75px;
+  letter-spacing : 0.1vw;
   padding: 1em;
   padding-bottom: 2em;
   width: 85%;
@@ -101,18 +100,18 @@
 }
 
 .question_bar{
-  border-radius : 14px  / 15px;
-  -moz-border-radius : 14px  / 15px;
-  -webkit-border-radius : 14px  / 15px;
   background : white;
   height: 100vh;
-  width: 20vw;
-  margin-right: 2vw;
-
+  max-width: 20vw;
+  flex: 1;
   /*overflow-y: auto;*/
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /*position: relative;*/
   position: relative;
+  border-radius: 0px 39px 0px 0px;
+
 }
 
 .question_sidebar_display{
@@ -160,9 +159,9 @@
 
 .old_question_text{
   font-family : Roboto;
-  font-size : 17px;
+  font-size : 2vw;
   font-weight : bold;
-  line-height : 17px;
+  line-height : 1.5vw;
   color : black;
   flex: 2;
   letter-spacing : 0.75px;

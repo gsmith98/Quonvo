@@ -84,11 +84,6 @@ justify-content: center;
            animation: fadein 0.25s;
 }
 
-/*@-webkit-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}*/
-
 
 
 .respond_body{

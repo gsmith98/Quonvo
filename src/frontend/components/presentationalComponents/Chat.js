@@ -14,8 +14,8 @@ const Chat = ({ sendMessage, chattingPartner }) => {
   return (
     <div className="chat_part">
       <div className="chat_box_full">
-        <img alt="" className="chatprofiler" src="./assets/chat_profile_icon-01.png" />
         <div className="chat_top">
+          <img alt="" className="chatprofiler" src="assets/chat_profile_icon-01.png" />
           <div
             className="chat_intro bold"
             style={{ fontSize: '24px', padding: '4vh 0vh 0vh 5vh' }}
@@ -35,7 +35,7 @@ const Chat = ({ sendMessage, chattingPartner }) => {
             style={{ marginLeft: '3vw', marginRight: '6%' }}
             ref={(node) => { textArea = node; }}
           />
-          <button className="send_message" onClick={() => clickSend()} />
+          <button className=".send_message" onClick={() => clickSend()}> Send a message </button>
         </div>
 
       </div>

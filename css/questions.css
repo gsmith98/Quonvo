@@ -111,6 +111,7 @@
   /*position: relative;*/
   position: relative;
   border-radius: 0px 39px 0px 0px;
+  z-index: 5;
 
 }
 

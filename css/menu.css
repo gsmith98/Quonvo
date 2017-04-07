@@ -1,7 +1,12 @@
+.menu_attempt{
+  float:right;
+  position: absolute;
+  right: 0;
+}
+
 
 .menu_container{
   /*flex: 4;*/
-  float:right;
   display: flex;
   flex-direction: column;
   width: 10vw;
@@ -47,11 +52,15 @@ max-height:100px;
 
 
 .icon{
-  max-width:70px;
-  max-height:70px;
+  /*max-width:70px;
+  max-height:70px;*/
+  max-width: 5vw;
+  max-height: 5vw;
 }
 
 .icon_toobig{
-  max-width:50px;
-  max-height:50px;
+  /*max-width:50px;
+  max-height:50px;*/
+  max-width: 4vw;
+  max-height: 4vw;
 }

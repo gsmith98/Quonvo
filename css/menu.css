@@ -4,8 +4,9 @@
   float:right;
   display: flex;
   flex-direction: column;
-  width: 8vw;
-  max-height: 90vh;
+  width: 10vw;
+  padding-right: 3vw;
+  max-height: 100vh;
   /*flex: 0.5;*/
 
 }
@@ -15,7 +16,7 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 8vh;
-  padding-top: 6vh;
+  padding-top: 4vh;
   /*margin-bottom: 13vh;*/
 }
 
@@ -23,12 +24,12 @@
   text-align: center;
   font-family : Roboto;
   font-weight : bold;
-  font-size : 12px;
+  font-size : 14px;
   line-height : 15px;
   letter-spacing : 4px;
   color : #231F20;
   color : rgb(35, 31, 32);
-  /*padding-top: 1vh;*/
+  padding-top: 1vh;
 }
 
 .profile
@@ -41,15 +42,16 @@ border-width: 5px;
 border-radius: 50%;
 max-width:100px;
 max-height:100px;
+
 }
 
 
 .icon{
-  max-width:50px;
-  max-height:50px;
+  max-width:70px;
+  max-height:70px;
 }
 
 .icon_toobig{
-  max-width:35px;
-  max-height:35px;
+  max-width:50px;
+  max-height:50px;
 }

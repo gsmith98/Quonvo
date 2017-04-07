@@ -7,7 +7,7 @@ import YourQuestions from './YourQuestions';
 const SideBar = ({ clickToMinimize, isMinimized, clickToMaximize }) => {
   if (!isMinimized) {
     return (
-      <div className="menu_container" style={{ position: 'relative', paddingLeft: '4vw' }}>
+      <div className="menu_container">
         <Profile />
         <br />
         <AskAQuestion />

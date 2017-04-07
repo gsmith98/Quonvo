@@ -5,12 +5,14 @@ import React from 'react';
 // TODO requires container
 
 const MessagesBox = ({ messages }) => (
-  <div className="chat_body">
-    {messages.map(message =>
-      <div key={message.id} className={`chatmessage${message.user}`}>
-        <div className="message_text"> {message.content} </div>
-      </div>
-    )}
+  <div className="wrapper2">
+    <div className="chat_body">
+      {messages.map(message =>
+        <div key={message.id} className={`chatmessage${message.user}`}>
+          <div className="message_text"> {message.content} </div>
+        </div>
+      )}
+    </div>
   </div>
   );
 

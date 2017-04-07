@@ -62,6 +62,7 @@ const socketHandler = (io, sessionStore) => (connection) => {
 
       const from = io.nsps['/'].adapter.rooms[socket.room].handles[socket.id];
       socket.broadcast.to(socket.room).emit('message', { message, from });
+      socket.emit('sendResponse', { success: true });
     });
   })
   .catch(error => console.log(error));

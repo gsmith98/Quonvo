@@ -10,3 +10,6 @@ export default higherLevelReducer;
 // Other components should be agnostic and therefore not grab things from state manually
 
 export const getMessages = state => state.messages;
+
+// TODO make a higher level state, combineReducers, impement this selector there
+export const getChattingPartner = (/* state */) => 'QuonvoKid';

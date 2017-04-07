@@ -28,3 +28,14 @@ const newMessage = (content, user) => ({
 
 export const sendMessage = content => newMessage(content, 'YOU');
 export const receiveMessage = content => newMessage(content, 'THEM');
+
+export const openChat = () => ({ type: 'OPEN_CHAT' });
+export const closeChat = () => ({ type: 'CLOSE_CHAT' });
+export const newChattingPatner = partner => ({ type: 'NEW_PARTNER', partner });
+export const joinRoom = room => ({ type: 'JOIN_ROOM', room });
+
+export const onQuestionClick = questionId => (dispatch) => {
+  dispatch(joinRoom(questionId));
+  dispatch(newChattingPatner(questionId)); // TODO get actual chattingPartner handle
+  dispatch(openChat());
+};

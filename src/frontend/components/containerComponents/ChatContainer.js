@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { sendMessage, receiveMessage } from 'actions';
-import { getChattingPartner } from 'reducers';
+import { getChattingPartner, getRoom } from 'reducers';
 import Chat from '../presentationalComponents/Chat';
 
 // This is partly just to keep Chat a functional presentational component
@@ -17,9 +17,10 @@ class ChatWrapper extends Component {
     this.state.socket.on('joined', ({ handle }) => console.log(`${handle} joined`));
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
     this.state.socket.on('sendResponse', resp => console.log('sendResponse', resp));
-
-    // TODO remove this hardcoding
-    this.state.socket.emit('joinQuestion', { room: 'theroom', handle: 'ME' });
+    this.state.socket.on('connectionComplete', () => {
+      //                                         TODO remove this hardcoding
+      this.state.socket.emit('joinQuestion', { room: this.props.room, handle: 'ME' });
+    });
 
     // wrap sendMessage to also emit a socket event
     const wrappedSendMessage = (message) => {
@@ -37,7 +38,8 @@ class ChatWrapper extends Component {
 
 // TODO get chatting partner out of state, map state to props
 const mapStateToProps = state => ({
-  chattingPartner: getChattingPartner(state)
+  chattingPartner: getChattingPartner(state),
+  room: getRoom(state)
 });
 
 export default connect(mapStateToProps, { sendMessage, receiveMessage })(ChatWrapper);

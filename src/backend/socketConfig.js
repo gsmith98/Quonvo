@@ -64,6 +64,8 @@ const socketHandler = (io, sessionStore) => (connection) => {
       socket.broadcast.to(socket.room).emit('message', { message, from });
       socket.emit('sendResponse', { success: true });
     });
+
+    socket.emit('connectionComplete', {});
   })
   .catch(error => console.log(error));
 };

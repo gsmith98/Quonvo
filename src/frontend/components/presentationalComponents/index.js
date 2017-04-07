@@ -10,3 +10,4 @@ export { default as LiveQuestion } from './LiveQuestion';
 export { default as QuestionBar } from './QuestionBar';
 export { default as Chat } from './Chat';
 export { default as MessagesBox } from './MessagesBox';
+export { default as ParentPage } from './ParentPage';

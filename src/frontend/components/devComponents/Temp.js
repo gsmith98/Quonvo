@@ -1,8 +1,6 @@
 import React from 'react';
-import { ChatContainer } from '../containerComponents';
+import { ParentPageContainer } from '../containerComponents';
 
-const Temp = () =>
-    (<ChatContainer />)
-;
+const Temp = () => (<ParentPageContainer />);
 
 export default Temp;

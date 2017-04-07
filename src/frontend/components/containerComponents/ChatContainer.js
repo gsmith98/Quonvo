@@ -13,11 +13,13 @@ class ChatWrapper extends Component {
     super(props);
     // TODO move clientside socket config into another file/function?
     this.state = { socket: io('http://localhost:3000') }; // TODO replace with an env variable?
-
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message));
     this.state.socket.on('joined', ({ handle }) => console.log(`${handle} joined`));
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
     this.state.socket.on('sendResponse', resp => console.log('sendResponse', resp));
+
+    // TODO remove this hardcoding
+    this.state.socket.emit('joinQuestion', { room: 'theroom', handle: 'ME' });
 
     // wrap sendMessage to also emit a socket event
     const wrappedSendMessage = (message) => {
@@ -26,10 +28,6 @@ class ChatWrapper extends Component {
     };
 
     this.newProps = Object.assign({}, this.props, { sendMessage: wrappedSendMessage });
-  }
-
-  componentDidMount() {
-    this.state.socket.emit('joinQuestion', { room: 'theroom', handle: 'ME' });
   }
 
   render() {

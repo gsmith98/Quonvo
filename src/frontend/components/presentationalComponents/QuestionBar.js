@@ -1,7 +1,7 @@
 import React from 'react';
 import LiveQuestion from './LiveQuestion';
 // The liftOfQustions is an array of objects that has the keys content, subject, and id
-const QuestionBar = (listOfQuestions, onQuestionClick) => (
+const QuestionBar = ({ listOfQuestions, onQuestionClick }) => (
   <div className="question_bar">
     <div
       className="question_header bold"

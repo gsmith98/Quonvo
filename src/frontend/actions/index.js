@@ -30,6 +30,15 @@ const newMessage = (content, id, user) => ({
   }
 });
 
+const newQuestion = (label, content, id) => ({
+  type: 'NEW_QUESTION',
+  question: {
+    label,
+    content,
+    id
+  }
+});
+
 const newMessageThunk = (chatId, content, user) => (dispatch) => {
   apiSendMessage(chatId, content)
   .then((responseJson) => {
@@ -42,6 +51,17 @@ const newMessageThunk = (chatId, content, user) => (dispatch) => {
   });
 };
 
+export const newQuestionThunk = (label, content) => (dispatch) => {
+  apiCreateQuestion(label, content)
+  .then((responseJson) => {
+    const id = responseJson.newQuestion.id;
+    dispatch(newQuestion(label, content, id));
+  })
+  .catch((err) => {
+    console.log('error');
+    throw err;
+  });
+};
 
 export const sendMessage = (content, chatId) => newMessageThunk(chatId, content, 'YOU');
 export const receiveMessage = (content, chatId) => newMessageThunk(chatId, content, 'THEM');

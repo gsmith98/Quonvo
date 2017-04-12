@@ -13,14 +13,13 @@ const WriteQuestion = ({ onSubmitQuestion }) => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        const submitContent = contentField.value.trim();
+        const content = contentField.value.trim();
         // console.dir(event);
-        if (submitContent) {
-          onSubmitQuestion(submitContent, genre);
+        if (content) {
+          onSubmitQuestion(content, genre);
         }
       }}
     >
-
       <div className="container">
         <textarea
           className="question" ref={(node) => { contentField = node; }}

@@ -23,7 +23,9 @@ const chatRoom = (state = null, action) => {
 };
 
 // TODO could use chatRoom exclusively and not chatopen
-const individualChatReducer = combineReducers({ chatopen, chatRoom, chattingPartner, messages });
+const individualChatReducer = combineReducers({
+  chatopen, chatRoom, chattingPartner, messages
+});
 
 export default individualChatReducer;
 

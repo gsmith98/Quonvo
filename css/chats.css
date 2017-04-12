@@ -230,16 +230,11 @@ position:absolute;
     border-radius : 14px;
     -moz-border-radius : 14px;
     -webkit-border-radius : 14px;
-    margin-bottom: 7px;
+    padding: 0.5em;
+    max-width: 40%;
+    margin-bottom: 5px;
+    margin-top: 4px;
     margin-left: 1em;
-
-  max-width: 40%;
-    /*position:absolute;
-      top:0;
-      left:0;
-      margin-left: 3vw;
-      margin-top: 10vh;
-      padding-left: 0.7em;*/
     }
 
 .send_message{

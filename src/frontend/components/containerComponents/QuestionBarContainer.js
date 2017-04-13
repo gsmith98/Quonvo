@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 // import { getMessages } from 'reducers';
 import { onQuestionClick } from 'actions/chatActions';
+import { loadMoreQuestions } from 'actions';
 import QuestionBar from '../presentationalComponents/QuestionBar';
 
 
@@ -18,4 +19,4 @@ const mapStateToProps = (/* state */) => ({
   listOfQuestions: dummyQuestions // TODO write a selector for this
 });
 
-export default connect(mapStateToProps, { onQuestionClick })(QuestionBar);
+export default connect(mapStateToProps, { onQuestionClick, loadMoreQuestions })(QuestionBar);

@@ -1,7 +1,8 @@
 import {
-  signIn as apiSignIn,
-  createQuestion as apiCreateQuestion
-} from 'api';
+   signIn as apiSignIn,
+   createQuestion as apiCreateQuestion,
+   hotQuestions as apiHotQuestions
+   } from 'api';
 
 // thunk
 export const signIn = (email, password) => (/* dispatch */) => {
@@ -26,6 +27,21 @@ const newQuestion = (label, content, id) => ({
     id
   }
 });
+const loadQuestions = questions => ({
+  type: 'LOAD_QUESTIONS',
+  questions,
+});
+// TODO maybe augment the questions to a better form for the better
+export const loadMoreQuestionsThunk = limit => (dispatch) => {
+  apiHotQuestions(limit)
+  .then((responseJson) => {
+    dispatch(loadQuestions(responseJson.questions));
+  })
+  .catch((err) => {
+    console.log('error');
+    throw err;
+  });
+};
 
 export const newQuestionThunk = (label, content) => (dispatch) => {
   apiCreateQuestion(label, content)
@@ -38,3 +54,4 @@ export const newQuestionThunk = (label, content) => (dispatch) => {
     throw err;
   });
 };
+

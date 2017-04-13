@@ -2,7 +2,8 @@
 import {
    signIn as apiSignIn,
    sendMessage as apiSendMessage,
-   createQuestion as apiCreateQuestion
+   createQuestion as apiCreateQuestion,
+   hotQuestions as apiHotQuestions
    } from 'api';
 
 // thunk
@@ -39,6 +40,21 @@ const newQuestion = (label, content, id) => ({
     id
   }
 });
+const loadQuestions = questions => ({
+  type: 'LOAD_QUESTIONS',
+  questions,
+});
+// TODO maybe augment the questions to a better form for the better
+export const loadMoreQuestionsThunk = limit => (dispatch) => {
+  apiHotQuestions(limit)
+  .then((responseJson) => {
+    dispatch(loadQuestions(responseJson.questions));
+  })
+  .catch((err) => {
+    console.log('error');
+    throw err;
+  });
+};
 
 const newMessageThunk = (chatId, content, user) => (dispatch) => {
   apiSendMessage(chatId, content)
@@ -63,7 +79,6 @@ export const newQuestionThunk = (label, content) => (dispatch) => {
     throw err;
   });
 };
-
 
 export const sendMessage = (content, chatId) => newMessageThunk(chatId, content, 'YOU');
 export const receiveMessage = (content, chatId) => newMessageThunk(chatId, content, 'THEM');

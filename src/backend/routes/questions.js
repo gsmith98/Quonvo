@@ -70,8 +70,11 @@ router.get('/questions/hot?limit=number', (req, res) => {
         const bounty = Math.floor(
           (Date.now() - Date.parse(question.createdTime)) / millisecondsInTenSeconds
         );
-        const newQuestion = question;
-        newQuestion.bounty = bounty;
+        const newQuestion = {
+          bounty,
+          content: question.content,
+          label: question.subject
+        };
         return newQuestion;
       });
       res.json({

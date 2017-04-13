@@ -15,8 +15,8 @@ const SigninBar = ({ signIn }) => {
         }
       }}
     >
-      <input ref={(node) => { emailField = node; }} />
-      <input ref={(node) => { passField = node; }} />
+      <input className="emailField" ref={(node) => { emailField = node; }} />
+      <input className="passwordField" ref={(node) => { passField = node; }} />
       <button type="submit">Sign In</button>
     </form>
 

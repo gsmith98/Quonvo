@@ -63,6 +63,7 @@ export const newQuestionThunk = (label, content) => (dispatch) => {
   });
 };
 
+
 export const sendMessage = (content, chatId) => newMessageThunk(chatId, content, 'YOU');
 export const receiveMessage = (content, chatId) => newMessageThunk(chatId, content, 'THEM');
 

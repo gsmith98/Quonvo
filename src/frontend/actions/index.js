@@ -1,8 +1,10 @@
+
 import {
    signIn as apiSignIn,
    sendMessage as apiSendMessage,
    createQuestion as apiCreateQuestion
    } from 'api';
+
 // thunk
 export const signIn = (email, password) => (/* dispatch */) => {
   apiSignIn(email, password)
@@ -17,7 +19,6 @@ export const signIn = (email, password) => (/* dispatch */) => {
     throw err;
   });
 };
-
 // TODO make a thunk that hits API and uses id from response
 // or make it take an id and let whoever calls it do the saving
 

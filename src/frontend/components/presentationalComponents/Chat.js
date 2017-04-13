@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessagesBoxContainer } from '../containerComponents';
 
-const Chat = ({ sendMessage, chattingPartner }) => {
+const Chat = ({ sendMessage, chattingPartner, chatIndex }) => {
   let textArea;
   const clickSend = () => {
     const msgToSend = textArea.value.trim();
@@ -23,7 +23,7 @@ const Chat = ({ sendMessage, chattingPartner }) => {
             </div>
           </div>
         </div>
-        <MessagesBoxContainer />
+        <MessagesBoxContainer chatIndex={chatIndex} />
         <div className="wrapper3">
           <div className="respond_body">
             <textarea

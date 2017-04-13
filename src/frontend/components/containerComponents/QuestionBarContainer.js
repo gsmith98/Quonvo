@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 // import { getMessages } from 'reducers';
-import { onQuestionClick } from 'actions';
+import { onQuestionClick } from 'actions/chatActions';
 import QuestionBar from '../presentationalComponents/QuestionBar';
 
 

@@ -40,6 +40,8 @@ mongoose.connect(connect);
 
 // Set up of the build
 app.use(express.static('build'));
+
+// home/splash page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build/index.html'));
 });
@@ -64,7 +66,16 @@ app.use('/', routes);
 app.use('/', questionRoutes);
 app.use('/', activeChatRoutes);
 app.use('/', messageRoutes);
+app.get('/assets/:asset', (req, res) => {
+  res.sendFile(path.join(__dirname, `../../assets/${req.params.asset}`));
+});
 // TODO once more routes are added, add them here.
+
+// logged-in react-router webapp
+// TODO don't use "*", use a separate webapp
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../build/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

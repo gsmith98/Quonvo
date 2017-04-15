@@ -9,7 +9,7 @@ import * as Components from './index';
 const App = ({ match, location }) => (
   <div>
     {console.log(location) /* location.search is where querystring ends up */}
-    {match.params.subroute ? Components[match.params.subroute]({}) : <DevPostman url={process.env.DOMAIN || 'http://localhost:3000'} />}
+    {match.params.subroute ? Components[match.params.subroute]({}) : <DevPostman url={DOMAIN} />}
   </div>
 );
 

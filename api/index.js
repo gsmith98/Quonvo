@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 
-const urlRoot = process.env.DOMAIN || 'http://localhost:3000';
+const urlRoot = DOMAIN;
 
 // TODO remove console logs (or log only in dev env)
 const post = (url, data) =>

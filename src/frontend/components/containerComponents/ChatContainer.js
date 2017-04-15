@@ -15,9 +15,7 @@ class ChatWrapper extends Component {
     const chatIndex = props.chatIndex;
 
     // TODO move clientside socket config into another file/function?
-    console.log('domain', process.env.DOMAIN);
-    console.log('choice', process.env.DOMAIN || 'http://localhost:3000');
-    this.state = { socket: io(process.env.DOMAIN || 'http://localhost:3000') };
+    this.state = { socket: io(DOMAIN) };
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, chatIndex));
     this.state.socket.on('joined', ({ handle }) => console.log(`${handle} joined`));
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));

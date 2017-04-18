@@ -44,11 +44,13 @@ const loadQuestions = questions => ({
   type: 'LOAD_QUESTIONS',
   questions,
 });
-// TODO maybe augment the questions to a better form for the better
+
 export const loadMoreQuestionsThunk = limit => (dispatch) => {
   apiHotQuestions(limit)
   .then((responseJson) => {
-    dispatch(loadQuestions(responseJson.questions));
+    // select fields to keep, don't store whole mongo object
+    const qs = responseJson.questions.map(({ id, content, subject }) => ({ id, content, subject }));
+    dispatch(loadQuestions(qs));
   })
   .catch((err) => {
     console.log('error');
@@ -73,28 +75,6 @@ export const newQuestionThunk = (label, content) => (dispatch) => {
   .then((responseJson) => {
     const id = responseJson.newQuestion.id;
     dispatch(newQuestion(label, content, id));
-  })
-  .catch((err) => {
-    console.log('error');
-    throw err;
-  });
-};
-
-export const sendMessage = (content, chatId) => newMessageThunk(chatId, content, 'YOU');
-export const receiveMessage = (content, chatId) => newMessageThunk(chatId, content, 'THEM');
-
-export const openChat = () => ({ type: 'OPEN_CHAT' });
-export const closeChat = () => ({ type: 'CLOSE_CHAT' });
-export const newChattingPatner = partner => ({ type: 'NEW_PARTNER', partner });
-export const joinRoom = room => ({ type: 'JOIN_ROOM', room });
-
-export const onQuestionClick = (questionId, label, content) => (dispatch) => {
-  apiCreateQuestion(label, content)
-  .then((responseJson) => {
-    console.log('responseJson', responseJson);
-    dispatch(joinRoom(questionId));
-    dispatch(newChattingPatner(questionId)); // TODO get actual chattingPartner handle
-    dispatch(openChat());
   })
   .catch((err) => {
     console.log('error');

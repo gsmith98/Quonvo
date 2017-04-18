@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getMessages } from 'reducers/chatsReducer';
+import { getMessages } from 'reducers';
 import MessagesBox from '../presentationalComponents/MessagesBox';
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { sendMessage, receiveMessage } from 'actions/chatActions';
-import { getChattingPartner, getRoom } from 'reducers/chatsReducer';
+import { getChattingPartner, getRoom } from 'reducers';
 import Chat from '../presentationalComponents/Chat';
 
 // This is partly just to keep Chat a functional presentational component

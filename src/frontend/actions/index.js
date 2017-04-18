@@ -31,11 +31,13 @@ const loadQuestions = questions => ({
   type: 'LOAD_QUESTIONS',
   questions,
 });
-// TODO maybe augment the questions to a better form for the better
+
 export const loadMoreQuestionsThunk = limit => (dispatch) => {
   apiHotQuestions(limit)
   .then((responseJson) => {
-    dispatch(loadQuestions(responseJson.questions));
+    // select fields to keep, don't store whole mongo object
+    const qs = responseJson.questions.map(({ id, content, subject }) => ({ id, content, subject }));
+    dispatch(loadQuestions(qs));
   })
   .catch((err) => {
     console.log('error');
@@ -54,4 +56,3 @@ export const newQuestionThunk = (label, content) => (dispatch) => {
     throw err;
   });
 };
-

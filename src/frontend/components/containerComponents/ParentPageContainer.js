@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getChats } from 'reducers/chatsReducer';
+import { getChats } from 'reducers';
 import ParentPage from '../presentationalComponents/ParentPage';
 
 const mapStateToProps = state => ({

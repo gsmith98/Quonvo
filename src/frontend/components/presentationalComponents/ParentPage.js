@@ -1,13 +1,12 @@
 import React from 'react';
-import { ChatContainer, QuestionBarContainer } from '../containerComponents';
-import SideBar from './SideBar';
+import { ChatContainer, QuestionBarContainer, SideBarContainer } from '../containerComponents';
 
 const ParentPage = ({ chats }) => (
   <div className="page_container">
     <QuestionBarContainer />
     {chats.map(chat =>
       (chat.chatopen ? <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} /> : null))}
-    <SideBar />
+    <SideBarContainer />
   </div>
 );
 

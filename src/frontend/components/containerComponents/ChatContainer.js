@@ -54,7 +54,7 @@ class ChatWrapper extends Component {
   // TODO drop the modal here
   render() {
     return (
-      <div>
+      <div className="chat_part">
         <Modal
           style={customStyles}
           contentLabel="Modal"

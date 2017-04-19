@@ -46,6 +46,10 @@ class SideBarWrapper extends Component {
         <SideBar
           isMinimized={this.state.isMinimized}
           askQuestionClick={() => this.questionModalOpen()}
+          archivesClick={() => console.log('archivesClick')}
+          yourQuestionsClick={() => console.log('yourQuestionsClick')}
+          minimizeClick={() => console.log('minimizeClick')}
+          maximizeClick={() => console.log('maximizeClick')}
         />
       </div>
     );

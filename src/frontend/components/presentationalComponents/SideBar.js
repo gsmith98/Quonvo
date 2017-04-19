@@ -4,9 +4,16 @@ import AskAQuestion from './AskAQuestion';
 import Profile from './Profile';
 import YourQuestions from './YourQuestions';
 
-const SideBar = ({ askQuestionClick, clickToMinimize, isMinimized, clickToMaximize }) => (
+const SideBar = ({
+  isMinimized,
+  askQuestionClick,
+  archivesClick,
+  yourQuestionsClick,
+  minimizeClick,
+  maximizeClick
+}) => (
   (isMinimized) ? (
-    <div onClick={clickToMaximize} className="menu_icon">
+    <div onClick={() => maximizeClick()} className="menu_icon">
       <Profile />
       <br />
       <img alt={'Sorry could not be displayed'} src="assets/arrow-01.png" className="icon" />
@@ -18,11 +25,11 @@ const SideBar = ({ askQuestionClick, clickToMinimize, isMinimized, clickToMaximi
           <br />
           <AskAQuestion onPressButton={() => askQuestionClick()} />
           <br />
-          <Archives />
+          <Archives onPressButton={() => archivesClick()} />
           <br />
-          <YourQuestions />
+          <YourQuestions onPressButton={() => yourQuestionsClick()} />
           <br />
-          <div onClick={clickToMinimize} className="menu_icon">
+          <div onClick={() => minimizeClick()} className="menu_icon">
             <img alt="" src="assets/arrow-01.png" className="icon" />
           </div>
         </div>

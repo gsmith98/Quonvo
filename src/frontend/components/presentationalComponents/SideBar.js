@@ -1,5 +1,5 @@
 import React from 'react';
-import Archives from './Archives';
+import ArchiveButton from './ArchiveButton';
 import AskAQuestion from './AskAQuestion';
 import Profile from './Profile';
 import YourQuestions from './YourQuestions';
@@ -18,7 +18,7 @@ const SideBar = ({ askQuestionClick, clickToMinimize, isMinimized, clickToMaximi
           <br />
           <AskAQuestion onPressButton={() => askQuestionClick()} />
           <br />
-          <Archives />
+          <ArchiveButton />
           <br />
           <YourQuestions />
           <br />

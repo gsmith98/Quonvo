@@ -58,7 +58,7 @@ export const loadMoreQuestionsThunk = limit => (dispatch) => {
   });
 };
 
-const newMessageThunk = (chatId, content, user) => (dispatch) => {
+export const newMessageThunk = (chatId, content, user) => (dispatch) => {
   apiSendMessage(chatId, content)
   .then((responseJson) => {
     const id = responseJson.message.id;

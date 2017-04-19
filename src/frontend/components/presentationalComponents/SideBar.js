@@ -23,7 +23,12 @@ const SideBar = ({
   if (!isMinimized) {
     return (
       <div>
-        <Modal contentLabel="Modal" isOpen={isOpen} onRequestClose={() => modalClose()} >
+        <Modal
+          style={customStyles}
+          contentLabel="Modal"
+          isOpen={isOpen}
+          onRequestClose={() => modalClose()}
+        >
           <WriteQuestionContainer afterSubmit={() => modalClose()} />
         </Modal>
         <div className="menu_attempt">

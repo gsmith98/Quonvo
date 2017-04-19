@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
+import Modal from 'react-modal';
 import { sendMessage, receiveMessage } from 'actions/chatActions';
 import { getChattingPartner, getRoom } from 'reducers';
 import Chat from '../presentationalComponents/Chat';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
 // This is partly just to keep Chat a functional presentational component
 //  even though we want to use some state stuff and the constructor
@@ -15,10 +27,15 @@ class ChatWrapper extends Component {
     const chatIndex = props.chatIndex;
 
     // TODO move clientside socket config into another file/function?
-    this.state = { socket: io(DOMAIN) };
+    this.state = { socket: io(DOMAIN), modalActive: false };
+
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, chatIndex));
-    this.state.socket.on('joined', ({ handle }) => console.log(`${handle} joined`));
+    this.state.socket.on('joined', ({ handle }) => {
+      console.log(`${handle} joined`);
+      this.setState({ modalActive: true });
+    });
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
+
     this.state.socket.on('sendResponse', resp => console.log('sendResponse', resp));
     this.state.socket.on('connectionComplete', () => {
       //                                         TODO remove this hardcoding
@@ -34,8 +51,21 @@ class ChatWrapper extends Component {
     this.newProps = Object.assign({}, this.props, { sendMessage: wrappedSendMessage });
   }
 
+  // TODO drop the modal here
   render() {
-    return (<Chat {...this.newProps} />);
+    return (
+      <div>
+        <Modal
+          style={customStyles}
+          contentLabel="Modal"
+          isOpen={this.state.modalActive}
+          onRequestClose={() => this.setState({ modalActive: false })}
+        >
+          <p>An answerer for your question has arrived!</p>
+        </Modal>
+        <Chat {...this.newProps} />
+      </div>
+    );
   }
 }
 

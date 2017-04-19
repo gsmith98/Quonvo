@@ -38,10 +38,21 @@ const chatRoom = (state = null, action) => {
   }
 };
 
-// TODO could use chatRoom exclusively and not chatopen
-const individualChatReducer = combineReducers({ chatopen, chatRoom, chattingPartner, messages });
+// Have to use a reducer-creator function to get chat index properly initialized
+const individualChatReducerCreator = (index) => {
+  const chatIndex = (state = index) => state;
 
-export default individualChatReducer;
+  // TODO could use chatRoom exclusively and not chatopen
+  return combineReducers({
+    chatIndex,
+    chatopen,
+    chatRoom,
+    chattingPartner,
+    messages
+  });
+};
+
+export default individualChatReducerCreator;
 
 // Selectors below
 // They go here because this is the file that understands the state shape.

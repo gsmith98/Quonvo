@@ -1,15 +1,15 @@
-import chatReducer, {
+import chatReducerCreator, {
   getMessages as getChatMessages,
   getChattingPartner as getChatChattingPartner,
   getRoom as getChatRoom
- } from './chatReducer';
+} from './chatReducer';
 
 
 const MAX_CHATS = 2;
 
 // initial state is an array of the default states (distinct refs, not copies) of the chatreducer
 const initialState = Array(MAX_CHATS).fill(null)
-  .map((x, chatIndex) => Object.assign(chatReducer(undefined, {}), { chatIndex }));
+  .map((x, chatIndex) => chatReducerCreator(chatIndex)(undefined, {}));
 
 // TODO now these action.type strings are in many files. make consts to import?
 const chats = (state = initialState, action) => {
@@ -22,7 +22,7 @@ const chats = (state = initialState, action) => {
       // use the chatreducer on the relevant chat (also keep things not overwritten by chatreducer)
       return [
         ...state.slice(0, action.chatIndex),
-        Object.assign({}, state[action.chatIndex], chatReducer(state[action.chatIndex], action)),
+        chatReducerCreator(action.chatIndex)(state[action.chatIndex], action),
         ...state.slice(action.chatIndex + 1)
       ];
     default:

@@ -2,12 +2,8 @@
 .chat_part{
   max-width:40vw;
   max-height: 110vh;
-  /*margin-right: -0.5%;*/
   display: flex;
   flex: 2;
-  /*z-index: -1;*/
-  /*margin-left: -33px;*/
-  /*margin-left: -2.7vw;*/
   margin-left: -3%;
   background : rgba(255, 240, 222, 1);
   border-radius: 0px 39px 0px 0px;

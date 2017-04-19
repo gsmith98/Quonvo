@@ -5,7 +5,7 @@ import React from 'react';
 // when submit is clicked depending on the situation. Thus, we are writing
 // it as a purely presentational component, and whatever renders it will be
 // responsible for passing the onClick function in as a property
-const WriteQuestion = ({ onSubmitQuestion }) => {
+const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
   let contentField;
   let genre = 'Tech';
 
@@ -17,6 +17,7 @@ const WriteQuestion = ({ onSubmitQuestion }) => {
         // console.dir(event);
         if (content) {
           onSubmitQuestion(content, genre);
+          if (afterSubmit) afterSubmit();
         }
       }}
     >

@@ -1,20 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import Modal from 'react-modal';
-import { SideBar } from '../presentationalComponents/';
+import { SideBar, Modal } from '../presentationalComponents/';
 import { WriteQuestionContainer } from '../containerComponents';
 // TODO add UI actions for the minimizing and such
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
 
 class SideBarWrapper extends Component {
   constructor(props) {
@@ -36,7 +24,6 @@ class SideBarWrapper extends Component {
     return (
       <div>
         <Modal
-          style={customStyles}
           contentLabel="Modal"
           isOpen={this.state.questionModalActive}
           onRequestClose={() => this.questionModalClose()}
@@ -46,6 +33,10 @@ class SideBarWrapper extends Component {
         <SideBar
           isMinimized={this.state.isMinimized}
           askQuestionClick={() => this.questionModalOpen()}
+          archivesClick={() => console.log('archivesClick')}
+          yourQuestionsClick={() => console.log('yourQuestionsClick')}
+          minimizeClick={() => console.log('minimizeClick')}
+          maximizeClick={() => console.log('maximizeClick')}
         />
       </div>
     );

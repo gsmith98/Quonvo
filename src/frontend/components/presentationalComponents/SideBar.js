@@ -1,30 +1,18 @@
 import React from 'react';
-import Modal from 'react-modal';
 import Archives from './Archives';
 import AskAQuestion from './AskAQuestion';
 import Profile from './Profile';
 import YourQuestions from './YourQuestions';
+import Modal from './Modal';
 import { WriteQuestionContainer } from '../containerComponents';
 
 const SideBar = ({
    isOpen, modalOpen, modalClose, clickToMinimize, isMinimized, clickToMaximize
   }) => {
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
-    }
-  };
-
   if (!isMinimized) {
     return (
       <div>
         <Modal
-          style={customStyles}
           contentLabel="Modal"
           isOpen={isOpen}
           onRequestClose={() => modalClose()}

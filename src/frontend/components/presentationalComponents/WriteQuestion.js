@@ -17,6 +17,7 @@ const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
         // console.dir(event);
         if (content) {
           onSubmitQuestion(content, genre);
+          console.log(afterSubmit);
           if (afterSubmit) afterSubmit();
         }
       }}
@@ -27,14 +28,13 @@ const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
           placeholder="Enter text here ..."
         />
         <div className="genre">
-          <span className="genre_bold"> GENRE: </span>
+          <span className="genre_bold"> SUBJECT: </span>
           <select
-            defaultValue="Tech"
+            defaultValue="Travel"
             onChange={(x) => { genre = x.target.value; }} className="searchbar"
           >
-            <option value="Tech">Tech</option>
-            <option value="Lifestyle">Lifestyle</option>
-            <option value="Advice">Advice</option>
+            <option value="Travel">Travel</option>
+            <option value="Stuff">Stuff</option>
           </select>
         </div>
         <div className="button_container">

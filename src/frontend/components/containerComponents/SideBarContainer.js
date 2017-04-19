@@ -1,30 +1,53 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import SideBar from '../presentationalComponents/SideBar';
+import Modal from 'react-modal';
+import { SideBar } from '../presentationalComponents/';
+import { WriteQuestionContainer } from '../containerComponents';
 // TODO add UI actions for the minimizing and such
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
 class SideBarWrapper extends Component {
   constructor(props) {
     super(props);
-    this.state = { modal: false, isMinimized: false };
+    // TODO will isMinimized be a part of local state or redux state?
+    this.state = { questionModalActive: false, isMinimized: false };
   }
 
-  modalOpen() {
-    this.setState({ modal: true });
+  questionModalOpen() {
+    this.setState({ questionModalActive: true });
   }
 
-  modalClose() {
-    this.setState({ modal: false });
+  questionModalClose() {
+    this.setState({ questionModalActive: false });
   }
 
+  // TODO pass the SideBar clickToMinimize and clickToMaximize
   render() {
     return (
-      <SideBar
-        isOpen={this.state.modal}
-        modalOpen={() => this.modalOpen()}
-        modalClose={() => this.modalClose()}
-        isMinimized={this.state.isMinimized}
-      />
+      <div>
+        <Modal
+          style={customStyles}
+          contentLabel="Modal"
+          isOpen={this.state.questionModalActive}
+          onRequestClose={() => this.questionModalClose()}
+        >
+          <WriteQuestionContainer afterSubmit={() => this.questionModalClose()} />
+        </Modal>
+        <SideBar
+          isMinimized={this.state.isMinimized}
+          askQuestionClick={() => this.questionModalOpen()}
+        />
+      </div>
     );
   }
 }

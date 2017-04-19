@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import SideBar from '../presentationalComponents/QuestionBar';
+import SideBar from '../presentationalComponents/SideBar';
+// TODO add UI actions for the minimizing and such
 
-class SideBarContainer extends Component {
+class SideBarWrapper extends Component {
   constructor(props) {
     super(props);
-    this.state = { modal: false };
+    this.state = { modal: false, isMinimized: false };
   }
 
   modalOpen() {
@@ -18,7 +19,15 @@ class SideBarContainer extends Component {
 
   render() {
     return (
-      <SideBar isOpen={this.state.modal} modalOpen={this.modalOpen} modalClose={this.modalClose} />
+      <SideBar
+        isOpen={this.state.modal}
+        modalOpen={() => this.modalOpen()}
+        modalClose={() => this.modalClose()}
+        isMinimized={this.state.isMinimized}
+      />
     );
   }
 }
+
+
+export default connect(null, {})(SideBarWrapper);

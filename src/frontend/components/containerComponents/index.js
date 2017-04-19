@@ -4,3 +4,4 @@ export { default as ChatContainer } from './ChatContainer';
 export { default as QuestionBarContainer } from './QuestionBarContainer';
 export { default as ParentPageContainer } from './ParentPageContainer';
 export { default as WriteQuestionContainer } from './WriteQuestionContainer';
+export { default as SideBarContainer } from './SideBarContainer';

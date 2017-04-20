@@ -9,13 +9,9 @@ import QuestionBar from '../presentationalComponents/QuestionBar';
 const limit = 20;
 
 class QuestionBarWrapper extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.loadMoreQuestions(limit);
-     console.log('i first got here')
   }
 
   render() {
@@ -38,4 +34,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { onQuestionClick, nextQuestionPage, loadMoreQuestions })(QuestionBarWrapper);
+export default connect(mapStateToProps,
+                      { onQuestionClick, nextQuestionPage, loadMoreQuestions }
+                      )(QuestionBarWrapper);

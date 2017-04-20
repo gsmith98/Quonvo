@@ -32,6 +32,14 @@ const newMessage = (content, id, user) => ({
   }
 });
 
+export const nextQuestionPage = () => ({
+  type: 'NEXT_QUESTION_PAGE'
+});
+
+export const previousQuestionPage = () => ({
+  type: 'PREVIOUS_QUESTION_PAGE'
+});
+
 const newQuestion = (label, content, id) => ({
   type: 'NEW_QUESTION',
   question: {

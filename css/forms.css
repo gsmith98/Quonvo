@@ -10,6 +10,8 @@
     padding: 1em;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .container_signup{
@@ -37,6 +39,27 @@
 
 .genre{
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.genre_bold {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    color: #231F20;
+    color: rgb(35, 31, 32);
+    margin-right: 15%;
+    margin-top: 4%;
+}
+
+
+textarea {
+    resize: none;
 }
 
 .searchbar
@@ -87,8 +110,9 @@ input{
 
 .button_container{
   flex:0.1;
-  margin-top: 15%;
   display: flex;
+  width: 80%;
+  height: 5%;
 }
 
 .answer_button
@@ -107,7 +131,8 @@ input{
   box-shadow:none;
 
   font-family : Roboto;
-  font-size : 13px;
+  font-size : 20px;
+  font-weight: bold;
   line-height : 18px;
   letter-spacing : 1.3px;
   color : #A7A9AC;

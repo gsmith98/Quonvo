@@ -1,5 +1,7 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+
+const topics = ['Travel', 'Stuff']; // TODO pull from same place as model enum?
+const defaultHandle = 'Anonymous';
 
 // WriteQuestion will be used in a few places, with different functionality
 // when submit is clicked depending on the situation. Thus, we are writing
@@ -7,34 +9,38 @@ import React from 'react';
 // responsible for passing the onClick function in as a property
 const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
   let contentField;
-  let genre = 'Tech';
+  let genre = topics[0];
+  let handleField;
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         const content = contentField.value.trim();
-        // console.dir(event);
+        const handle = handleField.value.trim() || defaultHandle;
+
         if (content) {
-          onSubmitQuestion(content, genre);
-          console.log(afterSubmit);
+          onSubmitQuestion(content, genre, handle);
           if (afterSubmit) afterSubmit();
         }
       }}
     >
       <div className="container">
         <textarea
-          className="question" ref={(node) => { contentField = node; }}
+          className="question"
+          ref={(node) => { contentField = node; }}
           placeholder="Enter text here ..."
         />
+        <span>Handle</span>
+        <input placeholder={defaultHandle} ref={(node) => { handleField = node; }} />
         <div className="genre">
           <span className="genre_bold"> SUBJECT: </span>
           <select
-            defaultValue="Travel"
-            onChange={(x) => { genre = x.target.value; }} className="searchbar"
+            className="searchbar"
+            defaultValue={topics[0]}
+            onChange={(x) => { genre = x.target.value; }}
           >
-            <option value="Travel">Travel</option>
-            <option value="Stuff">Stuff</option>
+            {topics.map(topic => <option key={topic} value={topic}>{topic}</option>)}
           </select>
         </div>
         <div className="button_container">

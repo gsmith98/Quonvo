@@ -73,7 +73,8 @@ router.get('/questions/hot?limit=number', (req, res) => {
         const newQuestion = {
           bounty,
           content: question.content,
-          label: question.subject
+          label: question.subject,
+          handle: question.handle
         };
         return newQuestion;
       });

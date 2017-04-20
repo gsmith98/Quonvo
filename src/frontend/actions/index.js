@@ -58,8 +58,8 @@ export const loadMoreQuestionsThunk = limit => (dispatch) => {
   .then((responseJson) => {
     console.log(responseJson);
     // select fields to keep, don't store whole mongo object
-    const qs = responseJson.questions.map(({ id, content, subject, bounty }) =>
-    ({ id, content, subject, bounty }));
+    const qs = responseJson.questions.map(({ id, content, subject, bounty, handle }) =>
+    ({ id, content, subject, bounty, handle }));
     dispatch(loadQuestions(qs));
   })
   .catch((err) => {
@@ -80,8 +80,8 @@ export const newMessageThunk = (chatId, content, user) => (dispatch) => {
   });
 };
 
-export const newQuestionThunk = (label, content) => (dispatch) => {
-  apiCreateQuestion(label, content)
+export const newQuestionThunk = (label, content, handle) => (dispatch) => {
+  apiCreateQuestion(label, content, handle)
   .then((responseJson) => {
     const id = responseJson.newQuestion.id;
     dispatch(newQuestion(label, content, id));

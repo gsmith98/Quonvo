@@ -32,7 +32,7 @@ export default combineReducers({ chats, questions, currentQuestionPage, yourQues
 
 // selectors
 export const getQuestions = state => state.questions;
-export const getYourQuestion = state => state.yourQuestion.question; 
+export const getYourQuestion = state => state.yourQuestion.question;
 export const getYourQuestionAnswerer = state => state.yourQuestion.answerer;
 export const getCurrentQuestionPage = state => state.currentQuestionPage;
 export const getChats = state => chatsSels.getChats(state.chats);

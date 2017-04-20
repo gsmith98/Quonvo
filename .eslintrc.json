@@ -17,7 +17,8 @@
     "no-console": 0,
     "no-magic-numbers": ["error", {"ignore": [1,0,-1]}],
     "jsx-a11y/no-static-element-interactions": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "radix": 0
   },
   "globals": {
     "DOMAIN": true

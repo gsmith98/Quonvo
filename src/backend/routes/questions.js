@@ -4,6 +4,7 @@ const models = require('../models');
 const Question = models.Question;
 const User = models.User;
 const router = express.Router();
+const labels = models.subjects;
 
 
 // For the endpoint below there are 2 pieces needed on Req.body. A label, and
@@ -47,20 +48,32 @@ router.post('/questions/remove', (req, res) => {
 // but rather calculated on the front end. Average response time or # of users online
 // could also factor into the hotness function.
 
-router.get('/questions/hot?limit=number', (req, res) => {
+
+router.get('/questions/hot', (req, res) => {
   const userId = req.user.id;
-  const questionLimit = req.query.limit;
+  const questionLimit = parseInt(req.query.limit);
   User.findById(userId)
   .then((user) => {
-    console.log(user);
     // The map function below creates an array that can be passed into the $or logic
     // in order to return all questions that match any of the users interests
     const interests = user.interests;
-    const subjects = interests.map((subject) => {
-      const obj = {};
-      obj.subject = subject;
-      return obj;
-    });
+    let subjects;
+    if (interests.length === 0) {
+      console.log('I got here 1');
+      subjects = labels.map((subject) => {
+        console.log('I got here');
+        const obj = {};
+        obj.subject = subject;
+        return obj;
+      });
+    } else {
+      subjects = interests.map((subject) => {
+        const obj = {};
+        obj.subject = subject;
+        return obj;
+      });
+    }
+    console.log(subjects);
     Question.find({ $or: subjects })
     .sort({ date: 1 })
     .limit(questionLimit) // This limits the amount of questions mongo gives us to 20
@@ -73,7 +86,8 @@ router.get('/questions/hot?limit=number', (req, res) => {
         const newQuestion = {
           bounty,
           content: question.content,
-          label: question.subject
+          subject: question.subject,
+          id: question.id
         };
         return newQuestion;
       });

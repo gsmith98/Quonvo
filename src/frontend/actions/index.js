@@ -48,8 +48,10 @@ const loadQuestions = questions => ({
 export const loadMoreQuestionsThunk = limit => (dispatch) => {
   apiHotQuestions(limit)
   .then((responseJson) => {
+    console.log(responseJson);
     // select fields to keep, don't store whole mongo object
-    const qs = responseJson.questions.map(({ id, content, subject }) => ({ id, content, subject }));
+    const qs = responseJson.questions.map(({ id, content, subject, bounty }) =>
+    ({ id, content, subject, bounty }));
     dispatch(loadQuestions(qs));
   })
   .catch((err) => {

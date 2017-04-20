@@ -7,7 +7,7 @@ import React from 'react';
 // responsible for passing the onClick function in as a property
 const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
   let contentField;
-  let genre = 'Tech';
+  let genre = 'Travel';
 
   return (
     <form
@@ -16,7 +16,7 @@ const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
         const content = contentField.value.trim();
         // console.dir(event);
         if (content) {
-          onSubmitQuestion(content, genre);
+          onSubmitQuestion(genre, content);
           console.log(afterSubmit);
           if (afterSubmit) afterSubmit();
         }

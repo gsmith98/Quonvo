@@ -1,7 +1,7 @@
 import React from 'react';
 import LiveQuestion from './LiveQuestion';
 // The liftOfQustions is an array of objects that has the keys content, subject, and id
-const QuestionBar = ({ listOfQuestions, onQuestionClick, nextQuestionPage }) => (
+const QuestionBar = ({ listOfQuestions, yourQuestion, onQuestionClick, nextQuestionPage }) => (
   <div className="question_bar">
     <div
       className="question_header bold"
@@ -9,6 +9,17 @@ const QuestionBar = ({ listOfQuestions, onQuestionClick, nextQuestionPage }) => 
     >
       LEND AN EAR
     </div>
+    {console.log(yourQuestion)}
+    { yourQuestion ?
+      <div>
+        Your Question
+        <LiveQuestion
+          onQuestionClick={() => onQuestionClick(yourQuestion.id, yourQuestion.handle)}
+          questionText={yourQuestion.content}
+          questionSubject={yourQuestion.subject}
+        />
+      </div>
+      : null }
     <div className="question_sidebar_display">
       <div className="question_column">
         {listOfQuestions.map(question =>

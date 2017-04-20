@@ -40,10 +40,10 @@ export const previousQuestionPage = () => ({
   type: 'PREVIOUS_QUESTION_PAGE'
 });
 
-const newQuestion = (label, content, id) => ({
+const newQuestion = (subject, content, id) => ({
   type: 'NEW_QUESTION',
   question: {
-    label,
+    subject,
     content,
     id
   }
@@ -80,11 +80,11 @@ export const newMessageThunk = (chatId, content, user) => (dispatch) => {
   });
 };
 
-export const newQuestionThunk = (label, content, handle) => (dispatch) => {
-  apiCreateQuestion(label, content, handle)
+export const newQuestionThunk = (subject, content, handle) => (dispatch) => {
+  apiCreateQuestion(subject, content, handle)
   .then((responseJson) => {
     const id = responseJson.newQuestion.id;
-    dispatch(newQuestion(label, content, id));
+    dispatch(newQuestion(subject, content, id));
   })
   .catch((err) => {
     console.log('error');

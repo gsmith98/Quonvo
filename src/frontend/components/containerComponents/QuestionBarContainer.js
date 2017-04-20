@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { getMessages } from 'reducers';
 import { onQuestionClick } from 'actions/chatActions';
-import { getQuestions, getCurrentQuestionPage } from 'reducers';
+import { getQuestions, getCurrentQuestionPage, getYourQuestion } from 'reducers';
 import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage } from 'actions';
 import QuestionBar from '../presentationalComponents/QuestionBar';
 
@@ -30,7 +30,8 @@ const mapStateToProps = (state) => {
   console.log(allQuestions);
   console.log(currentQuestions);
   return {
-    listOfQuestions: currentQuestions
+    listOfQuestions: currentQuestions,
+    yourQuestion: getYourQuestion(state)
   };
 };
 

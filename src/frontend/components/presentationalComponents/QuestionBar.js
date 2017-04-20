@@ -14,7 +14,7 @@ const QuestionBar = ({ listOfQuestions, onQuestionClick, nextQuestionPage }) => 
         {listOfQuestions.map(question =>
           <LiveQuestion
             key={question.id}
-            onQuestionClick={() => onQuestionClick(question.id)}
+            onQuestionClick={() => onQuestionClick(question.id, question.handle)}
             questionText={question.content}
             questionSubject={question.subject}
           />

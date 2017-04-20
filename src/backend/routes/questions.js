@@ -17,7 +17,8 @@ router.post('/questions/new', (req, res) => {
   const question = new Question({
     subject: req.body.label,
     asker: req.user.id,
-    content: req.body.content
+    content: req.body.content,
+    handle: req.body.handle
   });
   question.save()
   .then(newQuestion =>
@@ -86,6 +87,7 @@ router.get('/questions/hot', (req, res) => {
         const newQuestion = {
           bounty,
           content: question.content,
+          handle: question.handle,
           subject: question.subject,
           id: question.id
         };

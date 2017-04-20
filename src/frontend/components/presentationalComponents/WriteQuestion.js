@@ -20,7 +20,7 @@ const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
         const handle = handleField.value.trim() || defaultHandle;
 
         if (content) {
-          onSubmitQuestion(content, genre, handle);
+          onSubmitQuestion(genre, content, handle);
           if (afterSubmit) afterSubmit();
         }
       }}
@@ -32,7 +32,7 @@ const WriteQuestion = ({ onSubmitQuestion, afterSubmit }) => {
           placeholder="Enter text here ..."
         />
         <span>Handle</span>
-        <input placeholder={defaultHandle} ref={(node) => { handleField = node; }} />
+        <input type="text" placeholder={defaultHandle} ref={(node) => { handleField = node; }} />
         <div className="genre">
           <span className="genre_bold"> SUBJECT: </span>
           <select

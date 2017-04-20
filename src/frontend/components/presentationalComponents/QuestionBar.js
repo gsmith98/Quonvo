@@ -1,6 +1,7 @@
 import React from 'react';
 import LiveQuestion from './LiveQuestion';
 // The liftOfQustions is an array of objects that has the keys content, subject, and id
+const limit = 20;
 const QuestionBar = ({ listOfQuestions, onQuestionClick, loadMoreQuestions }) => (
   <div className="question_bar">
     <div
@@ -14,14 +15,14 @@ const QuestionBar = ({ listOfQuestions, onQuestionClick, loadMoreQuestions }) =>
         {listOfQuestions.map(question =>
           <LiveQuestion
             key={question.id}
-            onQuestionClick={() => onQuestionClick(question.id)}
+            onQuestionClick={() => onQuestionClick(question.id, question.handle)}
             questionText={question.content}
             questionSubject={question.subject}
           />
       )
       }
       </div>
-      <button onClick={() => loadMoreQuestions()}>
+      <button onClick={() => loadMoreQuestions(limit)}>
       Get more questions
       </button>
     </div>

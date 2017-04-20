@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import Modal from 'react-modal';
 import { sendMessage, receiveMessage } from 'actions/chatActions';
 import { getChattingPartner, getRoom } from 'reducers';
-import Chat from '../presentationalComponents/Chat';
+import { Chat, Modal } from '../presentationalComponents';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
 
 // This is partly just to keep Chat a functional presentational component
 //  even though we want to use some state stuff and the constructor
@@ -54,9 +43,8 @@ class ChatWrapper extends Component {
   // TODO drop the modal here
   render() {
     return (
-      <div>
+      <div className="chat_part">
         <Modal
-          style={customStyles}
           contentLabel="Modal"
           isOpen={this.state.modalActive}
           onRequestClose={() => this.setState({ modalActive: false })}

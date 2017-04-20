@@ -22,6 +22,7 @@
   align-items: center;
   padding-bottom: 8vh;
   padding-top: 4vh;
+  cursor: pointer;
   /*margin-bottom: 13vh;*/
 }
 
@@ -35,6 +36,7 @@
   color : #231F20;
   color : rgb(35, 31, 32);
   padding-top: 1vh;
+
 }
 
 .profile
@@ -56,6 +58,12 @@ max-height:100px;
   max-height:70px;*/
   max-width: 5vw;
   max-height: 5vw;
+  cursor: pointer;
+  -webkit-transition: all 1s ease; /* Safari and Chrome */
+  -moz-transition: all 1s ease; /* Firefox */
+  -ms-transition: all 1s ease; /* IE 9 */
+  -o-transition: all 1s ease; /* Opera */
+  transition: all 1s ease;
 }
 
 .icon_toobig{
@@ -63,8 +71,11 @@ max-height:100px;
   max-height:50px;*/
   max-width: 4vw;
   max-height: 4vw;
+  cursor: pointer;
+
 }
 
-.modal{
-  
+
+.menu_icon:hover{
+  opacity: 0.5;
 }

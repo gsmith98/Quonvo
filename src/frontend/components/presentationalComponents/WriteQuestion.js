@@ -1,6 +1,6 @@
 import React from 'react';
 
-const topics = ['Travel', 'Stuff']; // TODO pull from same place as model enum?
+const topics = ['Travel', 'Stuff']; // TODO  pull from same place as model enum?
 const defaultHandle = 'Anonymous';
 
 // WriteQuestion will be used in a few places, with different functionality

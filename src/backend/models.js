@@ -64,6 +64,10 @@ const questionSchema = mongoose.Schema({
     ref: 'User',
     required: true
   },
+  handle: {
+    type: String,
+    default: 'Anonymous'
+  },
   content: {
     type: String,
     required: true

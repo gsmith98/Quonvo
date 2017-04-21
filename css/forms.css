@@ -111,18 +111,17 @@ input{
 .button_container{
   flex:0.1;
   display: flex;
-  width: 80%;
+  width: 50%;
   height: 5%;
 }
 
 .answer_button
 {
   width: 15vw;
-  height: 10vh;
+  height: 5vh;
   flex:1;
   margin-left: auto;
   margin-right: auto;
-
   background : #D99A83;
   background : rgba(217, 154, 131, 1);
   border-radius : 9px;

@@ -8,6 +8,7 @@ import { QuestionBar, Modal } from '../presentationalComponents';
 const limit = 1000;
 const questionRefresh = 10000;
 const numberOfQs = 5;
+const howEarlyShouldWeLoad = 2;
 
 class QuestionBarWrapper extends Component {
   constructor(props) {
@@ -35,7 +36,6 @@ class QuestionBarWrapper extends Component {
     }
     console.log(mostRecent, 'I GOT HERE');
 
-    const howEarlyShouldWeLoad = 2;
     if ((questions.length / numberOfQs) < page + howEarlyShouldWeLoad) {
       this.props.loadMoreQuestions(limit, mostRecent);
     }
@@ -78,16 +78,13 @@ class QuestionBarWrapper extends Component {
     const newProps = Object.assign(
       {},
       this.props,
-      { onQuestionClick: () => this.closeModal() },
-      { nextQuestionClick: () => this.nextQuestion()},
-      { previousQuestionClick: () => this.previousQuestion()}
+      { onQuestionClick: () => this.closeModal(),
+        nextQuestionClick: () => this.nextQuestion(),
+        previousQuestionClick: () => this.previousQuestion() }
       );
     let handleField;
 
     return (
-      <QuestionBar
-        {...this.props}
-      />
       <div>
         <Modal
           contentLabel="Modal"

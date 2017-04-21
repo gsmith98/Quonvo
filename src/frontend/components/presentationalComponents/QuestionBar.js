@@ -19,7 +19,7 @@ const QuestionBar = ({
     </div>
     {console.log(yourQuestion)}
     { yourQuestion ?
-      <div>
+      <div className="yourQuestion">
         Your Question
         <LiveQuestion
           onQuestionClick={() => onQuestionClick(yourQuestion.id, yourQuestion.handle)}

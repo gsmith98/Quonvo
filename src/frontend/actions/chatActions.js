@@ -31,3 +31,10 @@ export const onQuestionClick = (questionId, handle) => (dispatch) => {
   dispatch(newChattingPatner(handle, index));
   dispatch(openChat(index));
 };
+
+export const onQuesitonCreate = questionId => (dispatch) => {
+  const figureOutIndex = () => 0; // TODO make real
+  const index = figureOutIndex();
+
+  dispatch(joinRoom(questionId, index));
+};

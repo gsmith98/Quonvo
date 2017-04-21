@@ -17,6 +17,7 @@ const QuestionBar = ({ listOfQuestions, yourQuestion, onQuestionClick, nextQuest
           onQuestionClick={() => onQuestionClick(yourQuestion.id, yourQuestion.handle)}
           questionText={yourQuestion.content}
           questionSubject={yourQuestion.subject}
+          questionHandle={yourQuestion.handle}
         />
       </div>
       : null }
@@ -28,6 +29,7 @@ const QuestionBar = ({ listOfQuestions, yourQuestion, onQuestionClick, nextQuest
             onQuestionClick={() => onQuestionClick(question.id, question.handle)}
             questionText={question.content}
             questionSubject={question.subject}
+            questionHandle={question.handle}
           />
       )
       }

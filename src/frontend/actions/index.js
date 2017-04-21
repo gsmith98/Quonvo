@@ -6,6 +6,7 @@ import {
    hotQuestions as apiHotQuestions,
    newQuestions as apiNewQuestions
    } from 'api';
+import { onQuesitonCreate } from './chatActions';
 
 // thunk
 export const signIn = (email, password) => (/* dispatch */) => {
@@ -45,12 +46,14 @@ export const firstQuestionPage = () => ({
   type: 'FIRST_QUESTION_PAGE'
 });
 
-const newQuestion = (label, content, id) => ({
+const newQuestion = (subject, content, id, handle) => ({
+
   type: 'NEW_QUESTION',
   question: {
-    label,
+    subject,
     content,
-    id
+    id,
+    handle
   }
 });
 const loadQuestions = questions => ({
@@ -106,11 +109,29 @@ export const newMessageThunk = (chatId, content, user) => (dispatch) => {
   });
 };
 
-export const newQuestionThunk = (label, content, handle) => (dispatch) => {
-  apiCreateQuestion(label, content, handle)
+export const newQuestionThunk = (subject, content, handle) => (dispatch) => {
+  apiCreateQuestion(subject, content, handle)
   .then((responseJson) => {
-    const id = responseJson.newQuestion.id;
-    dispatch(newQuestion(label, content, id));
+    /*
+  {
+    newQuestion: {
+      __v: 0
+      _id: "58f94e261463e010512bd16e"
+      asker: "58da98a8db5a941c5f02ca43"
+      content: "make?"
+      createdTime: "2017-04-21T00:11:18.564Z"
+      handle: "me"
+      live: true
+      subject: "Stuff"
+      __proto__: Object
+    }
+    success: true
+  }
+    */
+    console.log('new Q response', responseJson);
+    const id = responseJson.newQuestion._id;
+    dispatch(newQuestion(subject, content, id, handle));
+    dispatch(onQuesitonCreate(id));
   })
   .catch((err) => {
     console.log('error');

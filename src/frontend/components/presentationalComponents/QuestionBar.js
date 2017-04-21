@@ -3,8 +3,9 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import LiveQuestion from './LiveQuestion';
 // The liftOfQustions is an array of objects that has the keys content, subject, and id
 const QuestionBar = ({
-   listOfQuestions, onQuestionClick, nextQuestionPage, previousQuestionPage
+   listOfQuestions, onQuestionClick, nextQuestionPage, previousQuestionPage, yourQuestion
 }) => (
+
   <div className="question_bar">
     <div
       className="question_header bold"
@@ -12,6 +13,18 @@ const QuestionBar = ({
     >
       LEND AN EAR
     </div>
+    {console.log(yourQuestion)}
+    { yourQuestion ?
+      <div>
+        Your Question
+        <LiveQuestion
+          onQuestionClick={() => onQuestionClick(yourQuestion.id, yourQuestion.handle)}
+          questionText={yourQuestion.content}
+          questionSubject={yourQuestion.subject}
+          questionHandle={yourQuestion.handle}
+        />
+      </div>
+      : null }
     <div className="question_sidebar_display">
       <div className="question_column">
         {listOfQuestions.map(question =>
@@ -20,6 +33,7 @@ const QuestionBar = ({
             onQuestionClick={() => onQuestionClick(question.id, question.handle)}
             questionText={question.content}
             questionSubject={question.subject}
+            questionHandle={question.handle}
           />
       )
       }

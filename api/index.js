@@ -40,6 +40,6 @@ export const signup = (email, password, interests) => post(`${urlRoot}/auth/sign
 export const google = () => get(`${urlRoot}/auth/google`);
 export const createChat = (content, questionId, bounty, asker) => post(`${urlRoot}/activeChats/new`, { content, questionId, bounty, asker });
 export const sendMessage = (chatId, content) => post(`${urlRoot}/messages/new`, { chatId, content });
-export const createQuestion = (label, content, handle) => post(`${urlRoot}/questions/new`, { label, content, handle });
+export const createQuestion = (subject, content, handle) => post(`${urlRoot}/questions/new`, { subject, content, handle });
 export const hotQuestions = limit => get(`${urlRoot}/questions/hot?limit=${limit}`);
 export const newQuestions = date => get(`${urlRoot}/questions/hot?date=${date}`);

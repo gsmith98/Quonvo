@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { getMessages } from 'reducers';
 import { onQuestionClick } from 'actions/chatActions';
-import { getQuestions, getCurrentQuestionPage } from 'reducers';
+
+import { getQuestions, getCurrentQuestionPage, getYourQuestion } from 'reducers';
 import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previousQuestionPage, firstQuestionPage } from 'actions';
 import QuestionBar from '../presentationalComponents/QuestionBar';
 
-const limit = 20;
+const limit = 1000;
 const questionRefresh = 5000;
 const numberOfQs = 5;
 
@@ -63,7 +64,8 @@ const mapStateToProps = (state) => {
   return {
     listOfQuestions: currentQuestions,
     allQuestions,
-    currentPage: page
+    currentPage: page,
+    yourQuestion: getYourQuestion(state)
   };
 };
 

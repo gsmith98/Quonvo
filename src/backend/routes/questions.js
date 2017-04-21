@@ -4,10 +4,10 @@ const models = require('../models');
 const Question = models.Question;
 const User = models.User;
 const router = express.Router();
-const labels = models.subjects;
+const allSubjects = models.subjects;
 
 
-// For the endpoint below there are 2 pieces needed on Req.body. A label, and
+// For the endpoint below there are 2 pieces needed on Req.body. A subject, and
 // content. The user will be taken from req.user which exists because of the
 // session. Another thing to note is that the rest of the question object defaults
 // to the values we put in our model.
@@ -15,7 +15,7 @@ const labels = models.subjects;
 
 router.post('/questions/new', (req, res) => {
   const question = new Question({
-    subject: req.body.label,
+    subject: req.body.subject,
     asker: req.user.id,
     content: req.body.content,
     handle: req.body.handle
@@ -66,9 +66,7 @@ router.get('/questions/hot', (req, res) => {
     const interests = user.interests;
     let subjects;
     if (interests.length === 0) {
-      console.log('I got here 1');
-      subjects = labels.map((subject) => {
-        console.log('I got here');
+      subjects = allSubjects.map((subject) => {
         const obj = {};
         obj.subject = subject;
         return obj;

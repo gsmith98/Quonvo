@@ -6,7 +6,7 @@ import { getQuestions, getCurrentQuestionPage, getYourQuestion } from 'reducers'
 import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage } from 'actions';
 import QuestionBar from '../presentationalComponents/QuestionBar';
 
-const limit = 20;
+const limit = 1000;
 
 class QuestionBarWrapper extends Component {
 

@@ -4,8 +4,9 @@ import { ChatContainer, QuestionBarContainer, SideBarContainer } from '../contai
 const ParentPage = ({ chats }) => (
   <div className="page_container">
     <QuestionBarContainer />
-    {chats.map(chat =>
-      (chat.chatopen ? <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} /> : null))}
+    {chats.map(chat => (chat.chatRoom ?
+      <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} startOpen={chat.chatopen} />
+      : null))}
     <SideBarContainer />
   </div>
 );

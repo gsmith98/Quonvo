@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { sendMessage, receiveMessage } from 'actions/chatActions';
 import { getChattingPartner, getRoom } from 'reducers';
-import { Chat, Modal } from '../presentationalComponents';
+import { Chat } from '../presentationalComponents';
 
 
 // This is partly just to keep Chat a functional presentational component
@@ -16,12 +16,12 @@ class ChatWrapper extends Component {
     const chatIndex = props.chatIndex;
 
     // TODO move clientside socket config into another file/function?
-    this.state = { socket: io(DOMAIN), modalActive: false };
+    this.state = { socket: io(DOMAIN), chatOpen: props.startOpen };
 
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, chatIndex));
     this.state.socket.on('joined', ({ handle }) => {
       console.log(`${handle} joined`);
-      this.setState({ modalActive: true });
+      this.setState({ chatOpen: true });
     });
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
 
@@ -43,16 +43,11 @@ class ChatWrapper extends Component {
   // TODO drop the modal here
   render() {
     return (
-      <div className="chat_part">
-        <Modal
-          contentLabel="Modal"
-          isOpen={this.state.modalActive}
-          onRequestClose={() => this.setState({ modalActive: false })}
-        >
-          <p>An answerer for your question has arrived!</p>
-        </Modal>
-        <Chat {...this.newProps} />
-      </div>
+      this.state.chatOpen ?
+        <div className="chat_part">
+          <Chat {...this.newProps} />
+        </div>
+      : null
     );
   }
 }

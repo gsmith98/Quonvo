@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { getMessages } from 'reducers';
 import { onQuestionClick } from 'actions/chatActions';
-
 import { getQuestions, getCurrentQuestionPage, getYourQuestion } from 'reducers';
 import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previousQuestionPage, firstQuestionPage } from 'actions';
-import QuestionBar from '../presentationalComponents/QuestionBar';
+import { QuestionBar, Modal } from '../presentationalComponents';
 
 const limit = 1000;
 const questionRefresh = 10000;
 const numberOfQs = 5;
 
 class QuestionBarWrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { answerModalActive: false, clickedQid: null, clickedQhandle: null };
+  }
 
   componentDidMount() {
     this.props.loadMoreQuestions(limit, 0);
@@ -43,6 +45,7 @@ class QuestionBarWrapper extends Component {
     clearInterval(this.interval);
   }
 
+
   previousQuestion() {
     this.props.previousQuestionPage();
     clearInterval(this.interval);
@@ -54,13 +57,49 @@ class QuestionBarWrapper extends Component {
     clearInterval(this.interval);
     this.interval = setInterval(() => this.props.nextQuestionPage(), questionRefresh);
   }
+  submitModal(handleField) {
+    const chosenHandle = handleField.value.trim() || 'Anonymous';
+    // TODO send chosenHandle to question asker (add to onQuestionClick thunk)
+    console.log(chosenHandle);
+
+    this.props.onQuestionClick(this.state.clickedQid, this.state.clickedQhandle);
+    this.closeModal();
+  }
+
+  openModal(id, handle) {
+    this.setState({ answerModalActive: true, clickedQid: id, clickedQhandle: handle });
+  }
+
+  closeModal() {
+    this.setState({ answerModalActive: false, clickedQid: null, clickedQhandle: null });
+  }
+
   render() {
+    const newProps = Object.assign(
+      {},
+      this.props,
+      { onQuestionClick: () => this.closeModal() },
+      { nextQuestionClick: () => this.nextQuestion()},
+      { previousQuestionClick: () => this.previousQuestion()}
+      );
+    let handleField;
+
     return (
       <QuestionBar
         {...this.props}
-        nextQuestionClick={() => this.nextQuestion()}
-        previousQuestionClick={() => this.previousQuestion()}
       />
+      <div>
+        <Modal
+          contentLabel="Modal"
+          isOpen={this.state.answerModalActive}
+          onRequestClose={() => this.closeModal()}
+        >
+          <div>Answer this question under what name?</div>
+          <input type="text" placeholder="Anonymous" ref={(node) => { handleField = node; }} />
+          <button onClick={() => this.submitModal(handleField)}>Answer Question</button>
+        </Modal>
+        <QuestionBar {...newProps} />
+      </div>
     );
   }
 }

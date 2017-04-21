@@ -1,7 +1,10 @@
 import React from 'react';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import LiveQuestion from './LiveQuestion';
 // The liftOfQustions is an array of objects that has the keys content, subject, and id
-const QuestionBar = ({ listOfQuestions, onQuestionClick, nextQuestionPage }) => (
+const QuestionBar = ({
+   listOfQuestions, onQuestionClick, nextQuestionPage, previousQuestionPage
+}) => (
   <div className="question_bar">
     <div
       className="question_header bold"
@@ -22,9 +25,14 @@ const QuestionBar = ({ listOfQuestions, onQuestionClick, nextQuestionPage }) => 
       }
       </div>
     </div>
-    <button onClick={() => nextQuestionPage()}>
-    Get more questions
-    </button>
+    <ButtonGroup className="navigate_buttons">
+      <Button onClick={() => previousQuestionPage()} bsSize="large">
+      Previous
+      </Button>
+      <Button onClick={() => nextQuestionPage()} bsSize="large">
+      Next
+      </Button>
+    </ButtonGroup>
   </div>
 );
 

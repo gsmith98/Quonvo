@@ -3,7 +3,8 @@ import {
    signIn as apiSignIn,
    sendMessage as apiSendMessage,
    createQuestion as apiCreateQuestion,
-   hotQuestions as apiHotQuestions
+   hotQuestions as apiHotQuestions,
+   newQuestions as apiNewQuestions
    } from 'api';
 
 // thunk
@@ -40,6 +41,10 @@ export const previousQuestionPage = () => ({
   type: 'PREVIOUS_QUESTION_PAGE'
 });
 
+export const firstQuestionPage = () => ({
+  type: 'FIRST_QUESTION_PAGE'
+});
+
 const newQuestion = (label, content, id) => ({
   type: 'NEW_QUESTION',
   question: {
@@ -53,13 +58,34 @@ const loadQuestions = questions => ({
   questions,
 });
 
+const newQuestions = questions => ({
+  type: 'NEW_QUESTIONS',
+  questions,
+});
+
+export const newQuestionsThunk = date => (dispatch) => {
+  apiNewQuestions(date)
+  .then((responseJson) => {
+    console.log(responseJson);
+    // select fields to keep, don't store whole mongo object
+    const qs = responseJson.questions.map(({ id, content, subject, bounty, handle, createdTime }) =>
+    ({ id, content, subject, bounty, handle, createdTime }));
+    dispatch(newQuestions(qs));
+  })
+  .catch((err) => {
+    console.log('error');
+    throw err;
+  });
+};
+
+
 export const loadMoreQuestionsThunk = limit => (dispatch) => {
   apiHotQuestions(limit)
   .then((responseJson) => {
     console.log(responseJson);
     // select fields to keep, don't store whole mongo object
-    const qs = responseJson.questions.map(({ id, content, subject, bounty, handle }) =>
-    ({ id, content, subject, bounty, handle }));
+    const qs = responseJson.questions.map(({ id, content, subject, bounty, handle, createdTime }) =>
+    ({ id, content, subject, bounty, handle, createdTime }));
     dispatch(loadQuestions(qs));
   })
   .catch((err) => {

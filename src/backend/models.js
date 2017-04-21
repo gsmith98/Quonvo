@@ -6,7 +6,7 @@ const subjects = ['Stuff', 'Travel'];
 
 const userSchema = mongoose.Schema({
   createdTime: {
-    type: Date,
+    type: Number,
     default: Date.now
   },
   email: {
@@ -50,7 +50,7 @@ const userSchema = mongoose.Schema({
 
 const questionSchema = mongoose.Schema({
   createdTime: {
-    type: Date,
+    type: Number,
     default: Date.now
   },
   subject: {

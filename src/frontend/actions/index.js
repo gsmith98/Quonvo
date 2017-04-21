@@ -3,8 +3,7 @@ import {
    signIn as apiSignIn,
    sendMessage as apiSendMessage,
    createQuestion as apiCreateQuestion,
-   hotQuestions as apiHotQuestions,
-   newQuestions as apiNewQuestions
+   hotQuestions as apiHotQuestions
    } from 'api';
 import { onQuesitonCreate } from './chatActions';
 
@@ -61,29 +60,9 @@ const loadQuestions = questions => ({
   questions,
 });
 
-const newQuestions = questions => ({
-  type: 'NEW_QUESTIONS',
-  questions,
-});
 
-export const newQuestionsThunk = date => (dispatch) => {
-  apiNewQuestions(date)
-  .then((responseJson) => {
-    console.log(responseJson);
-    // select fields to keep, don't store whole mongo object
-    const qs = responseJson.questions.map(({ id, content, subject, bounty, handle, createdTime }) =>
-    ({ id, content, subject, bounty, handle, createdTime }));
-    dispatch(newQuestions(qs));
-  })
-  .catch((err) => {
-    console.log('error');
-    throw err;
-  });
-};
-
-
-export const loadMoreQuestionsThunk = limit => (dispatch) => {
-  apiHotQuestions(limit)
+export const loadMoreQuestionsThunk = (limit, date) => (dispatch) => {
+  apiHotQuestions(limit, date)
   .then((responseJson) => {
     console.log(responseJson);
     // select fields to keep, don't store whole mongo object

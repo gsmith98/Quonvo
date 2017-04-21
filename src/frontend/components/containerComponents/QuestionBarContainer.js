@@ -8,16 +8,15 @@ import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previous
 import QuestionBar from '../presentationalComponents/QuestionBar';
 
 const limit = 1000;
-const questionRefresh = 5000;
+const questionRefresh = 10000;
 const numberOfQs = 5;
 
 class QuestionBarWrapper extends Component {
 
   componentDidMount() {
-    this.props.loadMoreQuestions(limit);
+    this.props.loadMoreQuestions(limit, 0);
     this.interval = setInterval(() => this.props.nextQuestionPage(), questionRefresh);
   }
-
 
   componentDidUpdate() {
     if (this.props.listOfQuestions.length === 0) {
@@ -29,14 +28,14 @@ class QuestionBarWrapper extends Component {
     const page = this.props.currentPage;
     let mostRecent = 0;
     for (let i = 0; i < questions.length; i++) {
-      const date = Date.parse(questions[i].createdTime);
+      const date = questions[i].createdTime;
       if (date > mostRecent) mostRecent = date;
     }
     console.log(mostRecent, 'I GOT HERE');
 
     const howEarlyShouldWeLoad = 2;
-    if ((questions / page) < numberOfQs * howEarlyShouldWeLoad) {
-      // this.props.loadMoreQuestions('newQuestions');
+    if ((questions.length / numberOfQs) < page + howEarlyShouldWeLoad) {
+      this.props.loadMoreQuestions(limit, mostRecent);
     }
   }
 
@@ -44,9 +43,24 @@ class QuestionBarWrapper extends Component {
     clearInterval(this.interval);
   }
 
+  previousQuestion() {
+    this.props.previousQuestionPage();
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.props.nextQuestionPage(), questionRefresh);
+  }
+
+  nextQuestion() {
+    this.props.nextQuestionPage();
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.props.nextQuestionPage(), questionRefresh);
+  }
   render() {
     return (
-      <QuestionBar {...this.props} />
+      <QuestionBar
+        {...this.props}
+        nextQuestionClick={() => this.nextQuestion()}
+        previousQuestionClick={() => this.previousQuestion()}
+      />
     );
   }
 }

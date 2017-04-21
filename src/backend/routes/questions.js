@@ -51,8 +51,14 @@ router.post('/questions/remove', (req, res) => {
 
 
 router.get('/questions/hot', (req, res) => {
+  const defaultLimit = 100;
   const userId = req.user.id;
-  const questionLimit = parseInt(req.query.limit);
+  let questionLimit;
+  if (req.query.limit === 'newQuestions') {
+    questionLimit = defaultLimit;
+  } else {
+    questionLimit = parseInt(req.query.limit);
+  }
   User.findById(userId)
   .then((user) => {
     // The map function below creates an array that can be passed into the $or logic
@@ -87,7 +93,8 @@ router.get('/questions/hot', (req, res) => {
           content: question.content,
           handle: question.handle,
           subject: question.subject,
-          id: question.id
+          id: question.id,
+          createdTime: question.createdTime
         };
         return newQuestion;
       });

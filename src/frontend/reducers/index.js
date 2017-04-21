@@ -8,6 +8,8 @@ const currentQuestionPage = (state = 0, action) => {
       return state + 1;
     case 'PREVIOUS_QUESTION_PAGE':
       return state - 1;
+    case 'FIRST_QUESTION_PAGE':
+      return 0;
     default:
       return state;
   }

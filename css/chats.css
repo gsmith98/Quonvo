@@ -144,7 +144,7 @@ justify-content: center;
   -webkit-appearance:none;
 }
 
-button {
+/*button {
   flex: 1;
   background : rgba(238, 203, 174, 1);
   font-family : Roboto;
@@ -154,7 +154,7 @@ button {
   border: 1px solid;
   height: 50vh;
 
-}
+}*/
 
 
 .question_description{
@@ -285,6 +285,7 @@ position:absolute;
   transition-duration: 0.3s;
   -webkit-transition-property: transform;
   transition-property: transform;
+  cursor: pointer;
 }
 
 

@@ -22,6 +22,11 @@
 
 }
 
+.navigate_buttons{
+  height: 50px;
+  margin-bottom: 10%;
+}
+
 
 .question_display::-webkit-scrollbar {
     width: 14px;
@@ -63,11 +68,15 @@
   width: 100%;
   margin-bottom: 7%;
   position: relative;
+  cursor: pointer;
 
   /*margin-top: 2vw;
   margin-left: 2vw;*/
 }
 
+.questionTALL:hover{
+  background : #dbbaa0;
+}
 
 .question_text{
   font-family : Roboto;

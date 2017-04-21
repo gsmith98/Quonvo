@@ -51,14 +51,10 @@ router.post('/questions/remove', (req, res) => {
 
 
 router.get('/questions/hot', (req, res) => {
-  const defaultLimit = 100;
   const userId = req.user.id;
-  let questionLimit;
-  if (req.query.limit === 'newQuestions') {
-    questionLimit = defaultLimit;
-  } else {
-    questionLimit = parseInt(req.query.limit);
-  }
+  const questionLimit = parseInt(req.query.limit);
+  const date = parseInt(req.query.date);
+
   User.findById(userId)
   .then((user) => {
     // The map function below creates an array that can be passed into the $or logic
@@ -79,14 +75,17 @@ router.get('/questions/hot', (req, res) => {
       });
     }
     console.log(subjects);
-    Question.find({ $or: subjects })
+    Question.find({
+      $or: subjects,
+      createdTime: { $gt: date }
+    })
     .sort({ date: 1 })
     .limit(questionLimit) // This limits the amount of questions mongo gives us to 20
     .then((questions) => {
       const millisecondsInTenSeconds = 10000;
       const hotQuestions = questions.map((question) => {
         const bounty = Math.floor(
-          (Date.now() - Date.parse(question.createdTime)) / millisecondsInTenSeconds
+          (Date.now() - question.createdTime) / millisecondsInTenSeconds
         );
         const newQuestion = {
           bounty,

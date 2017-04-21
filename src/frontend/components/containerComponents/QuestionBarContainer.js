@@ -78,16 +78,13 @@ class QuestionBarWrapper extends Component {
     const newProps = Object.assign(
       {},
       this.props,
-      { onQuestionClick: () => this.closeModal() },
-      { nextQuestionClick: () => this.nextQuestion()},
-      { previousQuestionClick: () => this.previousQuestion()}
+      { onQuestionClick: (id, handle) => this.openModal(id, handle),
+        nextQuestionClick: () => this.nextQuestion(),
+        previousQuestionClick: () => this.previousQuestion() }
       );
     let handleField;
 
     return (
-      <QuestionBar
-        {...this.props}
-      />
       <div>
         <Modal
           contentLabel="Modal"

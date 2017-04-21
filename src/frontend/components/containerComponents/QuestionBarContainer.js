@@ -22,14 +22,15 @@ class QuestionBarWrapper extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.listOfQuestions.length === 0) {
-      console.log('i got here');
-      this.props.firstQuestionPage();
-    }
     const questions = this.props.allQuestions;
     console.log(questions);
     const page = this.props.currentPage;
     let mostRecent = 0;
+
+    if ((questions.length / numberOfQs) < page) {
+      console.log('i got here');
+      this.props.firstQuestionPage();
+    }
     for (let i = 0; i < questions.length; i++) {
       const date = questions[i].createdTime;
       if (date > mostRecent) mostRecent = date;

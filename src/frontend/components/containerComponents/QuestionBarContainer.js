@@ -6,7 +6,7 @@ import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previous
 import { QuestionBar, Modal } from '../presentationalComponents';
 
 const limit = 1000;
-const questionRefresh = 10000;
+const questionRefresh = 100000;
 const numberOfQs = 5;
 const howEarlyShouldWeLoad = 2;
 

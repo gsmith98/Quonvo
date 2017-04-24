@@ -68,6 +68,10 @@ const questionSchema = mongoose.Schema({
     type: String,
     default: 'Anonymous'
   },
+  answerer: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   content: {
     type: String,
     required: true

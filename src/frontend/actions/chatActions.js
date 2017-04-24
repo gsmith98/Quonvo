@@ -1,5 +1,7 @@
 // import { sendMessage as apiSendMessage } from 'api';
-
+import {
+   updateQuestion as apiUpdateQuestion
+   } from 'api';
 // actions affecting an individual chat
 
 let nextid = 0; // TODO make a thunk that hits API and uses id from response
@@ -27,11 +29,11 @@ export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, c
 export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {
   const figureOutIndex = () => 0; // TODO make real
   const index = figureOutIndex();
-
   dispatch(joinRoom(questionId, index));
   dispatch(setHandle(yourHandle, index));
   dispatch(newChattingPatner(theirHandle, index));
   dispatch(openChat(index));
+  apiUpdateQuestion(questionId);
 };
 
 export const onQuestionCreate = (questionId, handle) => (dispatch) => {

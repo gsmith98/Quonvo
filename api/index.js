@@ -42,3 +42,4 @@ export const createChat = (content, questionId, bounty, asker) => post(`${urlRoo
 export const sendMessage = (chatId, content) => post(`${urlRoot}/messages/new`, { chatId, content });
 export const createQuestion = (subject, content, handle) => post(`${urlRoot}/questions/new`, { subject, content, handle });
 export const hotQuestions = (limit, date) => get(`${urlRoot}/questions/hot?limit=${limit}&date=${date}`);
+export const updateQuestion = questionId => post(`${urlRoot}/questions/update`, { questionId });

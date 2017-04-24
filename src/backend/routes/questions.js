@@ -30,6 +30,24 @@ router.post('/questions/new', (req, res) => {
   .catch(err => res.send(err));
 });
 
+router.post('/questions/update', (req, res) => {
+  const answerer = req.user.id;
+  const id = req.body.questionId;
+  Question.findById(id)
+  .then((question) => {
+    const currentQuestion = question;
+    currentQuestion.live = false;
+    currentQuestion.answerer = answerer;
+    return question.save();
+  })
+  .then(newQuestion =>
+    res.json({
+      success: true,
+      newQuestion
+    })
+  )
+  .catch(err => res.send(err));
+});
 
 router.post('/questions/remove', (req, res) => {
   const id = req.body.questionId;
@@ -77,7 +95,8 @@ router.get('/questions/hot', (req, res) => {
     console.log(subjects);
     Question.find({
       $or: subjects,
-      createdTime: { $gt: date }
+      createdTime: { $gt: date },
+      live: true
     })
     .sort({ date: 1 })
     .limit(questionLimit) // This limits the amount of questions mongo gives us to 20

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { sendMessage, receiveMessage } from 'actions/chatActions';
+import { sendMessage, receiveMessage, newChattingPatner } from 'actions/chatActions';
 import { getChattingPartner, getRoom, getMyHandle } from 'reducers';
 import { Chat } from '../presentationalComponents';
 
@@ -20,14 +20,13 @@ class ChatWrapper extends Component {
 
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, this.chatIndex));
     this.state.socket.on('joined', ({ handle }) => {
-      console.log(`${handle} joined`);
+      this.props.newChattingPatner(handle, this.chatIndex);
       this.setState({ chatOpen: true });
     });
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
 
     this.state.socket.on('sendResponse', resp => console.log('sendResponse', resp));
     this.state.socket.on('connectionComplete', () => {
-      //                                         TODO remove this hardcoding
       this.state.socket.emit('joinQuestion', { room: this.props.room, handle: this.props.yourHandle });
     });
   }
@@ -63,4 +62,11 @@ export const bindIndexToActionCreator =
   (actionCreator, index) => (...args) => Object.assign(actionCreator(...args), { index });
 
 
-export default connect(mapStateToProps, { sendMessage, receiveMessage })(ChatWrapper);
+export default connect(
+  mapStateToProps,
+  {
+    sendMessage,
+    receiveMessage,
+    newChattingPatner
+  }
+)(ChatWrapper);

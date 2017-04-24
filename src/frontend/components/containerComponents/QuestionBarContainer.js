@@ -6,9 +6,9 @@ import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previous
 import { QuestionBar, Modal } from '../presentationalComponents';
 
 const limit = 1000;
-const questionRefresh = 10000;
+const questionRefresh = 1000000; // TODO make a realistic value
 const numberOfQs = 5;
-const howEarlyShouldWeLoad = 2;
+const howEarlyShouldWeLoad = -1; // TODO make a realistic value (see git issue #187)
 
 class QuestionBarWrapper extends Component {
   constructor(props) {
@@ -63,8 +63,8 @@ class QuestionBarWrapper extends Component {
     this.closeModal();
   }
 
-  openModal(id, handle) {
-    this.setState({ answerModalActive: true, clickedQid: id, clickedQhandle: handle });
+  openModal(id, theirHandle) {
+    this.setState({ answerModalActive: true, clickedQid: id, clickedQhandle: theirHandle });
   }
 
   closeModal() {
@@ -75,7 +75,7 @@ class QuestionBarWrapper extends Component {
     const newProps = Object.assign(
       {},
       this.props,
-      { onQuestionClick: (id, handle) => this.openModal(id, handle),
+      { onQuestionClick: (id, theirHandle) => this.openModal(id, theirHandle),
         nextQuestionClick: () => this.nextQuestion(),
         previousQuestionClick: () => this.previousQuestion() }
       );

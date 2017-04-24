@@ -24,11 +24,12 @@ export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatInd
 export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });
 
 
-export const onQuestionClick = (questionId, theirHandle) => (dispatch) => {
+export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {
   const figureOutIndex = () => 0; // TODO make real
   const index = figureOutIndex();
 
   dispatch(joinRoom(questionId, index));
+  dispatch(setHandle(yourHandle, index));
   dispatch(newChattingPatner(theirHandle, index));
   dispatch(openChat(index));
 };

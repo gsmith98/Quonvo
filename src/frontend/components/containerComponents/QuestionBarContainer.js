@@ -28,14 +28,12 @@ class QuestionBarWrapper extends Component {
     let mostRecent = 0;
 
     if ((questions.length / numberOfQs) < page) {
-      console.log('i got here');
       this.props.firstQuestionPage();
     }
     for (let i = 0; i < questions.length; i++) {
       const date = questions[i].createdTime;
       if (date > mostRecent) mostRecent = date;
     }
-    console.log(mostRecent, 'I GOT HERE');
 
     if ((questions.length / numberOfQs) < page + howEarlyShouldWeLoad) {
       this.props.loadMoreQuestions(limit, mostRecent);
@@ -60,10 +58,8 @@ class QuestionBarWrapper extends Component {
   }
   submitModal(handleField) {
     const chosenHandle = handleField.value.trim() || 'Anonymous';
-    // TODO send chosenHandle to question asker (add to onQuestionClick thunk)
-    console.log(chosenHandle);
 
-    this.props.onQuestionClick(this.state.clickedQid, this.state.clickedQhandle);
+    this.props.onQuestionClick(this.state.clickedQid, this.state.clickedQhandle, chosenHandle);
     this.closeModal();
   }
 
@@ -105,13 +101,8 @@ class QuestionBarWrapper extends Component {
 const mapStateToProps = (state) => {
   const page = getCurrentQuestionPage(state);
   const allQuestions = getQuestions(state);
-  console.log(firstQuestionPage);
-
   const currentQuestions = allQuestions.slice(numberOfQs * page, (numberOfQs * page) + numberOfQs);
 
-  console.log(page);
-  console.log(allQuestions);
-  console.log(currentQuestions);
   return {
     listOfQuestions: currentQuestions,
     allQuestions,

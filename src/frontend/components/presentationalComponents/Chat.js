@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessagesBoxContainer } from '../containerComponents';
 
-const Chat = ({ sendMessage, chattingPartner, chatIndex }) => {
+const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex }) => {
   let textArea;
   const clickSend = () => {
     const msgToSend = textArea.value.trim();
@@ -19,7 +19,7 @@ const Chat = ({ sendMessage, chattingPartner, chatIndex }) => {
           <div className="chat_top">
             <img alt="" className="chatprofiler" src="assets/chat_profile_icon-01.png" />
             <div className="chat_intro bold">
-                CONVERSATION WITH {chattingPartner}
+                CONVERSATION WITH {chattingPartner} AS {yourHandle}
             </div>
           </div>
         </div>

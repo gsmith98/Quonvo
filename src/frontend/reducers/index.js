@@ -41,3 +41,4 @@ export const getChats = state => chatsSels.getChats(state.chats);
 export const getMessages = (state, index) => chatsSels.getMessages(state.chats, index);
 export const getChattingPartner = (state, idx) => chatsSels.getChattingPartner(state.chats, idx);
 export const getRoom = (state, index) => chatsSels.getRoom(state.chats, index);
+export const getMyHandle = (state, index) => chatsSels.getMyHandle(state.chats, index);

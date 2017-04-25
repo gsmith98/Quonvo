@@ -9,6 +9,15 @@ const chattingPartner = (state = null, action) => {
   }
 };
 
+const myHandle = (state = 'defaultHandle', action) => {
+  switch (action.type) {
+    case 'SET_HANDLE':
+      return action.handle;
+    default:
+      return state;
+  }
+};
+
 const messages = (state = [], action) => {
   switch (action.type) {
     case 'NEW_MESSAGE':
@@ -47,6 +56,7 @@ const individualChatReducerCreator = (index) => {
     chatIndex,
     chatopen,
     chatRoom,
+    myHandle,
     chattingPartner,
     messages
   });
@@ -62,3 +72,4 @@ export const getMessages = state => state.messages;
 export const getChattingPartner = state => state.chattingPartner;
 export const getChatOpen = state => state.chatopen;
 export const getRoom = state => state.chatRoom;
+export const getMyHandle = state => state.myHandle;

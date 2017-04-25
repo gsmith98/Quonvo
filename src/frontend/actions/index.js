@@ -5,7 +5,7 @@ import {
    createQuestion as apiCreateQuestion,
    hotQuestions as apiHotQuestions
    } from 'api';
-import { onQuesitonCreate } from './chatActions';
+import { onQuestionCreate } from './chatActions';
 
 // thunk
 export const signIn = (email, password) => (/* dispatch */) => {
@@ -110,7 +110,7 @@ export const newQuestionThunk = (subject, content, handle) => (dispatch) => {
     console.log('new Q response', responseJson);
     const id = responseJson.newQuestion._id;
     dispatch(newQuestion(subject, content, id, handle));
-    dispatch(onQuesitonCreate(id));
+    dispatch(onQuestionCreate(id, handle));
   })
   .catch((err) => {
     console.log('error');

@@ -1,7 +1,8 @@
 import chatReducerCreator, {
   getMessages as getChatMessages,
   getChattingPartner as getChatChattingPartner,
-  getRoom as getChatRoom
+  getRoom as getChatRoom,
+  getMyHandle as getChatHandle
 } from './chatReducer';
 
 
@@ -19,6 +20,7 @@ const chats = (state = initialState, action) => {
     case 'OPEN_CHAT':
     case 'CLOSE_CHAT':
     case 'JOIN_ROOM':
+    case 'SET_HANDLE':
       // use the chatreducer on the relevant chat (also keep things not overwritten by chatreducer)
       return [
         ...state.slice(0, action.chatIndex),
@@ -38,3 +40,4 @@ export const getChats = theChats => theChats;
 export const getMessages = (theChats, index) => getChatMessages(theChats[index]);
 export const getChattingPartner = (theChats, index) => getChatChattingPartner(theChats[index]);
 export const getRoom = (theChats, index) => getChatRoom(theChats[index]);
+export const getMyHandle = (theChats, index) => getChatHandle(theChats[index]);

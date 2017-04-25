@@ -51,7 +51,7 @@ const userSchema = mongoose.Schema({
 const questionSchema = mongoose.Schema({
   createdTime: {
     type: Number,
-    default: Date.now
+    default: Date.now()
   },
   subject: {
     type: String,
@@ -147,26 +147,39 @@ const messageSchema = mongoose.Schema({
 const archivedchatSchema = mongoose.Schema({
   // For now we'll say the archivedChat is from the perspective of the asker
   createdTime: {
-    type: Date,
-    default: Date.now
+    type: Number,
+    default: Date.now()
   },
   rating: {
     type: Number,
     default: 0
   },
-  queston: {
+  question: {
+    type: String
+  },
+  questionId: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  questionSubject: {
+    type: String
+  },
+  asker: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  askerHandle: {
     type: String
   },
   answerer: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  answererHandle: {
     type: String
   },
   messages: {
-    type: [{
-      content: String,
-      asker: Boolean
-    // The boolean above lets us know which side we should render the message
-    // wheh an archive is rendered
-    }],
+    type: Array,
     required: true
   },
   upVotes: {
@@ -177,7 +190,12 @@ const archivedchatSchema = mongoose.Schema({
   views: {
     type: Number,
     default: 0
+  },
+  questionAnswered: {
+    type: Boolean,
+    required: true
   }
+
 
 });
 

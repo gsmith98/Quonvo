@@ -58,10 +58,6 @@ const mapStateToProps = (state, { chatIndex }) => ({
   chatOpen: getChatOpen(state, chatIndex)
 });
 
-// TODO is this being used?
-export const bindIndexToActionCreator =
-  (actionCreator, index) => (...args) => Object.assign(actionCreator(...args), { index });
-
 
 export default connect(
   mapStateToProps,

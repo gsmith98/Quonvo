@@ -6,9 +6,8 @@ import * as Components from './index';
 // webdevserver (npm run frontendDev) @ localhost:8080/ComponentName
 // with no ComponentName supplied you get the devtool for postman/sockets
 // TODO allow prop or state passing using url's querystring
-const App = ({ match, location }) => (
+const App = ({ match /* , location */ }) => ( // location.search is where querystring ends up
   <div>
-    {console.log(location) /* location.search is where querystring ends up */}
     {match.params.subroute ? Components[match.params.subroute]({}) : <DevPostman url={DOMAIN} />}
   </div>
 );

@@ -19,7 +19,6 @@ const QuestionBar = ({
     >
       LEND AN EAR
     </div>
-    {console.log(yourQuestion)}
     { yourQuestion ?
       <div className="yourQuestion">
         Your Question

@@ -30,7 +30,6 @@ const chats = (state = {}, action) => {
 export default chats;
 
 // SELECTORS
-// TODO combine selectors? otherwise we'll have to keep bubbling up lower level selectors
 export const getChats = theChats => theChats;
 export const getMessages = (theChats, index) => getChatMessages(theChats[index]);
 export const getChattingPartner = (theChats, index) => getChatChattingPartner(theChats[index]);

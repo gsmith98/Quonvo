@@ -24,6 +24,7 @@ export const closeChat = chatIndex => ({ type: 'CLOSE_CHAT', chatIndex });
 export const newChattingPatner = (partner, chatIndex) => ({ type: 'NEW_PARTNER', partner, chatIndex });
 export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatIndex });
 export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });
+export const questionReady = () => ({ type: 'ANSWERER_FOUND' });
 
 
 export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {

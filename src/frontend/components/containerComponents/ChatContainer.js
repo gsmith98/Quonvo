@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { sendMessage, receiveMessage, newChattingPatner } from 'actions/chatActions';
-import { getChattingPartner, getRoom, getMyHandle } from 'reducers';
+import { sendMessage, receiveMessage, newChattingPatner, questionReady } from 'actions/chatActions';
+import { getChattingPartner, getRoom, getMyHandle, getChatOpen } from 'reducers';
 import { Chat } from '../presentationalComponents';
 
 
@@ -16,12 +16,12 @@ class ChatWrapper extends Component {
     this.chatIndex = props.chatIndex;
 
     // TODO move clientside socket config into another file/function?
-    this.state = { socket: io(DOMAIN), chatOpen: props.startOpen };
+    this.state = { socket: io(DOMAIN) };
 
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, this.chatIndex));
     this.state.socket.on('joined', ({ handle }) => {
       this.props.newChattingPatner(handle, this.chatIndex);
-      this.setState({ chatOpen: true });
+      this.props.questionReady();
     });
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
 
@@ -42,7 +42,7 @@ class ChatWrapper extends Component {
     this.newProps = Object.assign({}, this.props, { sendMessage: wrappedSendMessage });
 
     return (
-      this.state.chatOpen ?
+      this.props.chatOpen ?
         <div className="chat_part">
           <Chat {...this.newProps} />
         </div>
@@ -54,7 +54,8 @@ class ChatWrapper extends Component {
 const mapStateToProps = (state, { chatIndex }) => ({
   chattingPartner: getChattingPartner(state, chatIndex),
   room: getRoom(state, chatIndex),
-  yourHandle: getMyHandle(state, chatIndex)
+  yourHandle: getMyHandle(state, chatIndex),
+  chatOpen: getChatOpen(state, chatIndex)
 });
 
 // TODO is this being used?
@@ -67,6 +68,7 @@ export default connect(
   {
     sendMessage,
     receiveMessage,
-    newChattingPatner
+    newChattingPatner,
+    questionReady
   }
 )(ChatWrapper);

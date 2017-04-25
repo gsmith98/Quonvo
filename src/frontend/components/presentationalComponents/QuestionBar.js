@@ -6,6 +6,8 @@ const QuestionBar = ({
    listOfQuestions,
    onQuestionClick,
    yourQuestion,
+   yourQuestionClick,
+   yourQuestionReady,
    nextQuestionClick,
    previousQuestionClick
 }) => (
@@ -22,7 +24,9 @@ const QuestionBar = ({
       <div className="yourQuestion">
         Your Question
         <LiveQuestion
-          onQuestionClick={() => onQuestionClick(yourQuestion.id, yourQuestion.handle)}
+          onQuestionClick={() => yourQuestionClick()}
+          questionClickable={yourQuestionReady}
+          questionShade={yourQuestionReady ? 'red' : null} // TODO make css and better
           questionText={yourQuestion.content}
           questionSubject={yourQuestion.subject}
           questionHandle={yourQuestion.handle}
@@ -35,6 +39,7 @@ const QuestionBar = ({
           <LiveQuestion
             key={question.id}
             onQuestionClick={() => onQuestionClick(question.id, question.handle)}
+            questionClickable={true}
             questionText={question.content}
             questionSubject={question.subject}
             questionHandle={question.handle}

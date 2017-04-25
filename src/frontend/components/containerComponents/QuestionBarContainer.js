@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { onQuestionClick } from 'actions/chatActions';
-import { getQuestions, getCurrentQuestionPage, getYourQuestion } from 'reducers';
+import { onQuestionClick, openChat } from 'actions/chatActions';
+import { getQuestions, getCurrentQuestionPage, getYourQuestion, getYourQuestionReady } from 'reducers';
 import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previousQuestionPage, firstQuestionPage } from 'actions';
 import { QuestionBar, Modal } from '../presentationalComponents';
 
@@ -75,10 +75,12 @@ class QuestionBarWrapper extends Component {
     const newProps = Object.assign(
       {},
       this.props,
-      { onQuestionClick: (id, theirHandle) => this.openModal(id, theirHandle),
+      {
+        onQuestionClick: (id, theirHandle) => this.openModal(id, theirHandle),
         nextQuestionClick: () => this.nextQuestion(),
-        previousQuestionClick: () => this.previousQuestion() }
-      );
+        previousQuestionClick: () => this.previousQuestion()
+      }
+    );
     let handleField;
 
     return (
@@ -107,10 +109,19 @@ const mapStateToProps = (state) => {
     listOfQuestions: currentQuestions,
     allQuestions,
     currentPage: page,
-    yourQuestion: getYourQuestion(state)
+    yourQuestion: getYourQuestion(state),
+    yourQuestionReady: getYourQuestionReady(state)
   };
 };
 
-export default connect(mapStateToProps,
-{ onQuestionClick, nextQuestionPage, loadMoreQuestions, previousQuestionPage, firstQuestionPage }
+export default connect(
+  mapStateToProps,
+  {
+    onQuestionClick,
+    nextQuestionPage,
+    loadMoreQuestions,
+    previousQuestionPage,
+    firstQuestionPage,
+    yourQuestionClick: () => openChat(0) // TODO remove hardcoding of chat index 0
+  }
 )(QuestionBarWrapper);

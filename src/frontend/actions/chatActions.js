@@ -23,20 +23,24 @@ export const openChat = chatIndex => ({ type: 'OPEN_CHAT', chatIndex });
 export const closeChat = chatIndex => ({ type: 'CLOSE_CHAT', chatIndex });
 export const newChattingPatner = (partner, chatIndex) => ({ type: 'NEW_PARTNER', partner, chatIndex });
 export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatIndex });
+export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });
+export const questionReady = () => ({ type: 'ANSWERER_FOUND' });
 
 
-export const onQuestionClick = (questionId, handle) => (dispatch) => {
+export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {
   const figureOutIndex = () => 0; // TODO make real
   const index = figureOutIndex();
   dispatch(joinRoom(questionId, index));
-  dispatch(newChattingPatner(handle, index));
+  dispatch(setHandle(yourHandle, index));
+  dispatch(newChattingPatner(theirHandle, index));
   dispatch(openChat(index));
   apiUpdateQuestion(questionId);
 };
 
-export const onQuesitonCreate = questionId => (dispatch) => {
+export const onQuestionCreate = (questionId, handle) => (dispatch) => {
   const figureOutIndex = () => 0; // TODO make real
   const index = figureOutIndex();
 
   dispatch(joinRoom(questionId, index));
+  dispatch(setHandle(handle, index));
 };

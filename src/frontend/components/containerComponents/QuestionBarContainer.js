@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { onQuestionClick } from 'actions/chatActions';
-import { getQuestions, getCurrentQuestionPage, getYourQuestion } from 'reducers';
+import { onQuestionClick, openChat } from 'actions/chatActions';
+import { getQuestions, getCurrentQuestionPage, getYourQuestion, getYourQuestionReady } from 'reducers';
 import { loadMoreQuestionsThunk as loadMoreQuestions, nextQuestionPage, previousQuestionPage, firstQuestionPage } from 'actions';
 import { QuestionBar, Modal } from '../presentationalComponents';
 
 const limit = 1000;
-const questionRefresh = 100000;
+const questionRefresh = 1000000; // TODO make a realistic value
 const numberOfQs = 5;
-const howEarlyShouldWeLoad = 2;
+const howEarlyShouldWeLoad = -1; // TODO make a realistic value (see git issue #187)
 
 class QuestionBarWrapper extends Component {
   constructor(props) {
@@ -28,14 +28,12 @@ class QuestionBarWrapper extends Component {
     let mostRecent = 0;
 
     if ((questions.length / numberOfQs) < page) {
-      console.log('i got here');
       this.props.firstQuestionPage();
     }
     for (let i = 0; i < questions.length; i++) {
       const date = questions[i].createdTime;
       if (date > mostRecent) mostRecent = date;
     }
-    console.log(mostRecent, 'I GOT HERE');
 
     if ((questions.length / numberOfQs) < page + howEarlyShouldWeLoad) {
       this.props.loadMoreQuestions(limit, mostRecent);
@@ -60,15 +58,13 @@ class QuestionBarWrapper extends Component {
   }
   submitModal(handleField) {
     const chosenHandle = handleField.value.trim() || 'Anonymous';
-    // TODO send chosenHandle to question asker (add to onQuestionClick thunk)
-    console.log(chosenHandle);
 
-    this.props.onQuestionClick(this.state.clickedQid, this.state.clickedQhandle);
+    this.props.onQuestionClick(this.state.clickedQid, this.state.clickedQhandle, chosenHandle);
     this.closeModal();
   }
 
-  openModal(id, handle) {
-    this.setState({ answerModalActive: true, clickedQid: id, clickedQhandle: handle });
+  openModal(id, theirHandle) {
+    this.setState({ answerModalActive: true, clickedQid: id, clickedQhandle: theirHandle });
   }
 
   closeModal() {
@@ -79,10 +75,12 @@ class QuestionBarWrapper extends Component {
     const newProps = Object.assign(
       {},
       this.props,
-      { onQuestionClick: (id, handle) => this.openModal(id, handle),
+      {
+        onQuestionClick: (id, theirHandle) => this.openModal(id, theirHandle),
         nextQuestionClick: () => this.nextQuestion(),
-        previousQuestionClick: () => this.previousQuestion() }
-      );
+        previousQuestionClick: () => this.previousQuestion()
+      }
+    );
     let handleField;
 
     return (
@@ -105,21 +103,25 @@ class QuestionBarWrapper extends Component {
 const mapStateToProps = (state) => {
   const page = getCurrentQuestionPage(state);
   const allQuestions = getQuestions(state);
-  console.log(firstQuestionPage);
-
   const currentQuestions = allQuestions.slice(numberOfQs * page, (numberOfQs * page) + numberOfQs);
 
-  console.log(page);
-  console.log(allQuestions);
-  console.log(currentQuestions);
   return {
     listOfQuestions: currentQuestions,
     allQuestions,
     currentPage: page,
-    yourQuestion: getYourQuestion(state)
+    yourQuestion: getYourQuestion(state),
+    yourQuestionReady: getYourQuestionReady(state)
   };
 };
 
-export default connect(mapStateToProps,
-{ onQuestionClick, nextQuestionPage, loadMoreQuestions, previousQuestionPage, firstQuestionPage }
+export default connect(
+  mapStateToProps,
+  {
+    onQuestionClick,
+    nextQuestionPage,
+    loadMoreQuestions,
+    previousQuestionPage,
+    firstQuestionPage,
+    yourQuestionClick: () => openChat(0) // TODO remove hardcoding of chat index 0
+  }
 )(QuestionBarWrapper);

@@ -49,20 +49,15 @@ const chatRoom = (state = null, action) => {
 
 // TODO is the function to return a reducer with chatIndex necessary?
 // Have to use a reducer-creator function to get chat index properly initialized
-const individualChatReducerCreator = (index) => {
-  const chatIndex = (state = index) => state;
+const individualChatReducer = combineReducers({
+  chatopen,
+  chatRoom,
+  myHandle,
+  chattingPartner,
+  messages
+});
 
-  return combineReducers({
-    chatIndex,
-    chatopen,
-    chatRoom,
-    myHandle,
-    chattingPartner,
-    messages
-  });
-};
-
-export default individualChatReducerCreator;
+export default individualChatReducer;
 
 // Selectors below
 // They go here because this is the file that understands the state shape.

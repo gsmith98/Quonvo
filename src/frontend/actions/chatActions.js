@@ -28,7 +28,7 @@ export const questionReady = () => ({ type: 'ANSWERER_FOUND' });
 
 
 export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {
-  const figureOutIndex = () => 0; // TODO make real
+  const figureOutIndex = () => 'chat0'; // TODO make real
   const index = figureOutIndex();
   dispatch(joinRoom(questionId, index));
   dispatch(setHandle(yourHandle, index));
@@ -38,7 +38,7 @@ export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatc
 };
 
 export const onQuestionCreate = (questionId, handle) => (dispatch) => {
-  const figureOutIndex = () => 0; // TODO make real
+  const figureOutIndex = () => 'chat0'; // TODO make real
   const index = figureOutIndex();
 
   dispatch(joinRoom(questionId, index));

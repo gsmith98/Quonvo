@@ -6,15 +6,10 @@ import chatReducerCreator, {
   getChatOpen as getChatChatOpen
 } from './chatReducer';
 
-// TODO move Chats from an array to a dictionary
-const MAX_CHATS = 2;
-
-// initial state is an array of the default states (distinct refs, not copies) of the chatreducer
-const initialState = Array(MAX_CHATS).fill(null)
-  .map((x, chatIndex) => chatReducerCreator(chatIndex)(undefined, {}));
 
 // TODO now these action.type strings are in many files. make consts to import?
-const chats = (state = initialState, action) => {
+const chats = (state = {}, action) => {
+  const index = action.chatIndex;
   switch (action.type) {
     case 'NEW_MESSAGE':
     case 'NEW_PARTNER':
@@ -23,11 +18,10 @@ const chats = (state = initialState, action) => {
     case 'JOIN_ROOM':
     case 'SET_HANDLE':
       // use the chatreducer on the relevant chat (also keep things not overwritten by chatreducer)
-      return [
-        ...state.slice(0, action.chatIndex),
-        chatReducerCreator(action.chatIndex)(state[action.chatIndex], action),
-        ...state.slice(action.chatIndex + 1)
-      ];
+      return Object.assign(
+        {},
+        state,
+        { [index]: chatReducerCreator(index)(state[index], action) });
     default:
       return state;
   }

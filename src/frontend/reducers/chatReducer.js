@@ -52,7 +52,6 @@ const chatRoom = (state = null, action) => {
 const individualChatReducerCreator = (index) => {
   const chatIndex = (state = index) => state;
 
-  // TODO could use chatRoom exclusively and not chatopen
   return combineReducers({
     chatIndex,
     chatopen,

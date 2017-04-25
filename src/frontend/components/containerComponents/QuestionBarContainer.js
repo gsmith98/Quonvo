@@ -23,7 +23,6 @@ class QuestionBarWrapper extends Component {
 
   componentDidUpdate() {
     const questions = this.props.allQuestions;
-    console.log(questions);
     const page = this.props.currentPage;
     let mostRecent = 0;
 

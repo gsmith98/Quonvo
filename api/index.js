@@ -11,10 +11,10 @@ const post = (url, data) =>
     body: querystring.stringify(data)
   })
   .then(resp => resp.json())
-  .then((respjson) => {
-    console.log('Response from post:', respjson);
-    return respjson;
-  })
+  // .then((respjson) => {
+  //   // console.log('Response from post:', respjson);
+  //   return respjson;
+  // })
   .catch((err) => {
     console.log('Error occured! See below.');
     throw err;
@@ -26,12 +26,12 @@ const get = url =>
       credentials: 'include'
     })
     .then(resp => resp.json())
-    .then((respjson) => {
-      console.log('Response from get', respjson);
-      return respjson;
-    })
+    // .then((respjson) => {
+    //   console.log('Response from get', respjson);
+    //   return respjson;
+    // })
     .catch((err) => {
-      console.log('Error occured! See below.');
+      // console.log('Error occured! See below.');
       throw err;
     });
 

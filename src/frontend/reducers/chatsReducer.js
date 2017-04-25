@@ -1,4 +1,4 @@
-import chatReducerCreator, {
+import chatReducer, {
   getMessages as getChatMessages,
   getChattingPartner as getChatChattingPartner,
   getRoom as getChatRoom,
@@ -9,7 +9,6 @@ import chatReducerCreator, {
 
 // TODO now these action.type strings are in many files. make consts to import?
 const chats = (state = {}, action) => {
-  const index = action.chatIndex;
   switch (action.type) {
     case 'NEW_MESSAGE':
     case 'NEW_PARTNER':
@@ -21,7 +20,7 @@ const chats = (state = {}, action) => {
       return Object.assign(
         {},
         state,
-        { [index]: chatReducerCreator(index)(state[index], action) });
+        { [action.chatIndex]: chatReducer(state[action.chatIndex], action) });
     default:
       return state;
   }

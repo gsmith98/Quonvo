@@ -3,7 +3,9 @@ import { getChats } from 'reducers';
 import { ParentPage } from '../presentationalComponents';
 
 const mapStateToProps = state => ({
-  chats: Object.values(getChats(state)) // NOTE ES2017, not widely supported yet (4/25/17)
+  // map from dict of chats objects to array of chatObjects which now include their dict key
+  chats: Object.keys(getChats(state))
+          .map(key => Object.assign({}, getChats(state)[key], { chatIndex: key }))
 });
 
 export default connect(mapStateToProps, null)(ParentPage);

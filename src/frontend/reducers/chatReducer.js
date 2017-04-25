@@ -47,6 +47,7 @@ const chatRoom = (state = null, action) => {
   }
 };
 
+// TODO is the function to return a reducer with chatIndex necessary?
 // Have to use a reducer-creator function to get chat index properly initialized
 const individualChatReducerCreator = (index) => {
   const chatIndex = (state = index) => state;

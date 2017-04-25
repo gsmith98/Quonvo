@@ -2,10 +2,11 @@ import chatReducerCreator, {
   getMessages as getChatMessages,
   getChattingPartner as getChatChattingPartner,
   getRoom as getChatRoom,
-  getMyHandle as getChatHandle
+  getMyHandle as getChatHandle,
+  getChatOpen as getChatChatOpen
 } from './chatReducer';
 
-
+// TODO move Chats from an array to a dictionary
 const MAX_CHATS = 2;
 
 // initial state is an array of the default states (distinct refs, not copies) of the chatreducer
@@ -41,3 +42,4 @@ export const getMessages = (theChats, index) => getChatMessages(theChats[index])
 export const getChattingPartner = (theChats, index) => getChatChattingPartner(theChats[index]);
 export const getRoom = (theChats, index) => getChatRoom(theChats[index]);
 export const getMyHandle = (theChats, index) => getChatHandle(theChats[index]);
+export const getChatOpen = (theChats, index) => getChatChatOpen(theChats[index]);

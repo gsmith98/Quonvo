@@ -154,15 +154,14 @@ const archivedchatSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  queston: {
+  question: {
     type: String
   },
   questionId: {
     type: Schema.ObjectId,
     ref: 'User'
   },
-
-  questonSubject: {
+  questionSubject: {
     type: String
   },
   asker: {

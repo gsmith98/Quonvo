@@ -19,7 +19,7 @@ router.post('/archivedChats/new', (req, res) => {
   let question;
   let questionSubject;
   let newQuestion = false;
-  let archive;
+  let archivedChat;
 
   Question.findById(questionId)
   .then((foundQuestion) => {
@@ -28,8 +28,8 @@ router.post('/archivedChats/new', (req, res) => {
     answerer = foundQuestion.answerer;
     question = foundQuestion.content;
     questionSubject = foundQuestion.subject;
-
-    const archivedChat = new ArchivedChat({
+    console.log(questionSubject);
+    archivedChat = new ArchivedChat({
       messages,
       questionId,
       question,
@@ -39,12 +39,11 @@ router.post('/archivedChats/new', (req, res) => {
       answererHandle,
       rating,
       questionAnswered,
-      questionSubject
+      questionSubject,
     });
     return archivedChat.save();
   })
-  .then((archivedChat) => {
-    archive = archivedChat;
+  .then(() => {
     if (!questionAnswered) {
       const questionAgain = new Question({
         subject: questionSubject,
@@ -55,7 +54,6 @@ router.post('/archivedChats/new', (req, res) => {
       newQuestion = true;
       return Promise.all([Question.remove({ _id: questionId }), questionAgain.save()]);
     }
-    console.log('got to the second part of the if statement');
     return Question.remove({ _id: questionId });
   })
   .then((returnValue) => {
@@ -63,16 +61,15 @@ router.post('/archivedChats/new', (req, res) => {
       success: true,
       questionResubmitted: newQuestion,
       question: returnValue,
-      archive,
+      archivedChat,
     });
   })
   .catch(err => res.send(err));
 });
 
-router.get('./archivedChats/get', (req, res) => {
+router.get('/archivedChats/get', (req, res) => {
   const subject = req.query.subject;
   const skip = req.query.skip;
-
   ArchivedChat.find({ questionSubject: subject })
   .sort({ rating: -1 })
   .skip(skip * limit)

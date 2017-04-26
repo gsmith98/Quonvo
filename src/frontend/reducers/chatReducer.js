@@ -31,7 +31,7 @@ const chatopen = (state = false, action) => {
   switch (action.type) {
     case 'OPEN_CHAT':
       return true;
-    case 'CLOSE_CHAT':
+    case 'MINIMIZE_CHAT':
       return false;
     default:
       return state;

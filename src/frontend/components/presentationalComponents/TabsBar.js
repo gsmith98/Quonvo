@@ -5,14 +5,13 @@ import React from 'react';
 const TabsBar = ({ chats, openChat }) => (
   <div>
     {chats.map(chat => (
-      <div>
-        <button
-          key={chat.chatIndex}
-          onClick={() => openChat(chat.chatIndex)}
-        >
-          {chat.chattingPartner}
-        </button>
-      </div>
+      chat.chattingPartner ?
+        <div key={chat.chatIndex}>
+          <button onClick={() => openChat(chat.chatIndex)}>
+            {chat.chattingPartner}
+          </button>
+        </div>
+        : null
     ))}
   </div>
 );

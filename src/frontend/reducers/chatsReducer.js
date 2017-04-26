@@ -13,7 +13,7 @@ const chats = (state = {}, action) => {
     case 'NEW_MESSAGE':
     case 'NEW_PARTNER':
     case 'OPEN_CHAT':
-    case 'CLOSE_CHAT':
+    case 'MINIMIZE_CHAT':
     case 'JOIN_ROOM':
     case 'SET_HANDLE':
       // use the chatreducer on the relevant chat (also keep things not overwritten by chatreducer)

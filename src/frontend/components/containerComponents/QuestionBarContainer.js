@@ -121,6 +121,6 @@ export default connect(
     loadMoreQuestions,
     previousQuestionPage,
     firstQuestionPage,
-    yourQuestionClick: () => openChat('chat0') // TODO remove hardcoding of chat index 0
+    yourQuestionClick: openChat
   }
 )(QuestionBarWrapper);

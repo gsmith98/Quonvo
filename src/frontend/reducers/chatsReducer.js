@@ -21,6 +21,11 @@ const chats = (state = {}, action) => {
         {},
         state,
         { [action.chatIndex]: chatReducer(state[action.chatIndex], action) });
+    case 'END_CHAT': { // NOTE block scoping to catch the const declaration (lint rule)
+      const copy = Object.assign({}, state);
+      delete copy[action.chatIndex];
+      return copy;
+    }
     default:
       return state;
   }

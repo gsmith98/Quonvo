@@ -21,6 +21,7 @@ export const receiveMessage = (content, chatIndex) => newMessage(content, 'THEM'
 
 export const openChat = chatIndex => ({ type: 'OPEN_CHAT', chatIndex });
 export const minimizeChat = chatIndex => ({ type: 'MINIMIZE_CHAT', chatIndex });
+export const endChat = chatIndex => ({ type: 'END_CHAT', chatIndex });
 export const newChattingPartner = (partner, chatIndex) => ({ type: 'NEW_PARTNER', partner, chatIndex });
 export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatIndex });
 export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });

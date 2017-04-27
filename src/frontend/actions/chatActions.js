@@ -35,7 +35,7 @@ export const endChatThunk = (
   rating,
   questionAnswered
 ) => (dispatch) => {
-  dispatch(closeChat(questionId));
+  dispatch(endChat(questionId));
   apiEndChat(messages, questionId, askerHandle, rating, questionAnswered);
 };
 

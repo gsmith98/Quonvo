@@ -4,10 +4,8 @@ const models = require('../models');
 const router = express.Router();
 const Question = models.Question;
 const ArchivedChat = models.ArchivedChat;
-const limit = 10;
 
 router.post('/archivedChats/new', (req, res) => {
-  console.log('i got into this chat');
   const messages = req.body.messages;
   const questionId = req.body.questionId;
   const askerHandle = req.body.askerHandle;
@@ -69,10 +67,11 @@ router.post('/archivedChats/new', (req, res) => {
 
 router.get('/archivedChats/get', (req, res) => {
   const subject = req.query.subject;
-  const skip = req.query.skip;
+  const pageNumber = req.query.skip;
+  const limit = req.query.limit;
   ArchivedChat.find({ questionSubject: subject })
   .sort({ rating: -1 })
-  .skip(skip * limit)
+  .skip(pageNumber * limit)
   .limit(limit)
   .then((archives) => {
     res.json({

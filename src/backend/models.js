@@ -182,6 +182,7 @@ const archivedchatSchema = mongoose.Schema({
     type: Array,
     required: true
   },
+
   upVotes: {
     type: Number,
     default: 0

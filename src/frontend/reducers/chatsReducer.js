@@ -3,7 +3,7 @@ import chatReducerCreator, {
   getChattingPartner as getChatChattingPartner,
   getRoom as getChatRoom,
   getMyHandle as getChatHandle,
-  getChatOpen as getChatChatOpen
+  getChatOpen as getChatChatOpen,
 } from './chatReducer';
 
 // TODO move Chats from an array to a dictionary

@@ -18,6 +18,7 @@ const myHandle = (state = 'defaultHandle', action) => {
   }
 };
 
+
 const messages = (state = [], action) => {
   switch (action.type) {
     case 'NEW_MESSAGE':

@@ -1,6 +1,7 @@
 // import { sendMessage as apiSendMessage } from 'api';
 import {
-   updateQuestion as apiUpdateQuestion
+   updateQuestion as apiUpdateQuestion,
+   endChat as apiEndChat
    } from 'api';
 // actions affecting an individual chat
 
@@ -26,6 +27,17 @@ export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatInd
 export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });
 export const questionReady = () => ({ type: 'ANSWERER_FOUND' });
 
+export const endChatThunk = (
+  messages,
+  questionId,
+  askerHandle,
+  rating,
+  questionAnswered
+) => (dispatch) => {
+  console.log('thunk', messages)
+  dispatch(closeChat(questionId));
+  apiEndChat(messages, questionId, askerHandle, rating, questionAnswered);
+};
 
 export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {
   const figureOutIndex = () => 0; // TODO make real

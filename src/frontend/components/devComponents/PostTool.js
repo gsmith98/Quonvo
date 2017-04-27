@@ -12,7 +12,10 @@ class PostTool extends Component {
     console.log('Posting data to:', this.state.target, data);
     fetch(this.state.target, {
       method: 'post',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json'
+      },
       credentials: 'include',
       body: querystring.stringify(data)
     })

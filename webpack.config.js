@@ -2,9 +2,17 @@ const webpack = require('webpack');
 const path = require('path');
 const HTMLWebackPlugin = require('html-webpack-plugin');
 
-const HTMLWebackPluginConfig = new HTMLWebackPlugin({
+const HTMLWebackPluginMainPageConfig = new HTMLWebackPlugin({
   template: path.join(__dirname, '/src/frontend/index.html'),
-  filename: 'index.html',
+  filename: 'app.html',
+  chunks: ['app'],
+  inject: 'body'
+});
+
+const HTMLWebackPluginLoginPageConfig = new HTMLWebackPlugin({
+  template: path.join(__dirname, '/src/frontend/index.html'),
+  filename: 'login.html',
+  chunks: ['login'],
   inject: 'body'
 });
 
@@ -17,10 +25,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractTextPluginConfig = new ExtractTextPlugin('[name].css');
 
 module.exports = {
-  entry: './src/frontend/index.js',
+  entry: {
+    app: './src/frontend/index.js',
+    login: './src/frontend/login.js'
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'app.bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/'
   },
   module: {
@@ -60,7 +71,12 @@ module.exports = {
     }
   },
   devtool: 'source-map',
-  plugins: [WebpackDefinePlugin, HTMLWebackPluginConfig, ExtractTextPluginConfig],
+  plugins: [
+    WebpackDefinePlugin,
+    HTMLWebackPluginMainPageConfig,
+    HTMLWebackPluginLoginPageConfig,
+    ExtractTextPluginConfig
+  ],
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
     alias: {

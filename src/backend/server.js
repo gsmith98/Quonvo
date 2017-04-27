@@ -12,7 +12,6 @@ const questionRoutes = require('./routes/questions');
 const activeChatRoutes = require('./routes/activeChats');
 const messageRoutes = require('./routes/messages');
 const archivedChatRoutes = require('./routes/archivedChats');
-const routes = require('./routes/routes');
 const passport = require('./passportConfig');
 const socketHandler = require('./socketConfig');
 
@@ -40,12 +39,22 @@ mongoose.Promise = global.Promise;
 mongoose.connect(connect);
 
 // Set up of the build
+// makes all files in build pullable
+// things like assets, js bundles, and css bundles should be
+// should our app.html be? or should it be only given by an authenticated route?
+// TODO make an intended public directory (include assets)
 app.use(express.static('build'));
 
-// home/splash page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build/index.html'));
+// login (home/splash) page
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../build/login.html'));
 });
+
+// POSTMAN DEVTOOL TODO remove from prod
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../build/app.html'));
+});
+
 app.use(flash());
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -59,11 +68,20 @@ app.use(session({
   store: mongoStore
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use('/', auth(passport));
-app.use('/', routes);
+app.use((req, res, next) => {
+  if (!req.user) {
+    return res.format({
+      'text/html': () => res.redirect('/login'),
+      'application/json': () => res.json({ response: 'You are not logged in' })
+    });
+  }
+  return next();
+});
+
 app.use('/', questionRoutes);
 app.use('/', activeChatRoutes);
 app.use('/', messageRoutes);

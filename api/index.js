@@ -6,7 +6,10 @@ const urlRoot = DOMAIN;
 const post = (url, data) =>
   fetch(url, {
     method: 'post',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: 'application/json'
+    },
     credentials: 'include',
     body: querystring.stringify(data)
   })
@@ -23,6 +26,9 @@ const post = (url, data) =>
 const get = url =>
     fetch(url, {
       method: 'get',
+      headers: {
+        Accept: 'application/json'
+      },
       credentials: 'include'
     })
     .then(resp => resp.json())

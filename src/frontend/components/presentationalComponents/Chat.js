@@ -1,7 +1,9 @@
 import React from 'react';
 import { MessagesBoxContainer } from '../containerComponents';
 
-const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex, openModal }) => {
+const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex, openModal, minimizeChat }) => {
+
+
   let textArea;
   const clickSend = () => {
     const msgToSend = textArea.value.trim();
@@ -17,7 +19,12 @@ const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex, openModal }
       <div className="chat_whee">
         <div className="wrapper">
           <div className="chat_top">
-            <img alt="" className="chatprofiler" src="assets/chat_profile_icon-01.png" />
+            <img
+              alt=""
+              className="chatprofiler"
+              src="assets/chat_profile_icon-01.png"
+              onClick={() => minimizeChat(chatIndex)} // TODO make deicated minimize button
+            />
             <div className="chat_intro bold">
                 CONVERSATION WITH {chattingPartner} AS {yourHandle}
             </div>

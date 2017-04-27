@@ -23,7 +23,6 @@ class QuestionBarWrapper extends Component {
 
   componentDidUpdate() {
     const questions = this.props.allQuestions;
-    console.log(questions);
     const page = this.props.currentPage;
     let mostRecent = 0;
 
@@ -122,6 +121,6 @@ export default connect(
     loadMoreQuestions,
     previousQuestionPage,
     firstQuestionPage,
-    yourQuestionClick: () => openChat(0) // TODO remove hardcoding of chat index 0
+    yourQuestionClick: openChat
   }
 )(QuestionBarWrapper);

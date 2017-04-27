@@ -1,8 +1,6 @@
 const cookie = require('cookie');
 
 const MAX_USERS_PER_CHAT = 2;
-// TODO I could add the room to the socket in joinQuestion so it doesn't
-//  need to be included in any subsequent socket emissions from client
 
 const socketHandler = (io, sessionStore) => (connection) => {
   const socket = connection;

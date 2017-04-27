@@ -10,14 +10,14 @@ import { onQuestionCreate } from './chatActions';
 // thunk
 export const signIn = (email, password) => (/* dispatch */) => {
   apiSignIn(email, password)
-  .then((responseJson) => {
-    console.log('responseJson', responseJson);
+  .then((/* responseJson */) => {
+    // console.log('responseJson', responseJson);
 
     // TODO dispatch something to my state saying I'm logged in?
     // TODO otherwise remove from actions and possibly remove SigninBarContainer
   })
   .catch((err) => {
-    console.log('error');
+    // console.log('error');
     throw err;
   });
 };
@@ -64,14 +64,14 @@ const loadQuestions = questions => ({
 export const loadMoreQuestionsThunk = (limit, date) => (dispatch) => {
   apiHotQuestions(limit, date)
   .then((responseJson) => {
-    console.log(responseJson);
+    // console.log(responseJson);
     // select fields to keep, don't store whole mongo object
     const qs = responseJson.questions.map(({ id, content, subject, bounty, handle, createdTime }) =>
     ({ id, content, subject, bounty, handle, createdTime }));
     dispatch(loadQuestions(qs));
   })
   .catch((err) => {
-    console.log('error');
+    // console.log('error');
     throw err;
   });
 };
@@ -83,7 +83,7 @@ export const newMessageThunk = (chatId, content, user) => (dispatch) => {
     dispatch(newMessage(content, id, user));
   })
   .catch((err) => {
-    console.log('error');
+    // console.log('error');
     throw err;
   });
 };
@@ -107,13 +107,13 @@ export const newQuestionThunk = (subject, content, handle) => (dispatch) => {
     success: true
   }
     */
-    console.log('new Q response', responseJson);
+    // console.log('new Q response', responseJson);
     const id = responseJson.newQuestion._id;
     dispatch(newQuestion(subject, content, id, handle));
     dispatch(onQuestionCreate(id, handle));
   })
   .catch((err) => {
-    console.log('error');
+    // console.log('error');
     throw err;
   });
 };

@@ -21,8 +21,9 @@ export const sendMessage = (content, chatIndex) => newMessage(content, 'YOU', ch
 export const receiveMessage = (content, chatIndex) => newMessage(content, 'THEM', chatIndex);
 
 export const openChat = chatIndex => ({ type: 'OPEN_CHAT', chatIndex });
-export const closeChat = chatIndex => ({ type: 'CLOSE_CHAT', chatIndex });
-export const newChattingPatner = (partner, chatIndex) => ({ type: 'NEW_PARTNER', partner, chatIndex });
+export const minimizeChat = chatIndex => ({ type: 'MINIMIZE_CHAT', chatIndex });
+export const endChat = chatIndex => ({ type: 'END_CHAT', chatIndex });
+export const newChattingPartner = (partner, chatIndex) => ({ type: 'NEW_PARTNER', partner, chatIndex });
 export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatIndex });
 export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });
 export const questionReady = () => ({ type: 'ANSWERER_FOUND' });
@@ -40,19 +41,14 @@ export const endChatThunk = (
 };
 
 export const onQuestionClick = (questionId, theirHandle, yourHandle) => (dispatch) => {
-  const figureOutIndex = () => 0; // TODO make real
-  const index = figureOutIndex();
-  dispatch(joinRoom(questionId, index));
-  dispatch(setHandle(yourHandle, index));
-  dispatch(newChattingPatner(theirHandle, index));
-  dispatch(openChat(index));
+  dispatch(joinRoom(questionId, questionId));
+  dispatch(setHandle(yourHandle, questionId));
+  dispatch(newChattingPartner(theirHandle, questionId));
+  dispatch(openChat(questionId));
   apiUpdateQuestion(questionId);
 };
 
 export const onQuestionCreate = (questionId, handle) => (dispatch) => {
-  const figureOutIndex = () => 0; // TODO make real
-  const index = figureOutIndex();
-
-  dispatch(joinRoom(questionId, index));
-  dispatch(setHandle(handle, index));
+  dispatch(joinRoom(questionId, questionId));
+  dispatch(setHandle(handle, questionId));
 };

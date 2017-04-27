@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { sendMessage, receiveMessage, newChattingPatner, questionReady, endChatThunk } from 'actions/chatActions';
+
+import { sendMessage, receiveMessage, newChattingPatner, questionReady, endChatThunk, minimizeChat } from 'actions/chatActions';
 import { getChattingPartner, getRoom, getMyHandle, getChatOpen, getMessages } from 'reducers';
 import { Chat, Modal, PostChat } from '../presentationalComponents';
 
@@ -19,7 +20,7 @@ class ChatWrapper extends Component {
 
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, this.chatIndex));
     this.state.socket.on('joined', ({ handle }) => {
-      this.props.newChattingPatner(handle, this.chatIndex);
+      this.props.newChattingPartner(handle, this.chatIndex);
       this.props.questionReady();
     });
     this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
@@ -90,10 +91,6 @@ const mapStateToProps = (state, { chatIndex }) => ({
   // TODO add getting the question id here.
 });
 
-// TODO is this being used?
-export const bindIndexToActionCreator =
-  (actionCreator, index) => (...args) => Object.assign(actionCreator(...args), { index });
-
 
 export default connect(
   mapStateToProps,
@@ -102,6 +99,7 @@ export default connect(
     receiveMessage,
     newChattingPatner,
     questionReady,
-    endChatThunk
+    endChatThunk,
+    minimizeChat
   }
 )(ChatWrapper);

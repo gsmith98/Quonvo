@@ -11,8 +11,8 @@ export { default as QuestionBar } from './QuestionBar';
 export { default as Chat } from './Chat';
 export { default as MessagesBox } from './MessagesBox';
 export { default as ParentPage } from './ParentPage';
-
 export { default as Archives } from './Archives';
 export { default as ArchivedQuestion } from './ArchivedQuestion';
 export { default as PostChat } from './PostChat';
 export { default as Modal } from './Modal';
+export { default as TabsBar } from './TabsBar';

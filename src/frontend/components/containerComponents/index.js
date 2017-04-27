@@ -5,3 +5,4 @@ export { default as QuestionBarContainer } from './QuestionBarContainer';
 export { default as ParentPageContainer } from './ParentPageContainer';
 export { default as WriteQuestionContainer } from './WriteQuestionContainer';
 export { default as SideBarContainer } from './SideBarContainer';
+export { default as TabsBarContainer } from './TabsBarContainer';

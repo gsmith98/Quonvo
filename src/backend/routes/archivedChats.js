@@ -6,15 +6,11 @@ const Question = models.Question;
 const ArchivedChat = models.ArchivedChat;
 
 router.post('/archivedChats/new', (req, res) => {
-  console.log('i got into this chat');
   const messages = req.body.messages;
-  console.log('here are the messages', messages);
   const questionId = req.body.questionId;
   const askerHandle = req.body.askerHandle;
   const answererHandle = req.body.answererHandle;
-  console.log('here is the answererHandle', answererHandle)
   const rating = req.body.rating;
-  console.log('here is the rating', rating)
   const questionAnswered = req.body.questionAnswered;
   let asker;
   let answerer;

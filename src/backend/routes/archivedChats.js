@@ -4,6 +4,7 @@ const models = require('../models');
 const router = express.Router();
 const Question = models.Question;
 const ArchivedChat = models.ArchivedChat;
+const User = models.User;
 
 router.post('/archivedChats/new', (req, res) => {
   const messages = req.body.messages;
@@ -41,6 +42,14 @@ router.post('/archivedChats/new', (req, res) => {
     });
     return archivedChat.save();
   })
+  .then(() => User.findById(answerer)
+  )
+  .then((user) => {
+    const newUser = user;
+    newUser.rating[questionSubject] += rating;
+    newUser.markModified('rating');
+    return newUser.save();
+  })
   .then(() => {
     if (!questionAnswered) {
       const questionAgain = new Question({
@@ -67,7 +76,7 @@ router.post('/archivedChats/new', (req, res) => {
 
 router.get('/archivedChats/get', (req, res) => {
   const subject = req.query.subject;
-  const pageNumber = req.query.skip;
+  const pageNumber = req.query.pageNumber;
   const limit = req.query.limit;
   ArchivedChat.find({ questionSubject: subject })
   .sort({ rating: -1 })

@@ -25,8 +25,12 @@ const userSchema = mongoose.Schema({
     type: String
   },
   rating: {
-    type: Number,
-    default: 0
+    type: Object,
+    default: {
+      Stuff: 0,
+      Travel: 0
+    }
+    // This is an object where each key is a subject and the value of that key is their rating
   },
   activeChats: {
     type: [{

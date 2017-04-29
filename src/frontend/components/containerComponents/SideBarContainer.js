@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { fullArchives, newArchives } from 'actions';
+import { fullArchives, newArchivesThunk } from 'actions';
 import { SideBar, Modal } from '../presentationalComponents/';
 import { WriteQuestionContainer } from '../containerComponents';
 // TODO add UI actions for the minimizing and such
 
-const pageNumber = 5;
+const numberPerPage = 5;
 
 class SideBarWrapper extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class SideBarWrapper extends Component {
   }
 
   onArchiveClick() {
-    this.props.newArchives('Stuff', 0, pageNumber);
+    this.props.newArchivesThunk('Stuff', 0, numberPerPage);
     this.props.fullArchives(); // Ask about Async stuff here
   }
 
@@ -51,4 +51,4 @@ class SideBarWrapper extends Component {
 }
 
 
-export default connect(null, { fullArchives, newArchives })(SideBarWrapper);
+export default connect(null, { fullArchives, newArchivesThunk })(SideBarWrapper);

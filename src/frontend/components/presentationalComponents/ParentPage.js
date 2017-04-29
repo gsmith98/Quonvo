@@ -9,6 +9,7 @@ const ParentPage = ({ chats, archives }) => (
       <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} startOpen={chat.chatopen} />
       : null))}
     {archives ? <ArchivesContainer /> : null}
+
     <SideBarContainer />
   </div>
 );

@@ -77,7 +77,8 @@ router.post('/archivedChats/new', (req, res) => {
 router.get('/archivedChats/get', (req, res) => {
   const subject = req.query.subject;
   const pageNumber = req.query.pageNumber;
-  const limit = req.query.limit;
+  console.log(pageNumber)
+  const limit = parseInt(req.query.limit);
   ArchivedChat.find({ questionSubject: subject })
   .sort({ rating: -1 })
   .skip(pageNumber * limit)

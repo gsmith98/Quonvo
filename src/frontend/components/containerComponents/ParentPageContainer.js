@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { getChats, areArchivesOpen } from 'reducers';
-import { fullArchives } from 'actions';
 import { ParentPage } from '../presentationalComponents';
 
 const mapStateToProps = state => ({

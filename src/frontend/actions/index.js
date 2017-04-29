@@ -78,9 +78,13 @@ const newArchives = archives => ({
 });
 
 export const newArchivesThunk = (subject, pageNumber, limit) => (dispatch) => {
+  console.log('i got here three');
+  console.log(subject, pageNumber, limit);
   apiGetArchives(subject, pageNumber, limit)
   .then((respJson) => {
+    console.log(respJson);
     dispatch(newArchives(respJson.archives));
+    return respJson;
   })
   .catch((err) => {
     // console.log('error');

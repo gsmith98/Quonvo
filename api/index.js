@@ -45,4 +45,4 @@ export const hotQuestions = (limit, date) => get(`${urlRoot}/questions/hot?limit
 export const updateQuestion = questionId => post(`${urlRoot}/questions/update`, { questionId });
 export const endChat = (messages, questionId, askerHandle, rating, questionAnswered) =>
   post(`${urlRoot}/archivedChats/new`, { messages, questionId, askerHandle, rating, questionAnswered });
-export const getArchives = (subject, pageNumber, limit) => get(`${urlRoot}/questions/hot?limit=${limit}&subject=${subject}&pageNumber${pageNumber}`);
+export const getArchives = (subject, pageNumber, limit) => get(`${urlRoot}/archivedChats/get?limit=${limit}&subject=${subject}&pageNumber=${pageNumber}`);

@@ -65,4 +65,4 @@ export const getRoom = (state, index) => chatsSels.getRoom(state.chats, index);
 export const getMyHandle = (state, index) => chatsSels.getMyHandle(state.chats, index);
 export const getChatOpen = (state, index) => chatsSels.getChatOpen(state.chats, index);
 export const getArchives = state => state.newArchives;
-export const areArchivesOpen = state => state.UIState;
+export const areArchivesOpen = state => state.UIState.fullArchives;

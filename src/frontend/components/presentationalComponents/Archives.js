@@ -1,27 +1,32 @@
 import React from 'react';
 import ArchivedQuestion from './ArchivedQuestion';
 
+const topics = ['Stuff', 'Travel'];
+const topic1 = topics[0];
+const topic2 = topics[1];
+const numberPerPage = 5;
 
-const listOfArchivedQuestions = ['hello why is Mitchell mean?', 'why does Graham smell so bad?'];
-
-
-const Archives = (/* {listOfArchivedQuestions} */) => (
+const Archives = ({ archives, nextPage, newTopic, closeArchives }) => (
   <div className="archive_fulldisplay">
     <div className="archive_question_header">
       <span className="bold_caslon">Archives </span>
     </div>
     <div className="navigation_bar">
-      <span className="nav bold"> TECH </span>
-      <span className="nav bold"> RELATIONSHIPS </span>
-      <span className="nav bold"> ADVICE </span>
-      <span className="nav bold"> CAREERS </span>
+      <span
+        className="nav bold"
+        onClick={() => newTopic(topic1, numberPerPage)}
+      >
+        { topic1 }
+      </span>
+      <span className="nav bold" onClick={() => newTopic(topic2, numberPerPage)}> { topic2 } </span>
+      <span className="nav bold" onClick={() => nextPage(numberPerPage)}> NEXT PAGE </span>
+      <span className="nav bold" onClick={() => closeArchives()}> GO BACK </span>
     </div>
-
-
     <div className="question_display">
-      {listOfArchivedQuestions.map(question =>
+      {archives.map(archive =>
         <ArchivedQuestion
-          question={question}
+          archive={archive}
+          key={archive.id}
         />
       )
       }

@@ -6,7 +6,7 @@ const topic1 = topics[0];
 const topic2 = topics[1];
 const numberPerPage = 5;
 
-const Archives = ({ archives, nextPage, newTopic, closeArchives }) => (
+const Archives = ({ archives, nextPage, newTopic, closeArchives, openMessages }) => (
   <div className="archive_fulldisplay">
     <div className="archive_question_header">
       <span className="bold_caslon">Archives </span>
@@ -27,6 +27,7 @@ const Archives = ({ archives, nextPage, newTopic, closeArchives }) => (
         <ArchivedQuestion
           archive={archive}
           key={archive.id}
+          onClick={() => openMessages(archive.messages)}
         />
       )
       }

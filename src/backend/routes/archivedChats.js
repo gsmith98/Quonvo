@@ -22,12 +22,10 @@ router.post('/archivedChats/new', (req, res) => {
 
   Question.findById(questionId)
   .then((foundQuestion) => {
-    console.log('i got here');
     asker = foundQuestion.asker;
     answerer = foundQuestion.answerer;
     question = foundQuestion.content;
     questionSubject = foundQuestion.subject;
-    console.log(questionSubject);
     archivedChat = new ArchivedChat({
       messages,
       questionId,
@@ -77,7 +75,6 @@ router.post('/archivedChats/new', (req, res) => {
 router.get('/archivedChats/get', (req, res) => {
   const subject = req.query.subject;
   const pageNumber = req.query.pageNumber;
-  console.log(pageNumber)
   const limit = parseInt(req.query.limit);
   ArchivedChat.find({ questionSubject: subject })
   .sort({ rating: -1 })

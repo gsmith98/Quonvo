@@ -1,5 +1,6 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
+import ReactStars from 'react-stars';
 import { Button } from 'react-bootstrap';
 
 const PostChat = ({ submitRating, closeModal }) => {
@@ -14,15 +15,15 @@ const PostChat = ({ submitRating, closeModal }) => {
   return (
     <div className="post_chat">
       <p className="rate_chat_text"> How would you rate that Quonvo? </p>
-      <StarRatingComponent
+      <ReactStars
         className="star_rating"
-        name="rating"
-        onStarClick={(nextValue) => {
+        onChange={(nextValue) => {
           rating = nextValue;
         }}
-        starCount={5}
-        value={rating}
-        size={1000}
+        count={5}
+        edit={true}
+        half={true}
+        size={20}
       />
       <p className="rate_chat_text"> Do you want to get another answer? </p>
       <div className="buttons">

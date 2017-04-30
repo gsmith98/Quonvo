@@ -1,4 +1,3 @@
-import querystring from 'querystring';
 
 const urlRoot = DOMAIN;
 

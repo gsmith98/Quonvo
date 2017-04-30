@@ -1,5 +1,4 @@
 import React from 'react';
-import StarRatingComponent from 'react-star-rating-component';
 import ReactStars from 'react-stars';
 import { Button } from 'react-bootstrap';
 
@@ -21,9 +20,8 @@ const PostChat = ({ submitRating, closeModal }) => {
           rating = nextValue;
         }}
         count={5}
-        edit={true}
         half={true}
-        size={20}
+        size={25}
       />
       <p className="rate_chat_text"> Do you want to get another answer? </p>
       <div className="buttons">

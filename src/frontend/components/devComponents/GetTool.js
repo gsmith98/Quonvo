@@ -10,6 +10,9 @@ class GetTool extends Component {
     console.log('Getting data from:', this.state.target);
     fetch(this.state.target, {
       method: 'get',
+      headers: {
+        Accept: 'application/json'
+      },
       credentials: 'include'
     })
     .then(resp => resp.json())

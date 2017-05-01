@@ -3,7 +3,7 @@ import chatReducer, {
   getChattingPartner as getChatChattingPartner,
   getRoom as getChatRoom,
   getMyHandle as getChatHandle,
-  getChatOpen as getChatChatOpen
+  getChatOpen as getChatChatOpen,
 } from './chatReducer';
 
 

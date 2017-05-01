@@ -1,0 +1,37 @@
+.post_chat {
+  height: 60vh;
+  width: 34vw;
+  background : white;
+  border-radius : 12px;
+  -moz-border-radius : 12px;
+  -webkit-border-radius : 12px;
+  border: 0;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.rate_chat_text {
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  color: #231F20;
+  color: rgb(35, 31, 32);
+  margin-left: 10px;
+  text-align: center;
+}
+
+.buttons {
+  flex-direction : row;
+  /*align-items: center;
+  justify-content: center;
+  /*width: 90%;*/
+}
+
+.rating_button {
+  margin: 4px;
+}

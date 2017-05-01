@@ -1,4 +1,3 @@
-import querystring from 'querystring';
 
 const urlRoot = DOMAIN;
 
@@ -6,12 +5,9 @@ const urlRoot = DOMAIN;
 const post = (url, data) =>
   fetch(url, {
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
-    body: querystring.stringify(data)
+    body: JSON.stringify(data)
   })
   .then(resp => resp.json())
   // .then((respjson) => {
@@ -49,3 +45,6 @@ export const sendMessage = (chatId, content) => post(`${urlRoot}/messages/new`, 
 export const createQuestion = (subject, content, handle) => post(`${urlRoot}/questions/new`, { subject, content, handle });
 export const hotQuestions = (limit, date) => get(`${urlRoot}/questions/hot?limit=${limit}&date=${date}`);
 export const updateQuestion = questionId => post(`${urlRoot}/questions/update`, { questionId });
+export const endChat = (messages, questionId, askerHandle, rating, questionAnswered) =>
+  post(`${urlRoot}/archivedChats/new`, { messages, questionId, askerHandle, rating, questionAnswered });
+export const getArchives = (subject, pageNumber, limit) => get(`${urlRoot}/archivedChats/get?limit=${limit}&subject=${subject}&pageNumber=${pageNumber}`);

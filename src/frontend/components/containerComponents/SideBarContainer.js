@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { fullArchives, newArchivesThunk } from 'actions';
 import { SideBar, Modal } from '../presentationalComponents/';
 import { WriteQuestionContainer } from '../containerComponents';
 // TODO add UI actions for the minimizing and such
+
+const numberPerPage = 5;
 
 class SideBarWrapper extends Component {
   constructor(props) {
@@ -11,10 +14,14 @@ class SideBarWrapper extends Component {
     this.state = { questionModalActive: false, isMinimized: false };
   }
 
+  onArchiveClick() {
+    this.props.newArchivesThunk('Stuff', 0, numberPerPage);
+    this.props.fullArchives(); // Ask about Async stuff here
+  }
+
   questionModalOpen() {
     this.setState({ questionModalActive: true });
   }
-
   questionModalClose() {
     this.setState({ questionModalActive: false });
   }
@@ -33,7 +40,7 @@ class SideBarWrapper extends Component {
         <SideBar
           isMinimized={this.state.isMinimized}
           askQuestionClick={() => this.questionModalOpen()}
-          archivesClick={() => console.log('archivesClick')}
+          archivesClick={() => this.onArchiveClick()}
           yourQuestionsClick={() => console.log('yourQuestionsClick')}
           minimizeClick={() => console.log('minimizeClick')}
           maximizeClick={() => console.log('maximizeClick')}
@@ -44,4 +51,4 @@ class SideBarWrapper extends Component {
 }
 
 
-export default connect(null, {})(SideBarWrapper);
+export default connect(null, { fullArchives, newArchivesThunk })(SideBarWrapper);

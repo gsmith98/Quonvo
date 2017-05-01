@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { sendMessage, receiveMessage, newChattingPartner, questionReady, minimizeChat } from 'actions/chatActions';
-import { getChattingPartner, getRoom, getMyHandle, getChatOpen } from 'reducers';
-import { Chat } from '../presentationalComponents';
 
+import { sendMessage, receiveMessage, newChattingPatner, questionReady, endChatThunk, minimizeChat } from 'actions/chatActions';
+import { getChattingPartner, getRoom, getMyHandle, getChatOpen, getMessages } from 'reducers';
+import { Chat, Modal, PostChat } from '../presentationalComponents';
 
 // This is partly just to keep Chat a functional presentational component
 //  even though we want to use some state stuff and the constructor
@@ -16,7 +16,7 @@ class ChatWrapper extends Component {
     this.chatIndex = props.chatIndex;
 
     // TODO move clientside socket config into another file/function?
-    this.state = { socket: io(DOMAIN) };
+    this.state = { socket: io(DOMAIN), modal: false };
 
     this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, this.chatIndex));
     this.state.socket.on('joined', ({ handle }) => {
@@ -30,8 +30,16 @@ class ChatWrapper extends Component {
       this.state.socket.emit('joinQuestion', { room: this.props.room, handle: this.props.yourHandle });
     });
   }
+  openModal() {
+    this.setState({ modal: true });
+  }
+
+  closeModal() {
+    this.setState({ modal: false });
+  }
 
   render() {
+    console.log('messages', this.props.messages);
     // wrap sendMessage to also emit a socket event
     // this cannot be in constructor since the constructor only runs once. Props wouldn't update
     const wrappedSendMessage = (message) => {
@@ -39,12 +47,35 @@ class ChatWrapper extends Component {
       this.props.sendMessage(message, this.chatIndex);
     };
 
-    this.newProps = Object.assign({}, this.props, { sendMessage: wrappedSendMessage });
-
+    this.newProps = Object.assign(
+                    {},
+                    this.props,
+                    { sendMessage: wrappedSendMessage },
+                    { openModal: () => this.openModal() }
+                    );
+    this.modalProps = Object.assign(
+      {},
+      { submitRating: (rating, questionAnswered) => this.props.endChatThunk(
+        this.props.messages,
+        this.props.room,
+        this.props.yourHandle,
+        rating,
+        questionAnswered
+        ) },
+      { closeModal: () => this.closeModal() }
+    );
     return (
       this.props.chatOpen ?
         <div className="chat_part">
           <Chat {...this.newProps} />
+          <Modal
+            contentLabel="Modal"
+            isOpen={this.state.modal}
+            onRequestClose={() => this.closeModal()}
+          >
+            <PostChat {...this.modalProps} />
+          </Modal>
+
         </div>
       : null
     );
@@ -55,7 +86,9 @@ const mapStateToProps = (state, { chatIndex }) => ({
   chattingPartner: getChattingPartner(state, chatIndex),
   room: getRoom(state, chatIndex),
   yourHandle: getMyHandle(state, chatIndex),
-  chatOpen: getChatOpen(state, chatIndex)
+  chatOpen: getChatOpen(state, chatIndex),
+  messages: getMessages(state, chatIndex),
+  // TODO add getting the question id here.
 });
 
 
@@ -64,8 +97,9 @@ export default connect(
   {
     sendMessage,
     receiveMessage,
-    newChattingPartner,
+    newChattingPatner,
     questionReady,
+    endChatThunk,
     minimizeChat
   }
 )(ChatWrapper);

@@ -3,7 +3,8 @@ import {
    signIn as apiSignIn,
    sendMessage as apiSendMessage,
    createQuestion as apiCreateQuestion,
-   hotQuestions as apiHotQuestions
+   hotQuestions as apiHotQuestions,
+   getArchives as apiGetArchives
    } from 'api';
 import { onQuestionCreate } from './chatActions';
 
@@ -60,6 +61,36 @@ const loadQuestions = questions => ({
   questions,
 });
 
+export const fullArchives = () => ({
+  type: 'FULL_ARCHIVES'
+});
+
+// May havE to wrap the above action in a function in order to call other dispatch's
+// at the same time. With a promise so the order is right.
+
+export const closeArchives = () => ({
+  type: 'CLOSE_ARCHIVES'
+});
+
+const newArchives = archives => ({
+  type: 'NEW_ARCHIVES',
+  archives,
+});
+
+export const newArchivesThunk = (subject, pageNumber, limit) => (dispatch) => {
+  console.log('i got here three');
+  console.log(subject, pageNumber, limit);
+  apiGetArchives(subject, pageNumber, limit)
+  .then((respJson) => {
+    console.log(respJson);
+    dispatch(newArchives(respJson.archives));
+    return respJson;
+  })
+  .catch((err) => {
+    // console.log('error');
+    throw err;
+  });
+};
 
 export const loadMoreQuestionsThunk = (limit, date) => (dispatch) => {
   apiHotQuestions(limit, date)

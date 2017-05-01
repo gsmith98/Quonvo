@@ -29,7 +29,29 @@ const yourQuestion = (state = emptyYourQuestion, action) => {
   }
 };
 
-export default combineReducers({ chats, questions, currentQuestionPage, yourQuestion });
+const newArchives = (state = [], action) => {
+  switch (action.type) {
+    case 'NEW_ARCHIVES':
+      return action.archives;
+    default:
+      return state;
+  }
+};
+
+const UIState = (state = { fullArchives: false }, action) => {
+  switch (action.type) {
+    case 'FULL_ARCHIVES':
+      return Object.assign({}, { fullArchives: true });
+    case 'CLOSE_ARCHIVES':
+      return Object.assign({}, { fullArchives: false });
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({
+  chats, questions, currentQuestionPage, yourQuestion, newArchives, UIState
+});
 
 // selectors
 export const getQuestions = state => state.questions;
@@ -42,3 +64,5 @@ export const getChattingPartner = (state, idx) => chatsSels.getChattingPartner(s
 export const getRoom = (state, index) => chatsSels.getRoom(state.chats, index);
 export const getMyHandle = (state, index) => chatsSels.getMyHandle(state.chats, index);
 export const getChatOpen = (state, index) => chatsSels.getChatOpen(state.chats, index);
+export const getArchives = state => state.newArchives;
+export const areArchivesOpen = state => state.UIState.fullArchives;

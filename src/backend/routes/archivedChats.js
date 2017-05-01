@@ -4,10 +4,9 @@ const models = require('../models');
 const router = express.Router();
 const Question = models.Question;
 const ArchivedChat = models.ArchivedChat;
-const limit = 10;
+const User = models.User;
 
 router.post('/archivedChats/new', (req, res) => {
-  console.log('i got into this chat');
   const messages = req.body.messages;
   const questionId = req.body.questionId;
   const askerHandle = req.body.askerHandle;
@@ -23,12 +22,10 @@ router.post('/archivedChats/new', (req, res) => {
 
   Question.findById(questionId)
   .then((foundQuestion) => {
-    console.log('i got here');
     asker = foundQuestion.asker;
     answerer = foundQuestion.answerer;
     question = foundQuestion.content;
     questionSubject = foundQuestion.subject;
-    console.log(questionSubject);
     archivedChat = new ArchivedChat({
       messages,
       questionId,
@@ -42,6 +39,14 @@ router.post('/archivedChats/new', (req, res) => {
       questionSubject,
     });
     return archivedChat.save();
+  })
+  .then(() => User.findById(answerer)
+  )
+  .then((user) => {
+    const newUser = user;
+    newUser.rating[questionSubject] += rating;
+    newUser.markModified('rating');
+    return newUser.save();
   })
   .then(() => {
     if (!questionAnswered) {
@@ -69,10 +74,11 @@ router.post('/archivedChats/new', (req, res) => {
 
 router.get('/archivedChats/get', (req, res) => {
   const subject = req.query.subject;
-  const skip = req.query.skip;
+  const pageNumber = req.query.pageNumber;
+  const limit = parseInt(req.query.limit);
   ArchivedChat.find({ questionSubject: subject })
   .sort({ rating: -1 })
-  .skip(skip * limit)
+  .skip(pageNumber * limit)
   .limit(limit)
   .then((archives) => {
     res.json({

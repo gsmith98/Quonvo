@@ -8,7 +8,8 @@
     "backendDev": "nodemon src/backend/server.js",
     "frontendDev": "webpack-dev-server",
     "prod": "webpack -p",
-    "start": "webpack -p && node src/backend/server.js"
+    "postinstall": "webpack -p",
+    "start": "node src/backend/server.js"
   },
   "repository": {
     "type": "git",

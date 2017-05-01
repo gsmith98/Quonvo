@@ -35,24 +35,17 @@ REQUIRED_ENV.forEach((el) => {
   }
 });
 
+console.log('env', process.env.NODE_ENV);
+
 mongoose.Promise = global.Promise;
 mongoose.connect(connect);
 
-// Set up of the build
-// makes all files in build pullable
-// things like assets, js bundles, and css bundles should be
-// should our app.html be? or should it be only given by an authenticated route?
-// TODO make an intended public directory (include assets)
-app.use(express.static('build'));
+// all files in build/public are publically available through /public route
+app.use('/public', express.static('build/public'));
 
 // login (home/splash) page
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../../build/login.html'));
-});
-
-// POSTMAN DEVTOOL TODO remove from prod
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../build/app.html'));
 });
 
 app.use(flash());
@@ -62,12 +55,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoStore = new MongoStore({ mongooseConnection: mongoose.connection });
-
 app.use(session({
   secret: process.env.SECRET,
   store: mongoStore
 }));
-
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -89,10 +80,12 @@ app.use('/', archivedChatRoutes);
 app.get('/assets/:asset', (req, res) => {
   res.sendFile(path.join(__dirname, `../../assets/${req.params.asset}`));
 });
-// TODO once more routes are added, add them here.
 
-// logged-in react-router webapp
-// TODO don't use "*", use a separate webapp
+// the '/' route is as follows
+// In production: main app (after login)
+// In dev (3000) (after building webpack): postman tool (after login) (main page on /Temp)
+// In webpack dev server (8080) (this file isn't used): postman tool (main page on /Temp)
+// This route is a '*' for use by react-router
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../build/index.html'));
 });

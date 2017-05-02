@@ -4,22 +4,37 @@ const SigninBar = ({ signIn }) => {
   let emailField;
   let passField;
 
-  return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        const submitEmail = emailField.value.trim();
-        const submitPass = passField.value.trim();
-        if (submitEmail && submitPass) {
-          signIn(submitEmail, submitPass);
-        }
-      }}
-    >
-      <input className="emailField" ref={(node) => { emailField = node; }} />
-      <input className="passwordField" ref={(node) => { passField = node; }} />
-      <button type="submit">Sign In</button>
-    </form>
+  const signInClick = () => {
+    const submitEmail = emailField.value.trim();
+    const submitPass = passField.value.trim();
+    if (submitEmail && submitPass) {
+      signIn(submitEmail, submitPass);
+    }
+  };
+  const signUpClick = () => {
+    // TODO write signup click function
+  };
 
+  const googleClick = () => {
+    // TODO write google click funciton
+  };
+
+  return (
+    <div>
+      <input
+        className="emailField"
+        ref={(node) => { emailField = node; }}
+        placeholder="email"
+      />
+      <input
+        className="passwordField"
+        ref={(node) => { passField = node; }}
+        placeholder="password"
+      />
+      <button type="submit" onClick={signInClick}>Sign In</button>
+      <button type="submit" onClick={signUpClick}>Sign up</button>
+      <button type="submit" onClick={googleClick}>Sign in with Google</button>
+    </div>
   );
 };
 

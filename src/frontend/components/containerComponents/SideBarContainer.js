@@ -29,7 +29,7 @@ class SideBarWrapper extends Component {
   // TODO pass the SideBar clickToMinimize and clickToMaximize
   render() {
     return (
-      <div>
+      <div className="menu_wrapper">
         <Modal
           contentLabel="Modal"
           isOpen={this.state.questionModalActive}

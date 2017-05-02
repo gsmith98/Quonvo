@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { getArchives } from 'reducers';
 import { newArchivesThunk, closeArchives } from 'actions';
 import Archives from '../presentationalComponents/Archives';
-import ArchivedConversation from '../presentationalComponents/ArchivedConversation';
 // TODO artchived messages are working just no appearing because the styling is shit LOL
 class ArchivesWrapper extends Component {
   constructor(props) {
@@ -18,8 +17,11 @@ class ArchivesWrapper extends Component {
     this.props.newArchivesThunk(this.state.topic, pageNumber, numberPerPage);
   }
 
+  backToArchives() {
+    this.setState({ getMessages: false });
+  }
   newTopic(topic, numberPerPage) {
-    this.setState({ page: 0, topic });
+    this.setState({ page: 0, topic, getMessages: false });
     const pageNumber = this.state.page;
     this.props.newArchivesThunk(topic, pageNumber, numberPerPage);
   }
@@ -33,16 +35,15 @@ class ArchivesWrapper extends Component {
       {}, this.props, {
         nextPage: this.nextPage.bind(this),
         newTopic: this.newTopic.bind(this),
-        openMessages: this.openMessages.bind(this)
+        openMessages: this.openMessages.bind(this),
+        areMessagesOpen: this.state.getMessages,
+        messages: this.state.messages,
+        backToArchives: this.backToArchives.bind(this)
       }
     );
-    const messages = this.state.messages;
     console.log('the state', this.state);
     return (
-      <div>
-        <Archives {...newProps} />
-        {this.state.getMessages ? <ArchivedConversation messages={messages} /> : null}
-      </div>
+      <Archives {...newProps} />
     );
   }
 }

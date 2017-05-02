@@ -1,5 +1,5 @@
 .menu_attempt{
-  float:right;
+  align-self: right;
   position: absolute;
   right: 0;
 }
@@ -16,6 +16,9 @@
 
 }
 
+.menu_wrapper {
+  align-self: right;
+}
 .menu_icon{
   display: flex;
   flex-direction: column;

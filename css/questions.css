@@ -25,6 +25,8 @@
 
 
 }
+.question_wrapper {
+}
 
 .navigate_buttons{
   height: 50px;
@@ -149,6 +151,7 @@
   flex: 1;
   /*overflow-y: auto;*/
   display: flex;
+  align-self: left;
   flex-direction: column;
   align-items: center;
   /*position: relative;*/

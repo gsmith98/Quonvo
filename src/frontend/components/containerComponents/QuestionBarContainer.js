@@ -83,7 +83,7 @@ class QuestionBarWrapper extends Component {
     let handleField;
 
     return (
-      <div>
+      <div className="question_wrapper">
         <Modal
           contentLabel="Modal"
           isOpen={this.state.answerModalActive}

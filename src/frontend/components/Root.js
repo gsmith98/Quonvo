@@ -2,8 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Route, browserHistory } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import DevApp from './DevApp';
+import App from './presentationalComponents/App';
+import DevApp from './devComponents/DevApp';
 
 const AppComponent = process.env.NODE_ENV === 'development' ? DevApp : App;
 

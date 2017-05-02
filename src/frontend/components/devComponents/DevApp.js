@@ -1,6 +1,6 @@
 import React from 'react';
-import { DevPostman } from './devComponents';
-import * as Components from './index';
+import { DevPostman } from '../devComponents';
+import * as Components from '../index';
 
 // Any component written as a function can be rendered by
 // webdevserver (npm run frontendDev) @ localhost:8080/ComponentName

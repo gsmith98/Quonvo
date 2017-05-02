@@ -8,7 +8,7 @@ const SigninBar = ({ signIn }) => {
     const submitEmail = emailField.value.trim();
     const submitPass = passField.value.trim();
     if (submitEmail && submitPass) {
-      signIn(submitEmail, submitPass); // TODO should sign in AND direct you to main App
+      signIn(submitEmail, submitPass);
     }
   };
   const signUpClick = () => {

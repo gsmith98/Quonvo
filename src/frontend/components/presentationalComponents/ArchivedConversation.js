@@ -1,7 +1,6 @@
 import React from 'react';
 // Change the class names to their own class names later on
-const ArchivedConversation = ({ messages, backToArchives }) => {
-  return (
+const ArchivedConversation = ({ messages, backToArchives }) => (
     <div className="chat_body">
       <div onClick={() => backToArchives()}>GO BACK</div>
       {messages.map(message =>
@@ -9,6 +8,6 @@ const ArchivedConversation = ({ messages, backToArchives }) => {
           <div className="message_text"> {message.content} </div>
         </div>
       )}
-    </div>);
-};
+    </div>
+);
 export default ArchivedConversation;

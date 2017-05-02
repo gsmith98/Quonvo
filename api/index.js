@@ -1,7 +1,7 @@
 
 const urlRoot = DOMAIN;
 
-// TODO remove console logs (or log only in dev env)
+// TODO remove console logs (or log only in dev env).
 const post = (url, data) =>
   fetch(url, {
     method: 'post',

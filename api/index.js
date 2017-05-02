@@ -5,7 +5,10 @@ const urlRoot = DOMAIN;
 const post = (url, data) =>
   fetch(url, {
     method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    },
     credentials: 'include',
     body: JSON.stringify(data)
   })

@@ -17,7 +17,7 @@ class PostTool extends Component {
         Accept: 'application/json'
       },
       credentials: 'include',
-      body: querystring.stringify(data)
+      body: JSON.stringify(data)
     })
     .then(resp => resp.json())
     .then((respjson) => {

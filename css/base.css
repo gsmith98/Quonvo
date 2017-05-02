@@ -54,6 +54,8 @@ html{
   display: flex;
   height: 100%;
   position: relative;
+  align-items: center;
+
 }
 
 

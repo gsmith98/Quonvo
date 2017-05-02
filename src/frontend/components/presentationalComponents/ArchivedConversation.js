@@ -1,7 +1,6 @@
 import React from 'react';
 // Change the class names to their own class names later on
 const ArchivedConversation = ({ messages, backToArchives }) => {
-  console.log('messages', messages)
   return (
     <div className="chat_body">
       <div onClick={() => backToArchives()}>GO BACK</div>

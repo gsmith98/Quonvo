@@ -1,6 +1,6 @@
 
 const urlRoot = DOMAIN;
-console.log('urlroot', urlRoot);
+console.log('urlroothi', urlRoot);
 
 // TODO remove console logs (or log only in dev env)
 const post = (url, data) => {

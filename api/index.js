@@ -1,9 +1,11 @@
 
 const urlRoot = DOMAIN;
+console.log(urlRoot);
 
 // TODO remove console logs (or log only in dev env)
-const post = (url, data) =>
-  fetch(url, {
+const post = (url, data) => {
+  console.log('url', url);
+  return fetch(url, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -18,6 +20,7 @@ const post = (url, data) =>
     console.log('Error occured! See below.');
     throw err;
   });
+};
 
 const get = url =>
     fetch(url, {

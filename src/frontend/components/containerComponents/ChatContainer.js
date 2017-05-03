@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import { sendMessage, receiveMessage, newChattingPatner, questionReady, endChatThunk, minimizeChat } from 'actions/chatActions';
-import { getChattingPartner, getRoom, getMyHandle, getChatOpen, getMessages } from 'reducers';
+import { getChattingPartner, getRoom, getMyHandle, /* getChatOpen,*/ getMessages, getVisibleChatIndex } from 'reducers';
 import { Chat, Modal, PostChat } from '../presentationalComponents';
 
-// This is partly just to keep Chat a functional presentational component
-//  even though we want to use some state stuff and the constructor
+
 class ChatWrapper extends Component {
-  // TODO research when things should be constructor vs componentDidMount
   constructor(props) {
     super(props);
 
@@ -86,9 +84,8 @@ const mapStateToProps = (state, { chatIndex }) => ({
   chattingPartner: getChattingPartner(state, chatIndex),
   room: getRoom(state, chatIndex),
   yourHandle: getMyHandle(state, chatIndex),
-  chatOpen: getChatOpen(state, chatIndex),
-  messages: getMessages(state, chatIndex),
-  // TODO add getting the question id here.
+  chatOpen: getVisibleChatIndex(state) === chatIndex, // getChatOpen(state, chatIndex),
+  messages: getMessages(state, chatIndex)
 });
 
 

@@ -7,7 +7,6 @@ const mapStateToProps = state => ({
   chats: Object.keys(getChats(state))
           .map(key => Object.assign({}, getChats(state)[key], { chatIndex: key })),
   archives: areArchivesOpen(state)
-
 });
 
 export default connect(mapStateToProps, null)(ParentPage);

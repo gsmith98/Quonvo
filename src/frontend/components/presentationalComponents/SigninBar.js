@@ -39,6 +39,9 @@ const SigninBar = ({ signIn }) => {
         <img alt="logo" className="logo" src="../assets/google_logo.png" />
         <span className="signin">Sign in with Google</span>
       </button>
+
+      <div className="explanation" style={{ 'font-size': '10px' }}>Already have an account? Log in <a> here </a> </div>
+      <br />
     </div>
   );
 };

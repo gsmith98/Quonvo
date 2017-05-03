@@ -28,6 +28,17 @@ const messages = (state = [], action) => {
   }
 };
 
+const unreadMessages = (state = 0, action) => {
+  switch (action.type) {
+    case 'NOTIFY_MESSAGE':
+      return state + 1;
+    case 'OPEN_CHAT':
+      return 0;
+    default:
+      return state;
+  }
+};
+
 // const chatopen = (state = false, action) => {
 //   switch (action.type) {
 //     case 'OPEN_CHAT':
@@ -55,7 +66,8 @@ const individualChatReducer = combineReducers({
   chatRoom,
   myHandle,
   chattingPartner,
-  messages
+  messages,
+  unreadMessages
 });
 
 export default individualChatReducer;

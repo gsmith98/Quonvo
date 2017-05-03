@@ -8,7 +8,7 @@ const TabsBar = ({ chats, openChat }) => (
       chat.chattingPartner ?
         <div key={chat.chatIndex}>
           <button onClick={() => openChat(chat.chatIndex)}>
-            {chat.chattingPartner}
+            {`${chat.unreadMessages} ${chat.chattingPartner}`}
           </button>
         </div>
         : null

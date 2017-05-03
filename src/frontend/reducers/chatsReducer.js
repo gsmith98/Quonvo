@@ -13,7 +13,8 @@ const chats = (state = {}, action) => {
     case 'NEW_PARTNER':
     case 'JOIN_ROOM':
     case 'SET_HANDLE':
-    // case 'OPEN_CHAT':
+    case 'NOTIFY_MESSAGE':
+    case 'OPEN_CHAT': // clears unread messages
     // case 'MINIMIZE_CHAT':
       // use the chatreducer on the relevant chat (also keep things not overwritten by chatreducer)
       return Object.assign(

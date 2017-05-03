@@ -40,7 +40,7 @@ const newArchives = (state = [], action) => {
 
 const EMPTY = 'empty-0';
 const ARCHIVES = 'archives-0';
-const CHAT = id => `chat-${id}`;
+const chat = id => `chat-${id}`;
 const UIState = (state = EMPTY, action) => {
   switch (action.type) {
     case 'FULL_ARCHIVES':
@@ -48,10 +48,10 @@ const UIState = (state = EMPTY, action) => {
     case 'CLOSE_ARCHIVES':
       return state === ARCHIVES ? EMPTY : state;
     case 'OPEN_CHAT':
-      return CHAT(action.chatIndex);
+      return chat(action.chatIndex);
     case 'MINIMIZE_CHAT':
     case 'END_CHAT':
-      return state === CHAT(action.chatIndex) ? EMPTY : state;
+      return state === chat(action.chatIndex) ? EMPTY : state;
     default:
       return state;
   }

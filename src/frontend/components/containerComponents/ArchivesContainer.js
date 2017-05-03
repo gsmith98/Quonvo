@@ -17,6 +17,13 @@ class ArchivesWrapper extends Component {
     this.props.newArchivesThunk(this.state.topic, pageNumber, numberPerPage);
   }
 
+  previousPage(numberPerPage) {
+    const previousPage = this.state.page - 1;
+    this.setState({ page: previousPage });
+    const pageNumber = this.state.page;
+    this.props.newArchivesThunk(this.state.topic, pageNumber, numberPerPage);
+  }
+
   backToArchives() {
     this.setState({ getMessages: false });
   }
@@ -34,6 +41,7 @@ class ArchivesWrapper extends Component {
     const newProps = Object.assign(
       {}, this.props, {
         nextPage: this.nextPage.bind(this),
+        previousPage: this.previousPage.bind(this),
         newTopic: this.newTopic.bind(this),
         openMessages: this.openMessages.bind(this),
         areMessagesOpen: this.state.getMessages,

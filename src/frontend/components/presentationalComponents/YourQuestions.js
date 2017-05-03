@@ -2,8 +2,8 @@ import React from 'react';
 
 const YourQuestions = ({ onPressButton }) => (
   <div onClick={onPressButton} className="menu_icon">
-    <img alt="" src="assets/question_icon.png" className="icon_toobig" />
-    <span className="menu_bold"> YOUR <br /> QUESTIONS </span>
+    <img alt="" src="assets/trophy.svg" className="icon_toobig" />
+    <span className="menu_bold"> RANKINGS </span>
   </div>
 );
 

@@ -1,0 +1,87 @@
+.field{
+
+  background : #E6E7E8;
+  background : rgba(230, 231, 232, 1);
+  border-radius : 3px  / 5px;
+  -moz-border-radius : 3px  / 5px;
+  -webkit-border-radius : 3px  / 5px;
+  width: 130%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: -15%;
+
+}
+
+.signin_wrapper{
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  margin-top: 8%;
+}
+
+.ask_button{
+  height: 8vh;
+  width: 130%;
+  margin-left: -15%;
+  flex:1;
+  /*margin-left: auto;
+  margin-right: auto;*/
+
+  background : #D79B80;
+  background : rgba(215, 155, 128, 1);
+  border-radius : 12px;
+  -moz-border-radius : 12px;
+  -webkit-border-radius : 12px;
+  border: 0;
+  box-shadow:none;
+
+  font-family : Roboto;
+  font-weight: 900;
+  font-size : 16px;
+  line-height : 18px;
+  letter-spacing : 1.3px;
+  /*color : #A7A9AC;*/
+  color : black;
+  /*position: relative;*/
+  /*margin: -4vw;
+  margin-top: 2vh;*/
+
+}
+
+.line{
+  width: 130%;
+  margin-left: -15%;
+  border-top: 1px solid grey;
+}
+
+.google{
+  background : #E6E7E8;
+  border-radius : 12px;
+  -moz-border-radius : 12px;
+  -webkit-border-radius : 12px;
+  border: 0;
+  box-shadow:none;
+  height: 10vh;
+  width: 130%;
+  margin-left: -15%;
+  display: flex;
+}
+
+.logo{
+  max-height: 40px;
+  flex: 0.15;
+  margin-left: 5%;
+  /*margin-left: -20%;*/
+}
+
+.signin{
+  font-family : Roboto;
+  font-weight: 900;
+  font-size : 16px;
+  line-height : 18px;
+  letter-spacing : 1.3px;
+  text-align: right;
+  /*flex: 3;*/
+  margin-left: 10%;
+  margin-top: 3.5%;
+}

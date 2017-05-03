@@ -4,9 +4,9 @@
   max-height: 110vh;
   display: flex;
   flex: 2;
-  margin-left: -3%;
+  margin-left: 2%;
   background : rgba(255, 240, 222, 1);
-  border-radius: 0px 39px 0px 0px;
+  border-radius: 35px 35px 35px 35px;
   overflow:hidden;
 
   -webkit-animation: slideIn 0.5s forwards;
@@ -42,7 +42,10 @@
 
 
 
-
+.center {
+  flex: 1;
+  display: flex;
+}
 
 
 

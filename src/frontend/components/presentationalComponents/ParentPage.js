@@ -4,11 +4,12 @@ import { ChatContainer, QuestionBarContainer, SideBarContainer, TabsBarContainer
 const ParentPage = ({ chats, archives }) => (
   <div className="page_container">
     <QuestionBarContainer />
-    <TabsBarContainer chats={chats} />
-    {chats.map(chat => (chat.chatRoom ?
-      <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} /> : null))}
-    {archives ? <ArchivesContainer /> : null}
-
+    <div className="center">
+      <TabsBarContainer chats={chats} />
+      {chats.map(chat => (chat.chatRoom ?
+        <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} /> : null))}
+      {archives ? <ArchivesContainer /> : null}
+    </div>
     <SideBarContainer />
   </div>
 );

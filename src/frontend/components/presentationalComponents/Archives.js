@@ -17,9 +17,12 @@ const Archives = ({
   messages,
   backToArchives
 }) => (
-  <div className="archive_fulldisplay">
+  <div className="archive_fulldisplay" id="fadeAndScale">
     <div className="archive_question_header">
       <span className="bold_caslon">Archives </span>
+      <div onClick={() => closeArchives()} className="right_arrow">
+        <img alt="" src="assets/arrow-01.png" className="icon" />
+      </div>
     </div>
     <div className="navigation_bar">
       <span
@@ -32,7 +35,7 @@ const Archives = ({
       <span className="nav bold" onClick={() => nextPage(numberPerPage)}> NEXT PAGE </span>
       <span className="nav bold" onClick={() => closeArchives()}> GO BACK </span>
     </div>
-    <div className="question_display">
+    <div className="archives_display">
       {areMessagesOpen
       ?
         <ArchivedConversation messages={messages} backToArchives={() => backToArchives()} />
@@ -45,6 +48,14 @@ const Archives = ({
           />
         )
       }
+    </div>
+    <div className="navigation_buttons">
+      <div className="previous_archives">
+        <img className="icon" alt="" src="assets/left-arrow.svg" />
+      </div>
+      <div className="next_archives">
+        <img className="icon" alt="" src="assets/left-arrow.svg" />
+      </div>
     </div>
   </div>
 );

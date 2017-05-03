@@ -4,7 +4,7 @@ import ReactStars from 'react-stars';
 
 const ArchivedQuestion = ({ archive, onClick, key }) => (
   <div className="question_box" onClick={() => onClick()} key={key}>
-    <div className="question_text"> {archive.question} </div>
+    <div className="archives_text"> {archive.question} </div>
     <ReactStars
       className="star_rating"
       count={5}

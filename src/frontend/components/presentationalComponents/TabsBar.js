@@ -12,7 +12,7 @@ const TabsBar = ({ chats, openChat }) => (
           onClick={() => openChat(chat.chatIndex)}
         >
           <span className="chatting_partner bold">
-            {chat.chattingPartner}
+            {`${chat.unreadMessages} ${chat.chattingPartner}`}
           </span>
         </div>
         : null

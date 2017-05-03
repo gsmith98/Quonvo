@@ -3,13 +3,17 @@ import React from 'react';
 /* TODO make look good */
 
 const TabsBar = ({ chats, openChat }) => (
-  <div>
+  <div className="tabs_bar">
     {chats.map(chat => (
       chat.chattingPartner ?
-        <div key={chat.chatIndex}>
-          <button onClick={() => openChat(chat.chatIndex)}>
+        <div
+          key={chat.chatIndex}
+          className="tab"
+          onClick={() => openChat(chat.chatIndex)}
+        >
+          <span className="chatting_partner bold">
             {`${chat.unreadMessages} ${chat.chattingPartner}`}
-          </button>
+          </span>
         </div>
         : null
     ))}

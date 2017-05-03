@@ -9,3 +9,4 @@ export * from './questions.css';
 export * from './archives.css';
 export * from './PostChat.css';
 export * from './signin.css';
+export * from './tabs.css';

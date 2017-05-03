@@ -41,7 +41,7 @@
  }
 
 .archive_fulldisplay{
-  margin-left: 3%;
+  margin-left: 10%;
   margin-top: 3vh;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,7 @@
   -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
-    margin-left: 25%;
+    margin-left: 20%;
     margin-right: 5%;
 }
 
@@ -90,6 +90,8 @@
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
   margin-right: 5%;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
   cursor: pointer;
 }
 
@@ -100,7 +102,8 @@
 .previous_archives {
   margin-left: 5%;
   cursor: pointer;
-  margin-bottom: 7vh;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
 }
 
 .previous_archives:hover {

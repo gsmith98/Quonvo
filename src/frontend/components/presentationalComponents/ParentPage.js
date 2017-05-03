@@ -6,8 +6,7 @@ const ParentPage = ({ chats, archives }) => (
     <QuestionBarContainer />
     <TabsBarContainer chats={chats} />
     {chats.map(chat => (chat.chatRoom ?
-      <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} startOpen={chat.chatopen} />
-      : null))}
+      <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} /> : null))}
     {archives ? <ArchivesContainer /> : null}
 
     <SideBarContainer />

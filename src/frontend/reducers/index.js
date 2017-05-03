@@ -38,12 +38,20 @@ const newArchives = (state = [], action) => {
   }
 };
 
-const UIState = (state = { fullArchives: false }, action) => {
+const EMPTY = 'empty-0';
+const ARCHIVES = 'archives-0';
+const CHAT = id => `chat-${id}`;
+const UIState = (state = EMPTY, action) => {
   switch (action.type) {
     case 'FULL_ARCHIVES':
-      return Object.assign({}, { fullArchives: true });
+      return ARCHIVES;
     case 'CLOSE_ARCHIVES':
-      return Object.assign({}, { fullArchives: false });
+      return state === ARCHIVES ? EMPTY : state;
+    case 'OPEN_CHAT':
+      return CHAT(action.chatIndex);
+    case 'MINIMIZE_CHAT':
+    case 'END_CHAT':
+      return state === CHAT(action.chatIndex) ? EMPTY : state;
     default:
       return state;
   }
@@ -58,11 +66,21 @@ export const getQuestions = state => state.questions;
 export const getYourQuestion = state => state.yourQuestion.question;
 export const getYourQuestionReady = state => state.yourQuestion.ready;
 export const getCurrentQuestionPage = state => state.currentQuestionPage;
-export const getChats = state => chatsSels.getChats(state.chats);
+export const getChats = state => state.chats;
+export const getChat = (state, index) => chatsSels.getChat(state.chats, index);
 export const getMessages = (state, index) => chatsSels.getMessages(state.chats, index);
 export const getChattingPartner = (state, idx) => chatsSels.getChattingPartner(state.chats, idx);
 export const getRoom = (state, index) => chatsSels.getRoom(state.chats, index);
 export const getMyHandle = (state, index) => chatsSels.getMyHandle(state.chats, index);
-export const getChatOpen = (state, index) => chatsSels.getChatOpen(state.chats, index);
+// export const getChatOpen = (state, index) => chatsSels.getChatOpen(state.chats, index);
 export const getArchives = state => state.newArchives;
-export const areArchivesOpen = state => state.UIState.fullArchives;
+export const areArchivesOpen = state => state.UIState === ARCHIVES;
+export const getUIstate = state => state.UIState;
+export const getVisibleChatIndex = (state) => {
+  const [type, index] = getUIstate(state).split('-');
+  return type === 'chat' ? index : null;
+};
+export const getVisibleChat = (state) => {
+  const [type, index] = getUIstate(state).split('-');
+  return type === 'chat' ? Object.assign({}, getChat(state, index), { chatIndex: index }) : null;
+};

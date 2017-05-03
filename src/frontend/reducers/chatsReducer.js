@@ -1,9 +1,8 @@
 import chatReducer, {
   getMessages as getChatMessages,
-  getChattingPartner as getChatChattingPartner,
+  getChattingPartner as getCCPartner,
   getRoom as getChatRoom,
-  getMyHandle as getChatHandle,
-  getChatOpen as getChatChatOpen,
+  getMyHandle as getChatHandle
 } from './chatReducer';
 
 
@@ -12,10 +11,10 @@ const chats = (state = {}, action) => {
   switch (action.type) {
     case 'NEW_MESSAGE':
     case 'NEW_PARTNER':
-    case 'OPEN_CHAT':
-    case 'MINIMIZE_CHAT':
     case 'JOIN_ROOM':
     case 'SET_HANDLE':
+    // case 'OPEN_CHAT':
+    // case 'MINIMIZE_CHAT':
       // use the chatreducer on the relevant chat (also keep things not overwritten by chatreducer)
       return Object.assign(
         {},
@@ -35,8 +34,9 @@ export default chats;
 
 // SELECTORS
 export const getChats = theChats => theChats;
-export const getMessages = (theChats, index) => getChatMessages(theChats[index]);
-export const getChattingPartner = (theChats, index) => getChatChattingPartner(theChats[index]);
-export const getRoom = (theChats, index) => getChatRoom(theChats[index]);
-export const getMyHandle = (theChats, index) => getChatHandle(theChats[index]);
-export const getChatOpen = (theChats, index) => getChatChatOpen(theChats[index]);
+export const getChat = (theChats, index) => theChats[index];
+export const getMessages = (theChats, index) => getChatMessages(getChat(theChats, index));
+export const getChattingPartner = (theChats, index) => getCCPartner(getChat(theChats, index));
+export const getRoom = (theChats, index) => getChatRoom(getChat(theChats, index));
+export const getMyHandle = (theChats, index) => getChatHandle(getChat(theChats, index));
+// export const getChatOpen = (theChats, index) => getChatChatOpen(getChat(theChats, index));

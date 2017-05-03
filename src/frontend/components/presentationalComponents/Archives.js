@@ -2,9 +2,7 @@ import React from 'react';
 import ArchivedQuestion from './ArchivedQuestion';
 import ArchivedConversation from '../presentationalComponents/ArchivedConversation';
 
-const topics = ['Stuff', 'Travel'];
-const topic1 = topics[0];
-const topic2 = topics[1];
+const topics = ['Stuff', 'Stuff1', 'Stuff2', 'Travel'];
 const numberPerPage = 5;
 
 const Archives = ({
@@ -15,7 +13,8 @@ const Archives = ({
   openMessages,
   areMessagesOpen,
   messages,
-  backToArchives
+  backToArchives,
+  previousPage
 }) => (
   <div className="archive_fulldisplay" id="fadeAndScale">
     <div className="archive_question_header">
@@ -25,15 +24,14 @@ const Archives = ({
       </div>
     </div>
     <div className="navigation_bar">
-      <span
-        className="nav bold"
-        onClick={() => newTopic(topic1, numberPerPage)}
-      >
-        { topic1 }
-      </span>
-      <span className="nav bold" onClick={() => newTopic(topic2, numberPerPage)}> { topic2 } </span>
-      <span className="nav bold" onClick={() => nextPage(numberPerPage)}> NEXT PAGE </span>
-      <span className="nav bold" onClick={() => closeArchives()}> GO BACK </span>
+      {topics.map(topic =>
+        <span
+          className="nav bold"
+          onClick={() => newTopic(topic, numberPerPage)}
+        >
+          { topic }
+        </span>)
+    }
     </div>
     <div className="archives_display">
       {areMessagesOpen
@@ -49,15 +47,18 @@ const Archives = ({
         )
       }
     </div>
+    {areMessagesOpen ? <div /> :
     <div className="navigation_buttons">
-      <div className="previous_archives">
-        <img className="icon" alt="" src="assets/left-arrow.svg" />
+      <div className="previous_archives" onClick={() => previousPage(numberPerPage)}>
+        <img className="arrow_icon" alt="" src="assets/left-arrow.svg" />
       </div>
-      <div className="next_archives">
-        <img className="icon" alt="" src="assets/left-arrow.svg" />
+      <div className="next_archives" onClick={() => nextPage(numberPerPage)}>
+        <img className="arrow_icon" alt="" src="assets/left-arrow.svg" />
       </div>
     </div>
+  }
   </div>
+
 );
 
 export default Archives;

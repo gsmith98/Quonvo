@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
-import { sendMessage, receiveMessage, newChattingPatner, questionReady, endChatThunk, minimizeChat } from 'actions/chatActions';
+import { sendMessage, receiveMessage, newChattingPartner, questionReady, endChatThunk, minimizeChat, notifyMessage } from 'actions/chatActions';
 import { getChattingPartner, getRoom, getMyHandle, /* getChatOpen,*/ getMessages, getVisibleChatIndex } from 'reducers';
 import { Chat, Modal, PostChat } from '../presentationalComponents';
 
@@ -16,7 +16,12 @@ class ChatWrapper extends Component {
     // TODO move clientside socket config into another file/function?
     this.state = { socket: io(DOMAIN), modal: false };
 
-    this.state.socket.on('message', ({ message }) => this.props.receiveMessage(message, this.chatIndex));
+    this.state.socket.on('message', ({ message }) => {
+      this.props.receiveMessage(message, this.chatIndex);
+      if (!this.props.chatOpen) {
+        this.props.notifyMessage(this.chatIndex);
+      }
+    });
     this.state.socket.on('joined', ({ handle }) => {
       this.props.newChattingPartner(handle, this.chatIndex);
       this.props.questionReady();
@@ -94,7 +99,8 @@ export default connect(
   {
     sendMessage,
     receiveMessage,
-    newChattingPatner,
+    notifyMessage,
+    newChattingPartner,
     questionReady,
     endChatThunk,
     minimizeChat

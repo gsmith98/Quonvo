@@ -19,6 +19,7 @@ const newMessage = (content, user, chatIndex) => ({
 
 export const sendMessage = (content, chatIndex) => newMessage(content, 'YOU', chatIndex);
 export const receiveMessage = (content, chatIndex) => newMessage(content, 'THEM', chatIndex);
+export const notifyMessage = chatIndex => ({ type: 'NOTIFY_MESSAGE', chatIndex });
 
 export const openChat = chatIndex => ({ type: 'OPEN_CHAT', chatIndex });
 export const minimizeChat = chatIndex => ({ type: 'MINIMIZE_CHAT', chatIndex });

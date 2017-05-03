@@ -20,20 +20,28 @@ const SigninBar = ({ signIn }) => {
   };
 
   return (
-    <div>
+    <div className="signin_wrapper">
       <input
-        className="emailField"
+        className="field"
         ref={(node) => { emailField = node; }}
         placeholder="email"
       />
       <input
-        className="passwordField"
+        className="field"
         ref={(node) => { passField = node; }}
         placeholder="password"
       />
-      <button type="submit" onClick={signInClick}>Sign In</button>
-      <button type="submit" onClick={signUpClick}>Sign up</button>
-      <button type="submit" onClick={googleClick}>Sign in with Google</button>
+      <button className="ask_button"> LET&rsquo;S GO</button>
+      <br />
+      <div className="line" />
+      <br />
+      <button className="google" type="submit" onClick={googleClick}>
+        <img alt="logo" className="logo" src="../assets/google_logo.png" />
+        <span className="signin">Sign in with Google</span>
+      </button>
+
+      <div className="explanation" style={{ 'font-size': '10px' }}>Already have an account? Log in <a> here </a> </div>
+      <br />
     </div>
   );
 };

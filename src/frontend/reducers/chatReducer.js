@@ -28,16 +28,16 @@ const messages = (state = [], action) => {
   }
 };
 
-const chatopen = (state = false, action) => {
-  switch (action.type) {
-    case 'OPEN_CHAT':
-      return true;
-    case 'MINIMIZE_CHAT':
-      return false;
-    default:
-      return state;
-  }
-};
+// const chatopen = (state = false, action) => {
+//   switch (action.type) {
+//     case 'OPEN_CHAT':
+//       return true;
+//     case 'MINIMIZE_CHAT':
+//       return false;
+//     default:
+//       return state;
+//   }
+// };
 
 const chatRoom = (state = null, action) => {
   switch (action.type) {
@@ -51,7 +51,7 @@ const chatRoom = (state = null, action) => {
 // TODO is the function to return a reducer with chatIndex necessary?
 // Have to use a reducer-creator function to get chat index properly initialized
 const individualChatReducer = combineReducers({
-  chatopen,
+  /* chatopen,*/
   chatRoom,
   myHandle,
   chattingPartner,
@@ -66,6 +66,6 @@ export default individualChatReducer;
 
 export const getMessages = state => state.messages;
 export const getChattingPartner = state => state.chattingPartner;
-export const getChatOpen = state => state.chatopen;
+// export const getChatOpen = state => state.chatopen;
 export const getRoom = state => state.chatRoom;
 export const getMyHandle = state => state.myHandle;

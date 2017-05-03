@@ -2,7 +2,7 @@
   font-family: Caslon Old Face Heavy BT;
   font-weight : bold;
   /*font-size: 1.5vw;*/
-  font-size: 6vw;
+  font-size: 5vw;
   /*line-height: 2.7vw;*/
   /*line-height: 50px;*/
   letter-spacing : 0.05vw;
@@ -20,9 +20,29 @@
   color : #231F20;
   color : rgb(35, 31, 32);
 }*/
+.fadeAndScale {
+ -webkit-animation-name: fadeAndScale;
+ animation-name: fadeAndScale;
+ -webkit-animation-duration: 2s;
+ animation-duration: 2s;
+ -webkit-animation-fill-mode: both;
+ animation-fill-mode: both;
+}
+
+@keyframes fadeAndScale {
+ from {
+     opacity: 0;
+     transform: scale(.9, .9);
+ }
+ to {
+     opacity: 1;
+     transform: scale(1, 1);
+   }
+ }
 
 .archive_fulldisplay{
-  margin-left: 5%;
+  margin-left: 3%;
+  margin-top: 3vh;
   display: flex;
   flex-direction: column;
   width: 65%;
@@ -34,7 +54,6 @@
   border-radius : 15px;
   -moz-border-radius : 14px  / 15px;
   -webkit-border-radius : 14px  / 15px;
-
 }
 
 .archive_question_header{
@@ -43,14 +62,30 @@
   text-align: center;
   padding-top: 3%;
   padding-bottom: 3vh;
-  width: auto;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
+.right_arrow {
+  -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+    margin-left: 25%;
+    margin-right: 5%;
+}
+
+
+.right_arrow:hover{
+  opacity: 0.5;
+}
 .navigation_bar{
   flex: 0.7;
   display: flex;
   width: 90%;
   margin-bottom: 1em;
+  border-bottom: solid 1px #e8e8e8;
 }
 
 .nav{
@@ -58,8 +93,8 @@
   padding-left: 8%;
 }
 
-.question_display{
-  width: 90%;
+.archives_display{
+  width: 100%;
   flex: 5;
   display: flex;
   flex-direction: column;
@@ -70,18 +105,27 @@
   padding-top: 1em;
 }
 
-
-.question_box{
-  border: 2px solid grey;
-  width: 95%;
-flex: 1;
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
 }
 
+.question_box {
+  border-bottom: 1px solid #e8e8e8;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+  padding-right: 4%;
+}
 
+.question_box:hover {
+  background-color: #FAFAFA;
+}
 
-.question_text{
+.archives_text{
   font-family : Roboto;
-  font-size : 1.3vw;
+  font-size : 2vh;
   font-weight : bold;
   line-height : 1.4vw;
   color : black;
@@ -90,5 +134,4 @@ flex: 1;
   padding: 1em;
   padding-bottom: 2em;
   width: 85%;
-  /*padding-left: 4.5%;*/
 }

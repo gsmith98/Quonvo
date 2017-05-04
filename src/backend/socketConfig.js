@@ -21,8 +21,13 @@ const socketHandler = (io, sessionStore) => (connection) => {
     }
     // const userid = sesh.passport.user; // if we have any interest in userid it is here
 
+    // TODO right now, Chat handlers are set on Main sockets and vice versa. io() to diff routes?
+    // ========================================================
+    // ======                CHAT SOCKETS                ======
+    // ========================================================
+
     // this channel is used to create a question and to answer one
-    // in Quonvo, a given socket should only ever join one question.
+    // in Quonvo, a given chat socket should only ever join one question.
     // in fact it should always join a question immediately after being established
     // so sockets have a 1 to 1 relationship with questions/chats
     socket.on('joinQuestion', ({ room, handle }) => {
@@ -63,6 +68,17 @@ const socketHandler = (io, sessionStore) => (connection) => {
       socket.emit('sendResponse', { success: true });
     });
 
+
+    // ========================================================
+    // ======                MAIN SOCKETS                ======
+    // ========================================================
+    socket.on('joinMain', () => {
+      socket.join('MainRoom'); // The main room that all current users join
+    });
+
+    // TODO you can emit to the MainRoom to tell all users when there's a new question
+
+    // Respond to connector that all sockets have been set up
     socket.emit('connectionComplete', {});
   })
   .catch(error => console.log(error));

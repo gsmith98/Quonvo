@@ -51,3 +51,4 @@ export const updateQuestion = questionId => post(`${urlRoot}/questions/update`, 
 export const endChat = (messages, questionId, askerHandle, rating, questionAnswered) =>
   post(`${urlRoot}/archivedChats/new`, { messages, questionId, askerHandle, rating, questionAnswered });
 export const getArchives = (subject, pageNumber, limit) => get(`${urlRoot}/archivedChats/get?limit=${limit}&subject=${subject}&pageNumber=${pageNumber}`);
+export const getRankings = topic => get(`${urlRoot}/rankings/get?topic=${topic}`);

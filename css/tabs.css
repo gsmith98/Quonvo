@@ -1,22 +1,47 @@
 .tabs_bar {
   display: flex;
   flex-direction: column;
-  margin-left: -10px;
+  margin-left: -3vw;
+  width: 8vw;
 }
 
 .tab {
   width: 100%;
-  background-color: #ffcc99;
+  background-color: #ededed;
   height: 25%;
   font-family: Roboto;
   font-weight: bold;
   z-index: 2;
   border-radius: 0px 39px 39px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 
+}
+
+.notification {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  background-color: red;
+  align-self: flex-end;
+  margin-bottom: 30px;
+}
+
+.notification_number {
+  color: white;
 }
 
 .chatting_partner {
   -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 23px;
+    font-size: 1.9vw;
+    letter-spacing: 0.15vw;
+    color: black;
+    height: 30px;
 }

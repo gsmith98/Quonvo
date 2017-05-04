@@ -1,10 +1,10 @@
-
 import {
    signIn as apiSignIn,
    sendMessage as apiSendMessage,
    createQuestion as apiCreateQuestion,
    hotQuestions as apiHotQuestions,
-   getArchives as apiGetArchives
+   getArchives as apiGetArchives,
+   getRankings as apiGetRankings
    } from 'api';
 import { onQuestionCreate } from './chatActions';
 
@@ -60,6 +60,29 @@ const loadQuestions = questions => ({
   type: 'LOAD_QUESTIONS',
   questions,
 });
+
+export const closeRankings = () => ({
+  type: 'CLOSE_RANKINGS'
+});
+
+export const fullRankings = () => ({
+  type: 'FULL_RANKINGS'
+});
+
+const newRankings = rankings => ({
+  type: 'NEW_RANKINGS',
+  rankings
+});
+
+export const newRankingsThunk = topic => (dispatch) => {
+  apiGetRankings(topic)
+  .then((respJson) => {
+    dispatch(newRankings(respJson.rankings));
+  })
+  .catch((err) => {
+    throw err;
+  });
+};
 
 export const fullArchives = () => ({
   type: 'FULL_ARCHIVES'

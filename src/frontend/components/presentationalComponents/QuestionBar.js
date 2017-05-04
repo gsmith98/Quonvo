@@ -9,7 +9,9 @@ const QuestionBar = ({
    yourQuestionClick,
    yourQuestionReady,
    nextQuestionClick,
-   previousQuestionClick
+   previousQuestionClick,
+   onMouseHover,
+   onMouseLeave
 }) => (
 
   <div className="question_bar">
@@ -38,6 +40,8 @@ const QuestionBar = ({
           <LiveQuestion
             key={question.id}
             onQuestionClick={() => onQuestionClick(question.id, question.handle)}
+            onMouseOver={onMouseHover}
+            onMouseOut={onMouseLeave}
             questionClickable={true}
             questionText={question.content}
             questionSubject={question.subject}

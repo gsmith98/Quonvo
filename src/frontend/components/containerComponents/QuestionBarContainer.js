@@ -43,10 +43,11 @@ class QuestionBarWrapper extends Component {
     clearInterval(this.interval);
   }
 
-
-  previousQuestion() {
-    this.props.previousQuestionPage();
+  onMouseHover() {
     clearInterval(this.interval);
+  }
+
+  onMouseLeave() {
     this.interval = setInterval(() => this.props.nextQuestionPage(), questionRefresh);
   }
 
@@ -70,6 +71,11 @@ class QuestionBarWrapper extends Component {
     this.setState({ answerModalActive: false, clickedQid: null, clickedQhandle: null });
   }
 
+  previousQuestion() {
+    this.props.previousQuestionPage();
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.props.nextQuestionPage(), questionRefresh);
+  }
   render() {
     const newProps = Object.assign(
       {},
@@ -77,7 +83,9 @@ class QuestionBarWrapper extends Component {
       {
         onQuestionClick: (id, theirHandle) => this.openModal(id, theirHandle),
         nextQuestionClick: () => this.nextQuestion(),
-        previousQuestionClick: () => this.previousQuestion()
+        previousQuestionClick: () => this.previousQuestion(),
+        onMouseHover: () => this.onMouseHover(),
+        onMouseLeave: () => this.onMouseLeave()
       }
     );
     let handleField;

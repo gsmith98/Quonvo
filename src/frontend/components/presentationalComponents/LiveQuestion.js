@@ -4,6 +4,8 @@ const LiveQuestion = ({
   questionText,
   onQuestionClick,
   questionSubject,
+  onMouseOver,
+  onMouseOut,
 /* questionHandle , */
   questionClickable,
   questionShade // for yourQuestion readiness or also potentially hotness
@@ -11,6 +13,8 @@ const LiveQuestion = ({
   <div
     onClick={questionClickable ? onQuestionClick : null}
     className="questionTALL"
+    onMouseOver={() => onMouseOver()}
+    onMouseLeave={() => onMouseOut()}
     style={questionShade ? { backgroundColor: questionShade } : null} // TODO make css and better
   >
     <div className="question_text">

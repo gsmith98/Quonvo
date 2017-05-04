@@ -20,3 +20,4 @@ export { default as PostChat } from './PostChat';
 export { default as Modal } from './Modal';
 export { default as TabsBar } from './TabsBar';
 export { default as LoginModal } from './LoginModal';
+export { default as Rankings } from './Rankings';

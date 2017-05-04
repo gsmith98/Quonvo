@@ -8,7 +8,7 @@ const SideBar = ({
   isMinimized,
   askQuestionClick,
   archivesClick,
-  yourQuestionsClick,
+  rankingsClick,
   minimizeClick,
   maximizeClick
 }) => (
@@ -27,7 +27,7 @@ const SideBar = ({
           <br />
           <ArchiveButton onPressButton={() => archivesClick()} />
           <br />
-          <YourQuestions onPressButton={() => yourQuestionsClick()} />
+          <YourQuestions onPressButton={() => rankingsClick()} />
           <br />
           <div onClick={() => minimizeClick()} className="menu_icon">
             <img alt="" src="assets/arrow-01.png" className="icon" />

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { fullArchives, newArchivesThunk } from 'actions';
+import { fullArchives, newArchivesThunk, fullRankings, newRankingsThunk } from 'actions';
 import { SideBar, Modal } from '../presentationalComponents/';
 import { WriteQuestionContainer } from '../containerComponents';
 // TODO add UI actions for the minimizing and such
@@ -19,9 +19,15 @@ class SideBarWrapper extends Component {
     this.props.fullArchives(); // Ask about Async stuff here
   }
 
+  onRankingsClick() {
+    this.props.newRankingsThunk('Stuff');
+    this.props.fullRankings(); // Ask about Async stuff here
+  }
+
   questionModalOpen() {
     this.setState({ questionModalActive: true });
   }
+
   questionModalClose() {
     this.setState({ questionModalActive: false });
   }
@@ -41,7 +47,7 @@ class SideBarWrapper extends Component {
           isMinimized={this.state.isMinimized}
           askQuestionClick={() => this.questionModalOpen()}
           archivesClick={() => this.onArchiveClick()}
-          yourQuestionsClick={() => console.log('yourQuestionsClick')}
+          rankingsClick={() => this.onRankingsClick()}
           minimizeClick={() => console.log('minimizeClick')}
           maximizeClick={() => console.log('maximizeClick')}
         />
@@ -51,4 +57,6 @@ class SideBarWrapper extends Component {
 }
 
 
-export default connect(null, { fullArchives, newArchivesThunk })(SideBarWrapper);
+export default connect(null, {
+  fullArchives, newArchivesThunk, fullRankings, newRankingsThunk
+})(SideBarWrapper);

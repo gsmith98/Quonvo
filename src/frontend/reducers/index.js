@@ -38,8 +38,18 @@ const newArchives = (state = [], action) => {
   }
 };
 
+const newRankings = (state = [], action) => {
+  switch (action.type) {
+    case 'NEW_RANKINGS':
+      return action.rankings;
+    default:
+      return state;
+  }
+};
+
 const EMPTY = 'empty-0';
 const ARCHIVES = 'archives-0';
+const RANKINGS = 'rankings-0';
 const chat = id => `chat-${id}`;
 const UIState = (state = EMPTY, action) => {
   switch (action.type) {
@@ -52,13 +62,17 @@ const UIState = (state = EMPTY, action) => {
     case 'MINIMIZE_CHAT':
     case 'END_CHAT':
       return state === chat(action.chatIndex) ? EMPTY : state;
+    case 'FULL_RANKINGS':
+      return RANKINGS;
+    case 'CLOSE_RANKINGS':
+      return state === RANKINGS ? EMPTY : state;
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  chats, questions, currentQuestionPage, yourQuestion, newArchives, UIState
+  chats, questions, currentQuestionPage, yourQuestion, newArchives, UIState, newRankings
 });
 
 // selectors
@@ -75,6 +89,7 @@ export const getMyHandle = (state, index) => chatsSels.getMyHandle(state.chats, 
 // export const getChatOpen = (state, index) => chatsSels.getChatOpen(state.chats, index);
 export const getArchives = state => state.newArchives;
 export const areArchivesOpen = state => state.UIState === ARCHIVES;
+export const areRankingsOpen = state => state.UIState === RANKINGS;
 export const getUIstate = state => state.UIState;
 export const getVisibleChatIndex = (state) => {
   const [type, index] = getUIstate(state).split('-');

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ChatContainer, QuestionBarContainer, SideBarContainer, TabsBarContainer, ArchivesContainer } from '../containerComponents';
+import { ChatContainer, QuestionBarContainer, SideBarContainer, TabsBarContainer, ArchivesContainer, RankingsContainer } from '../containerComponents';
 
-const ParentPage = ({ chats, archives }) => (
+const ParentPage = ({ chats, archives, rankings }) => (
   <div className="page_container">
     <QuestionBarContainer />
     <div className="center">
@@ -9,6 +9,7 @@ const ParentPage = ({ chats, archives }) => (
       {chats.map(chat => (chat.chatRoom ?
         <ChatContainer key={chat.chatIndex} chatIndex={chat.chatIndex} /> : null))}
       {archives ? <ArchivesContainer /> : null}
+      {rankings ? <RankingsContainer /> : null}
     </div>
     <SideBarContainer />
   </div>

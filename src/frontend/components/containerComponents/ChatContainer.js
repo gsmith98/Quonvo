@@ -101,8 +101,8 @@ class ChatWrapper extends Component {
       this.props.chatOpen ?
         <div className="chat_master">
           <Chat
-          endChatClick={endChatClick}
-          {...this.newProps}
+            endChatClick={endChatClick}
+            {...this.newProps}
           />
           <Modal
             contentLabel="Modal"

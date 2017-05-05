@@ -15,7 +15,7 @@ const LiveQuestion = ({
     className="questionTALL"
     onMouseOver={() => onMouseOver()}
     onMouseLeave={() => onMouseOut()}
-    style={questionShade ? { backgroundColor: questionShade } : null} // TODO make css and better
+    style={questionShade ? { backgroundColor: questionShade } : null}
   >
     <div className="question_text">
       {questionText}

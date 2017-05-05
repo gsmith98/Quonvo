@@ -1,7 +1,6 @@
 import React from 'react';
 
-/* TODO make look good */
-// chat.unreadMessages
+
 const TabsBar = ({ chats, openChat }) => (
   <div className="tabs_bar">
     {chats.map(chat => (

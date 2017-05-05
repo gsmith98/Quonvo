@@ -47,6 +47,9 @@ const newRankings = (state = [], action) => {
   }
 };
 
+// TODO this in in the models and the reducers. Import from 1 location?
+const topics = () => ['Academics', 'Travel', 'Entertainment', 'Advice'];
+
 const EMPTY = 'empty-0';
 const ARCHIVES = 'archives-0';
 const RANKINGS = 'rankings-0';
@@ -72,7 +75,7 @@ const UIState = (state = EMPTY, action) => {
 };
 
 export default combineReducers({
-  chats, questions, currentQuestionPage, yourQuestion, newArchives, UIState, newRankings
+  chats, questions, currentQuestionPage, yourQuestion, newArchives, UIState, newRankings, topics
 });
 
 // selectors
@@ -100,3 +103,4 @@ export const getVisibleChat = (state) => {
   return type === 'chat' ? Object.assign({}, getChat(state, index), { chatIndex: index }) : null;
 };
 export const isQMine = (state, id) => getYourQuestion(state) && getYourQuestion(state).id === id;
+export const getTopics = state => state.topics;

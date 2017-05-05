@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const startingCoins = 100;
-const subjects = ['Stuff', 'Travel'];
+const subjects = ['Academics', 'Travel', 'Entertainment', 'Advice'];
 
 const userSchema = mongoose.Schema({
   createdTime: {
@@ -46,7 +46,7 @@ const userSchema = mongoose.Schema({
   interests: {
     type: [{
       type: String,
-      enum: subjects // TODO change this to a real enum
+      enum: subjects
     }]
   }
 
@@ -61,7 +61,6 @@ const questionSchema = mongoose.Schema({
     type: String,
     enum: subjects,
     required: true
-     // TODO change this to a real enum
   },
   asker: {
     type: Schema.ObjectId,

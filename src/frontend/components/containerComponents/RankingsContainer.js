@@ -1,17 +1,15 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
-import { getRankings } from 'reducers';
+import { getRankings, getTopics } from 'reducers';
 import { newRankingsThunk, closeRankings } from 'actions';
 
 import Rankings from '../presentationalComponents/Rankings';
 
-const topics = ['Stuff', 'Travel1', 'Travel2', 'Travel'];
 class RankingsWrapper extends Component {
-
   constructor(props) {
     super(props);
-    this.state = { topic: 'Stuff' };
+    this.state = { topic: props.topics[0] };
   }
 
   setTopic(topic) {
@@ -20,19 +18,19 @@ class RankingsWrapper extends Component {
   }
 
   render() {
-    const newProps = Object.assign({}, this.props, {
-      setTopic: this.setTopic.bind(this),
-      topics
-    });
-
     return (
-      <Rankings {...newProps} />
+      <Rankings
+        topic={this.state.topic}
+        setTopic={topic => this.setTopic(topic)}
+        {...this.props}
+      />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  rankings: getRankings(state)
+  rankings: getRankings(state),
+  topics: getTopics(state)
 });
 
 

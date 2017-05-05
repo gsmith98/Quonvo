@@ -68,6 +68,17 @@ const socketHandler = (io, sessionStore) => (connection) => {
       socket.emit('sendResponse', { success: true });
     });
 
+    socket.on('endChat', () => {
+      if (!socket.room) {
+        socket.emit('sendResponse', { success: false, reason: 'There\'s no chat to end.' });
+        return;
+      }
+
+      // TODO end chat stuff
+      socket.broadcast.to(socket.room).emit('chatEnded');
+      socket.emit('endChatResponse', { success: true });
+    });
+
 
     // ========================================================
     // ======                MAIN SOCKETS                ======

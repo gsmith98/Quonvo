@@ -11,9 +11,9 @@ const SigninBar = ({ signIn }) => {
       signIn(submitEmail, submitPass);
     }
   };
-  const signUpClick = () => {
-    // TODO write signup click function
-  };
+  // const signUpClick = () => {
+  //   // TODO write signup click function
+  // };
 
   const googleClick = () => {
     // TODO write google click funciton
@@ -31,7 +31,7 @@ const SigninBar = ({ signIn }) => {
         ref={(node) => { passField = node; }}
         placeholder="password"
       />
-      <button className="ask_button"> LET&rsquo;S GO</button>
+      <button onClick={() => signInClick()} className="ask_button"> LET&rsquo;S GO</button>
       <br />
       <div className="line" />
       <br />

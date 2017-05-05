@@ -99,3 +99,4 @@ export const getVisibleChat = (state) => {
   const [type, index] = getUIstate(state).split('-');
   return type === 'chat' ? Object.assign({}, getChat(state, index), { chatIndex: index }) : null;
 };
+export const isQMine = (state, id) => getYourQuestion(state) && getYourQuestion(state).id === id;

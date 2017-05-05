@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
-import { sendMessage, receiveMessage, newChattingPartner, questionReady, endChatThunk, minimizeChat, notifyMessage } from 'actions/chatActions';
-import { getChattingPartner, getRoom, getMyHandle, /* getChatOpen,*/ getMessages, getVisibleChatIndex } from 'reducers';
+import { sendMessage, receiveMessage, newChattingPartner, questionReady, endChatThunk, endChat, minimizeChat, notifyMessage } from 'actions/chatActions';
+import { getChattingPartner, getRoom, getMyHandle, /* getChatOpen,*/ getMessages, getVisibleChatIndex, isQMine } from 'reducers';
 import { Chat, Modal, PostChat } from '../presentationalComponents';
 
 
@@ -22,23 +22,31 @@ class ChatWrapper extends Component {
         this.props.notifyMessage(this.chatIndex);
       }
     });
+
     this.state.socket.on('joined', ({ handle }) => {
       this.props.newChattingPartner(handle, this.chatIndex);
       this.props.questionReady();
     });
-    this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
 
+    this.state.socket.on('chatEnded', () => {
+      this.openModal(false);
+    });
+
+    this.state.socket.on('joinResponse', resp => console.log('joinResponse', resp));
     this.state.socket.on('sendResponse', resp => console.log('sendResponse', resp));
+    this.state.socket.on('endChatResponse', resp => console.log('endChatResponse', resp));
+
     this.state.socket.on('connectionComplete', () => {
       this.state.socket.emit('joinQuestion', { room: this.props.room, handle: this.props.yourHandle });
     });
   }
-  openModal() {
-    this.setState({ modal: true });
+
+  openModal(endedByMe) {
+    this.setState({ modal: true, endedByMe });
   }
 
   closeModal() {
-    this.setState({ modal: false });
+    this.setState({ modal: false }); // Chat should disappear shortly
   }
 
   render() {
@@ -50,33 +58,63 @@ class ChatWrapper extends Component {
       this.props.sendMessage(message, this.chatIndex);
     };
 
+    // newProps and object.assign are used here because I want to change one of the incoming props
     this.newProps = Object.assign(
-                    {},
-                    this.props,
-                    { sendMessage: wrappedSendMessage },
-                    { openModal: () => this.openModal() }
-                    );
-    this.modalProps = Object.assign(
       {},
-      { submitRating: (rating, questionAnswered) => this.props.endChatThunk(
-        this.props.messages,
-        this.props.room,
-        this.props.yourHandle,
-        rating,
-        questionAnswered
-        ) },
-      { closeModal: () => this.closeModal() }
+      this.props,
+      { sendMessage: wrappedSendMessage }
     );
+
+
+    const endChatClick = () => {
+      console.log('endchatclick. asker', this.props.iAmAsker);
+      this.state.socket.emit('endChat');
+
+      // if an answerer clicks end chat, they don't need a modal to open
+      if (this.props.iAmAsker) {
+        this.openModal(true);
+      } else {
+        this.props.endChat(this.chatIndex);
+      }
+    };
+
+    // response is questionAnswered (Yes/No) from asker or 'OK' from answerer not submitting rating
+    const onPress = (response, rating) => {
+      if (response === 'Yes' || response === 'No') {
+        this.closeModal();
+        // endChatThunk changes state, AND hits db in a few ways
+        this.props.endChatThunk(
+         this.props.messages,
+         this.props.room,
+         this.props.yourHandle,
+         rating,
+         response
+       );
+      } else {
+        this.closeModal();
+        // endChat is just a redux state change
+        this.props.endChat(this.chatIndex);
+      }
+    };
+
     return (
       this.props.chatOpen ?
         <div className="chat_master">
-          <Chat {...this.newProps} />
+            <Chat
+            endChatClick={endChatClick}
+            {...this.newProps}
+          />
           <Modal
             contentLabel="Modal"
             isOpen={this.state.modal}
             onRequestClose={() => this.closeModal()}
           >
-            <PostChat {...this.modalProps} />
+            <PostChat
+              chattingPartner={this.props.chattingPartner}
+              endedByMe={this.state.endedByMe}
+              iAmAsker={this.props.iAmAsker}
+              onPress={onPress}
+            />
           </Modal>
 
         </div>
@@ -90,7 +128,8 @@ const mapStateToProps = (state, { chatIndex }) => ({
   room: getRoom(state, chatIndex),
   yourHandle: getMyHandle(state, chatIndex),
   chatOpen: getVisibleChatIndex(state) === chatIndex, // getChatOpen(state, chatIndex),
-  messages: getMessages(state, chatIndex)
+  messages: getMessages(state, chatIndex),
+  iAmAsker: isQMine(state, chatIndex)
 });
 
 
@@ -102,7 +141,8 @@ export default connect(
     notifyMessage,
     newChattingPartner,
     questionReady,
-    endChatThunk,
+    endChatThunk, // this one submits rating, removes from db, archives, etc
+    endChat, // this one just changes local state
     minimizeChat
   }
 )(ChatWrapper);

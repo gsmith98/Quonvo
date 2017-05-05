@@ -28,6 +28,7 @@ export const newChattingPartner = (partner, chatIndex) => ({ type: 'NEW_PARTNER'
 export const joinRoom = (room, chatIndex) => ({ type: 'JOIN_ROOM', room, chatIndex });
 export const setHandle = (handle, chatIndex) => ({ type: 'SET_HANDLE', handle, chatIndex });
 export const questionReady = () => ({ type: 'ANSWERER_FOUND' });
+export const clearYourQuestion = () => ({ type: 'CLEAR_YOUR_QUESTION' });
 
 export const endChatThunk = (
   messages,
@@ -37,6 +38,7 @@ export const endChatThunk = (
   questionAnswered
 ) => (dispatch) => {
   dispatch(endChat(questionId));
+  dispatch(clearYourQuestion());
   apiEndChat(messages, questionId, askerHandle, rating, questionAnswered);
 };
 

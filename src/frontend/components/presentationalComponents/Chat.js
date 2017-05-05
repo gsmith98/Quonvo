@@ -1,7 +1,14 @@
 import React from 'react';
 import { MessagesBoxContainer } from '../containerComponents';
 
-const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex, openModal, minimizeChat }) => {
+const Chat = ({
+  sendMessage,
+  chattingPartner,
+  yourHandle,
+  chatIndex,
+  endChatClick,
+  minimizeChat
+}) => {
   let textArea;
   const clickSend = () => {
     const msgToSend = textArea.value.trim();
@@ -41,7 +48,7 @@ const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex, openModal, 
             <div className="send_message" onClick={() => clickSend()}>
               <div className="message_text">Send message </div>
             </div>
-            <div className="send_message" onClick={() => openModal()}>
+            <div className="send_message" onClick={() => endChatClick()}>
               <div className="message_text">End Chat </div>
             </div>
           </div>

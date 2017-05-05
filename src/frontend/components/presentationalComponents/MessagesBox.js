@@ -5,7 +5,13 @@ import React from 'react';
 
 const MessagesBox = ({ messages }) => (
   <div className="wrapper2">
-    <div className="chat_body">
+    <div
+      className="chat_body"
+      ref={((node) => {
+        const myNode = node;
+        return myNode && (myNode.scrollTop = myNode.scrollHeight);
+      })}
+    >
       {messages.map(message =>
         <div key={message.id} className={`chatmessage${message.user}`}>
           <div className="message_text"> {message.content} </div>
@@ -13,6 +19,6 @@ const MessagesBox = ({ messages }) => (
       )}
     </div>
   </div>
-  );
+);
 
 export default MessagesBox;

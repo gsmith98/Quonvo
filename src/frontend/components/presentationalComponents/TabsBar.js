@@ -11,11 +11,13 @@ const TabsBar = ({ chats, openChat }) => (
           className="tab"
           onClick={() => openChat(chat.chatIndex)}
         >
-          <div className="notification">
+          { (chat.unreadMessages) ? <div className="notification">
             <div className="notification_number">
               {chat.unreadMessages}
             </div>
-          </div>
+          </div> : <div className="notification">
+            <div className="notification_number" style={{ backgroundColor: '#ededed' }} />
+          </div> }
           <div className="chatting_partner bold">
             {`${chat.chattingPartner}`}
           </div>

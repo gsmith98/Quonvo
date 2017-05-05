@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { getArchives } from 'reducers';
+import { getArchives, getTopics } from 'reducers';
 import { newArchivesThunk, closeArchives } from 'actions';
 import Archives from '../presentationalComponents/Archives';
-// TODO artchived messages are working just no appearing because the styling is shit LOL
+
 class ArchivesWrapper extends Component {
   constructor(props) {
     super(props);
-    this.state = { page: 0, topic: 'Stuff', getMessages: false, messages: null };
+    this.state = { page: 0, topic: props.topics[0], getMessages: false, messages: null };
   }
 
   nextPage(numberPerPage) {
@@ -47,7 +47,8 @@ class ArchivesWrapper extends Component {
         areMessagesOpen: this.state.getMessages,
         messages: this.state.messages,
         backToArchives: this.backToArchives.bind(this),
-        currentTopic: this.state.topic
+        currentTopic: this.state.topic,
+        topics: this.props.topics
       }
     );
     console.log('the state', this.state);
@@ -58,7 +59,8 @@ class ArchivesWrapper extends Component {
 }
 
 const mapStateToProps = state => ({
-  archives: getArchives(state)
+  archives: getArchives(state),
+  topics: getTopics(state)
 });
 
 export default connect(mapStateToProps, { newArchivesThunk, closeArchives })(ArchivesWrapper);

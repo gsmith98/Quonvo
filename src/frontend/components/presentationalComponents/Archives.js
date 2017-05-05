@@ -2,7 +2,6 @@ import React from 'react';
 import ArchivedQuestion from './ArchivedQuestion';
 import ArchivedConversation from '../presentationalComponents/ArchivedConversation';
 
-const topics = ['Stuff', 'Stuff1', 'Stuff2', 'Travel'];
 const numberPerPage = 5;
 
 const Archives = ({
@@ -15,7 +14,8 @@ const Archives = ({
   messages,
   backToArchives,
   previousPage,
-  currentTopic
+  currentTopic,
+  topics
 }) => (
   <div className="archive_fulldisplay" id="fadeAndScale">
     <div className="archive_question_header">

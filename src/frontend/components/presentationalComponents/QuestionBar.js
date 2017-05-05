@@ -27,7 +27,7 @@ const QuestionBar = ({
         <LiveQuestion
           onQuestionClick={() => yourQuestionClick(yourQuestion.id)}
           questionClickable={yourQuestionReady}
-          questionShade={yourQuestionReady ? 'red' : null} // TODO make css and better
+          questionShade={yourQuestionReady ? 'red' : null}
           questionText={yourQuestion.content}
           questionSubject={yourQuestion.subject}
           questionHandle={yourQuestion.handle}

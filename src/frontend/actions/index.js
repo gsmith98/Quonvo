@@ -155,7 +155,7 @@ export const newQuestionThunk = (subject, content, handle) => (dispatch) => {
       createdTime: "2017-04-21T00:11:18.564Z"
       handle: "me"
       live: true
-      subject: "Stuff"
+      subject: "Academics"
       __proto__: Object
     }
     success: true

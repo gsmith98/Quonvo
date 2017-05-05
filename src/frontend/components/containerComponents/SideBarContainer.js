@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { getTopics } from 'reducers';
 import { fullArchives, newArchivesThunk, fullRankings, newRankingsThunk } from 'actions';
 import { SideBar, Modal } from '../presentationalComponents/';
 import { WriteQuestionContainer } from '../containerComponents';
@@ -15,12 +16,12 @@ class SideBarWrapper extends Component {
   }
 
   onArchiveClick() {
-    this.props.newArchivesThunk('Stuff', 0, numberPerPage);
+    this.props.newArchivesThunk(this.props.topics[0], 0, numberPerPage);
     this.props.fullArchives(); // Ask about Async stuff here
   }
 
   onRankingsClick() {
-    this.props.newRankingsThunk('Stuff');
+    this.props.newRankingsThunk(this.props.topics[0]);
     this.props.fullRankings(); // Ask about Async stuff here
   }
 
@@ -56,7 +57,14 @@ class SideBarWrapper extends Component {
   }
 }
 
+const mapStateToProps = state => ({ topics: getTopics(state) });
 
-export default connect(null, {
-  fullArchives, newArchivesThunk, fullRankings, newRankingsThunk
-})(SideBarWrapper);
+export default connect(
+  mapStateToProps,
+  {
+    fullArchives,
+    newArchivesThunk,
+    fullRankings,
+    newRankingsThunk
+  }
+)(SideBarWrapper);

@@ -69,7 +69,7 @@ class ChatWrapper extends Component {
     );
     return (
       this.props.chatOpen ?
-        <div className="chat_part">
+        <div className="chat_master">
           <Chat {...this.newProps} />
           <Modal
             contentLabel="Modal"

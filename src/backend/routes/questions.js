@@ -98,7 +98,7 @@ router.get('/questions/hot', (req, res) => {
       createdTime: { $gt: date },
       live: true
     })
-    .sort({ date: 1 })
+    .sort({ date: -1 })
     .limit(questionLimit) // This limits the amount of questions mongo gives us to 20
     .then((questions) => {
       const millisecondsInTenSeconds = 10000;

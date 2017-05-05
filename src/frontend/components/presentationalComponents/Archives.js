@@ -14,7 +14,8 @@ const Archives = ({
   areMessagesOpen,
   messages,
   backToArchives,
-  previousPage
+  previousPage,
+  currentTopic
 }) => (
   <div className="archive_fulldisplay" id="fadeAndScale">
     <div className="archive_question_header">
@@ -24,13 +25,23 @@ const Archives = ({
       </div>
     </div>
     <div className="navigation_bar">
-      {topics.map(topic =>
-        <span
+      {topics.map((topic) => {
+        if (currentTopic === topic) {
+          return (<span
+            style={{ opacity: 0.5, fontSize: '1.6vw' }}
+            className="nav bold"
+            onClick={() => newTopic(topic, numberPerPage)}
+          >
+            { topic }
+          </span>);
+        }
+        return (<span
           className="nav bold"
           onClick={() => newTopic(topic, numberPerPage)}
         >
           { topic }
-        </span>)
+        </span>);
+      })
     }
     </div>
     <div className="archives_display">

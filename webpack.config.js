@@ -18,7 +18,8 @@ const HTMLWebackPluginLoginPageConfig = new HTMLWebackPlugin({
 
 const WebpackDefinePlugin = new webpack.DefinePlugin({
   DOMAIN: JSON.stringify(process.env.DOMAIN || 'http://localhost:3000'),
-  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  TOPICS: ['Advice', 'Entertainment', 'Academics', 'Travel']
 });
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');

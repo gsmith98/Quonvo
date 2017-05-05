@@ -46,7 +46,8 @@ class ArchivesWrapper extends Component {
         openMessages: this.openMessages.bind(this),
         areMessagesOpen: this.state.getMessages,
         messages: this.state.messages,
-        backToArchives: this.backToArchives.bind(this)
+        backToArchives: this.backToArchives.bind(this),
+        currentTopic: this.state.topic
       }
     );
     console.log('the state', this.state);

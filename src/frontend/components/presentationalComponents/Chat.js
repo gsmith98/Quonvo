@@ -48,7 +48,7 @@ const Chat = ({
           <div className="send_message" onClick={() => clickSend()}>
             <div className="message_text">Send</div>
           </div>
-          <div className="send_message" onClick={() => endChatClick(}>
+          <div className="send_message" onClick={() => endChatClick()}>
             <div className="message_text">End</div>
           </div>
         </div>

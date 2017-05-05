@@ -1,7 +1,14 @@
 import React from 'react';
 import { MessagesBoxContainer } from '../containerComponents';
 
-const Chat = ({ sendMessage, chattingPartner, yourHandle, chatIndex, endChatClick, minimizeChat }) => {
+const Chat = ({
+  sendMessage,
+  chattingPartner,
+  yourHandle,
+  chatIndex,
+  endChatClick,
+  minimizeChat
+}) => {
   let textArea;
   const clickSend = () => {
     const msgToSend = textArea.value.trim();
